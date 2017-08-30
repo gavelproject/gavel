@@ -43,9 +43,8 @@ jar {
 repositories {
 	mavenCentral()
 	maven { url 'http://jacamo.sourceforge.net/maven2' }
-	maven { url "http://jade.tilab.com/maven/" }
 }
 
 dependencies {
-	implementation 'org.jacamo:jacamo:latest.integration'
+	implementation 'org.jason-lang:jason:latest.integration'
 }
