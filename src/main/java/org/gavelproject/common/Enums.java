@@ -58,8 +58,7 @@ public final class Enums {
    */
   public static <T extends Enum<?>> T lookup(Class<T> enumType, String name, T defaultValue) {
     for (T constant : enumType.getEnumConstants())
-      if (constant.name()
-                  .equalsIgnoreCase(name))
+      if (lookup(enumType, name) == null)
         return constant;
     return defaultValue;
   }
