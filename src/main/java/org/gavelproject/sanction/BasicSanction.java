@@ -24,7 +24,6 @@ import static org.gavelproject.sanction.Sanctions.NAME;
 
 import org.gavelproject.common.Status;
 
-import jason.asSyntax.Atom;
 import jason.asSyntax.LogicalFormula;
 
 /**
@@ -34,7 +33,7 @@ import jason.asSyntax.LogicalFormula;
  *
  */
 final class BasicSanction implements Sanction {
-  private Atom id;
+  private String id;
   private Status status = Status.ENABLED;
   private LogicalFormula condition;
   private SanctionCategory category;
@@ -61,7 +60,7 @@ final class BasicSanction implements Sanction {
   }
 
   static final class Builder {
-    private Atom id;
+    private String id;
     private Status status = Status.ENABLED;
     private LogicalFormula condition;
     private SanctionCategory category;
@@ -73,7 +72,7 @@ final class BasicSanction implements Sanction {
      * @param id sanction's id
      * @return builder builder instance
      */
-    public Builder id(Atom id) {
+    public Builder id(String id) {
       this.id = id;
       return this;
     }
@@ -133,7 +132,7 @@ final class BasicSanction implements Sanction {
   }
 
   @Override
-  public Atom getId() {
+  public String getId() {
     return id;
   }
 

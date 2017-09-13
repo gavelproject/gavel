@@ -22,7 +22,6 @@ package org.gavelproject.sanction;
 
 import org.gavelproject.common.Status;
 
-import jason.asSyntax.Atom;
 import jason.asSyntax.LogicalFormula;
 
 /**
@@ -33,7 +32,7 @@ public interface Sanction {
   /**
    * @return id
    */
-  public Atom getId();
+  public String getId();
 
   /**
    * @return status

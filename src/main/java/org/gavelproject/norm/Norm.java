@@ -25,7 +25,6 @@ import java.util.Set;
 import org.gavelproject.common.Status;
 import org.gavelproject.sanction.Sanction;
 
-import jason.asSyntax.Atom;
 import jason.asSyntax.LogicalFormula;
 
 /**
@@ -36,7 +35,7 @@ public interface Norm {
   /**
    * @return norm's id
    */
-  Atom getId();
+  String getId();
 
   /**
    * @return status
@@ -52,7 +51,7 @@ public interface Norm {
   /**
    * @return norm issuer's name
    */
-  Atom getIssuer();
+  String getIssuer();
 
   /**
    * @return norm's content
@@ -74,7 +73,7 @@ public interface Norm {
    * @param sanctionId id of the sanction to be dissociated from the norm
    * @return {@code true} if the sanction was successfully dissociated
    */
-  boolean removeSanction(Atom sanctionId);
+  boolean removeSanction(String sanctionId);
 
   /**
    * Enable the norm changing its status to {@link Status#ENABLED}.

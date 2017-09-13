@@ -31,16 +31,15 @@ import java.util.Set;
 import org.gavelproject.common.Status;
 import org.gavelproject.sanction.Sanction;
 
-import jason.asSyntax.Atom;
 import jason.asSyntax.LogicalFormula;
 
 final class BasicNorm implements Norm {
-  private Atom id;
+  private String id;
   private Status status = Status.ENABLED;
   private LogicalFormula condition;
-  private Atom issuer;
+  private String issuer;
   private NormContent content;
-  private Map<Atom, Sanction> sanctions;
+  private Map<String, Sanction> sanctions;
 
   /** Constructs an {@link AbstractNorm} with the properties specified in {@code builder}. */
   private BasicNorm(Builder builder) {
@@ -59,12 +58,12 @@ final class BasicNorm implements Norm {
   }
 
   static final class Builder {
-    private Atom id;
+    private String id;
     private Status status = Status.ENABLED;
     private LogicalFormula condition;
-    private Atom issuer;
+    private String issuer;
     private NormContent content;
-    private Map<Atom, Sanction> sanctions = new HashMap<>();
+    private Map<String, Sanction> sanctions = new HashMap<>();
 
     /**
      * Set id for the norm.
@@ -72,7 +71,7 @@ final class BasicNorm implements Norm {
      * @param id norm's id
      * @return builder instance
      */
-    Builder id(Atom id) {
+    Builder id(String id) {
       this.id = id;
       return this;
     }
@@ -105,7 +104,7 @@ final class BasicNorm implements Norm {
      * @param issuer norm's issuer
      * @return builder instance
      */
-    Builder issuer(Atom issuer) {
+    Builder issuer(String issuer) {
       this.issuer = issuer;
       return this;
     }
@@ -143,7 +142,7 @@ final class BasicNorm implements Norm {
   }
 
   @Override
-  public Atom getId() {
+  public String getId() {
     return id;
   }
 
@@ -158,7 +157,7 @@ final class BasicNorm implements Norm {
   }
 
   @Override
-  public Atom getIssuer() {
+  public String getIssuer() {
     return issuer;
   }
 
@@ -178,7 +177,7 @@ final class BasicNorm implements Norm {
   }
 
   @Override
-  public boolean removeSanction(Atom sanctionId) {
+  public boolean removeSanction(String sanctionId) {
     return sanctions.remove(sanctionId) != null;
   }
 
@@ -202,7 +201,7 @@ final class BasicNorm implements Norm {
 
   @Override
   public String toString() {
-    List<Atom> sanctionIds = new ArrayList<>();
+    List<String> sanctionIds = new ArrayList<>();
     getSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
     return new StringBuilder(NAME + '(').append("id(" + id + "),")
                                         .append("status(" + status.lowercase() + "),")

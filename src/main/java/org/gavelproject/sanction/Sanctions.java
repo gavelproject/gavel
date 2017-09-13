@@ -66,7 +66,7 @@ public final class Sanctions {
    */
   public static Sanction parse(Element el) {
     Builder builder = new Builder();
-    builder.id(ASSyntax.createAtom(el.getAttribute("id")))
+    builder.id(el.getAttribute("id"))
            .status(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
 
     NodeList props = el.getChildNodes();

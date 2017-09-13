@@ -20,6 +20,8 @@
  *******************************************************************************/
 package org.gavelproject.norm;
 
+import static jason.asSyntax.ASSyntax.parseLiteral;
+
 import org.gavelproject.common.Enums;
 import org.gavelproject.common.Status;
 import org.gavelproject.norm.BasicNorm.Builder;
@@ -28,7 +30,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import jason.asSyntax.ASSyntax;
-import jason.asSyntax.Atom;
 import jason.asSyntax.Literal;
 import jason.asSyntax.LogicalFormula;
 import jason.asSyntax.parser.ParseException;
@@ -69,14 +70,16 @@ public final class Norms {
    */
   public static Norm parse(String norm) {
     try {
-      Literal l = ASSyntax.parseLiteral(norm);
+      Literal l = parseLiteral(norm);
       Status status = Enums.lookup(Status.class, l.getTerm(1)
                                                   .toString());
       NormContent content = NormContents.of((Literal) l.getTerm(4));
-      return new Builder().id((Atom) l.getTerm(0))
+      return new Builder().id(l.getTerm(0)
+                               .toString())
                           .status(status)
                           .condition((LogicalFormula) l.getTerm(2))
-                          .issuer((Atom) l.getTerm(3))
+                          .issuer(l.getTerm(3)
+                                   .toString())
                           .content(content)
                           .build();
     } catch (ParseException e) {
@@ -86,7 +89,7 @@ public final class Norms {
 
   public static Norm of(Element el) {
     Builder builder = new Builder();
-    builder.id(ASSyntax.createAtom(el.getAttribute("id")))
+    builder.id(el.getAttribute("id"))
            .status(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
 
     NodeList properties = el.getChildNodes();
@@ -103,7 +106,7 @@ public final class Norms {
           }
           break;
         case "issuer":
-          builder.issuer(ASSyntax.createAtom(propContent));
+          builder.issuer(propContent);
           break;
         case "content":
           builder.content(NormContents.parse(propContent));
