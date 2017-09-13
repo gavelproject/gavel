@@ -126,7 +126,7 @@ final class BasicNorm implements Norm {
 
   @Override
   public Set<Sanction> getSanctions() {
-    return (Set<Sanction>) sanctions.values();
+    return new HashSet<>(sanctions.values());
   }
 
   @Override
