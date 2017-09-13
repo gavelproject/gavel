@@ -22,7 +22,6 @@ package org.gavelproject.sanction;
 
 import org.gavelproject.common.Enums;
 import org.gavelproject.common.Status;
-import org.gavelproject.sanction.BasicSanction.Builder;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -48,12 +47,12 @@ public final class Sanctions {
    * @return copy of {@code sanction}
    */
   public static Sanction newInstance(Sanction sanction) {
-    return new BasicSanction.Builder().id(sanction.getId())
-                                      .status(sanction.getStatus())
-                                      .condition(sanction.getCondition())
-                                      .category(sanction.getCategory())
-                                      .content(sanction.getContent())
-                                      .build();
+    return builder().setId(sanction.getId())
+                    .setStatus(sanction.getStatus())
+                    .setCondition(sanction.getCondition())
+                    .setCategory(sanction.getCategory())
+                    .setContent(sanction.getContent())
+                    .build();
   }
 
   /**
@@ -65,9 +64,9 @@ public final class Sanctions {
    * @throws NullPointerException if element is {@code null}
    */
   public static Sanction parse(Element el) {
-    Builder builder = new Builder();
-    builder.id(el.getAttribute("id"))
-           .status(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
+    SanctionBuilder builder = builder();
+    builder.setId(el.getAttribute("id"))
+           .setStatus(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
 
     NodeList props = el.getChildNodes();
     for (int i = 0; i < props.getLength(); i++) {
@@ -76,13 +75,13 @@ public final class Sanctions {
       try {
         switch (prop.getNodeName()) {
           case "condition":
-            builder.condition(ASSyntax.parseFormula(prop.getTextContent()));
+            builder.setCondition(ASSyntax.parseFormula(prop.getTextContent()));
             break;
           case "category":
-            builder.category(SanctionCategories.of((Element) prop));
+            builder.setCategory(SanctionCategories.of((Element) prop));
             break;
           case "content":
-            builder.content(ASSyntax.parseFormula(prop.getTextContent()));
+            builder.setContent(ASSyntax.parseFormula(prop.getTextContent()));
           default: // Ignore
         }
       } catch (ParseException e) {
@@ -90,5 +89,10 @@ public final class Sanctions {
       }
     }
     return builder.build();
+  }
+
+  /** Return a builder for {@link Sanction}. */
+  public static SanctionBuilder builder() {
+    return new BasicSanction.Builder();
   }
 }

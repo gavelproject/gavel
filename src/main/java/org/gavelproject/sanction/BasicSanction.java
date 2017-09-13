@@ -59,73 +59,38 @@ final class BasicSanction implements Sanction {
     }
   }
 
-  static final class Builder {
+  static final class Builder implements SanctionBuilder {
     private String id;
     private Status status = Status.ENABLED;
     private LogicalFormula condition;
     private SanctionCategory category;
     private LogicalFormula content;
 
-    /**
-     * Set id for the sanction.
-     * 
-     * @param id sanction's id
-     * @return builder builder instance
-     */
-    public Builder id(String id) {
+    public Builder setId(String id) {
       this.id = id;
       return this;
     }
 
-    /**
-     * Set status of the sanction.
-     * 
-     * @param status sanction's status
-     * @return builder builder instance
-     */
-    public Builder status(Status status) {
+    public Builder setStatus(Status status) {
       this.status = status;
       return this;
     }
 
-    /**
-     * Set condition for the sanction.
-     * 
-     * @param condition sanction's activation condition
-     * @return builder builder instance
-     */
-    public Builder condition(LogicalFormula condition) {
+    public Builder setCondition(LogicalFormula condition) {
       this.condition = condition;
       return this;
     }
 
-    /**
-     * Set category for the sanction.
-     * 
-     * @param category sanction category
-     * @return builder builder instance
-     */
-    public Builder category(SanctionCategory category) {
+    public Builder setCategory(SanctionCategory category) {
       this.category = category;
       return this;
     }
 
-    /**
-     * Set content for the sanction.
-     * 
-     * @param content sanctions's content
-     * @return builder builder instance
-     */
-    public Builder content(LogicalFormula content) {
+    public Builder setContent(LogicalFormula content) {
       this.content = content;
       return this;
     }
 
-    /**
-     * Return a new {@link Sanction} with the specified implementation.
-     * 
-     * @return new {@code ISanction}
-     */
     public BasicSanction build() {
       return new BasicSanction(this);
     }
