@@ -25,6 +25,7 @@ import jason.asSyntax.Literal;
 import jason.asSyntax.LogicalFormula;
 import jason.asSyntax.NumberTerm;
 import jason.asSyntax.StringTerm;
+import jason.asSyntax.Structure;
 
 /**
  * This class provides a skeletal implementation of the {@link RegulationContent} interface to
@@ -47,11 +48,12 @@ abstract class AbstractRegulationContent implements RegulationContent {
     if (literal.getArity() != 4) {
       throw new IllegalArgumentException("The arity of the literal should be 4");
     }
-    target = (Atom) literal.getTerm(0);
-    maintenanceCondition = (LogicalFormula) literal.getTerm(1);
-    aim = (LogicalFormula) literal.getTerm(2);
-    deadline = TemporalTerm.parse(((StringTerm) literal.getTerm(3)).getString())
-                           .toTerm();
+    target = (Atom) ((Structure) literal.getTerm(0)).getTerm(0);
+    maintenanceCondition = (LogicalFormula) ((Structure) literal.getTerm(1)).getTerm(0);
+    aim = (LogicalFormula) ((Structure) literal.getTerm(2)).getTerm(0);
+    deadline =
+        TemporalTerm.parse(((StringTerm) ((Structure) literal.getTerm(3)).getTerm(0)).getString())
+                    .toTerm();
   }
 
   @Override
@@ -73,4 +75,21 @@ abstract class AbstractRegulationContent implements RegulationContent {
   public NumberTerm getDeadline() {
     return deadline;
   }
+
+  @Override
+  public String toString() {
+    return new StringBuilder(getName()).append("(target(")
+                                       .append(target)
+                                       .append("),maintenance(")
+                                       .append(maintenanceCondition)
+                                       .append("),aim(")
+                                       .append(aim)
+                                       .append("),deadline(")
+                                       .append(deadline)
+                                       .append("))")
+                                       .toString();
+  }
+
+  /** Return name of the structure. */
+  abstract protected String getName();
 }

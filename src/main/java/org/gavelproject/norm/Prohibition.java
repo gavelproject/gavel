@@ -42,11 +42,7 @@ final class Prohibition extends AbstractRegulationContent {
   }
 
   @Override
-  public String toString() {
-    return new StringBuilder(NAME).append(target)
-                                  .append(maintenanceCondition)
-                                  .append(aim)
-                                  .append(deadline)
-                                  .toString();
+  protected String getName() {
+    return NAME;
   }
 }
