@@ -21,7 +21,6 @@
 package org.gavelproject.sanction;
 
 import org.gavelproject.common.Enums;
-import org.gavelproject.sanction.BasicSanctionCategory.Builder;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -45,9 +44,9 @@ public final class SanctionCategories {
    * @return {@link BasicSanctionCategory} object represented by {@code el}
    * @throws NullPointerException if element is {@code null}
    */
-  public static BasicSanctionCategory of(Element el) {
+  public static SanctionCategory of(Element el) {
     NodeList dimensions = el.getChildNodes();
-    Builder builder = new Builder();
+    SanctionCategoryBuilder builder = builder();
 
     for (int i = 0; i < dimensions.getLength(); i++) {
       Node dimensionNode = dimensions.item(i);
@@ -55,25 +54,30 @@ public final class SanctionCategories {
 
       switch (dimensionNode.getNodeName()) {
         case "purpose":
-          builder.purpose(Enums.lookup(SanctionPurpose.class, dimension));
+          builder.setPurpose(Enums.lookup(SanctionPurpose.class, dimension));
           break;
         case "issuer":
-          builder.issuer(Enums.lookup(SanctionIssuer.class, dimension));
+          builder.setIssuer(Enums.lookup(SanctionIssuer.class, dimension));
           break;
         case "locus":
-          builder.locus(Enums.lookup(SanctionLocus.class, dimension));
+          builder.setLocus(Enums.lookup(SanctionLocus.class, dimension));
           break;
         case "mode":
-          builder.mode(Enums.lookup(SanctionMode.class, dimension));
+          builder.setMode(Enums.lookup(SanctionMode.class, dimension));
           break;
         case "polarity":
-          builder.polarity(Enums.lookup(SanctionPolarity.class, dimension));
+          builder.setPolarity(Enums.lookup(SanctionPolarity.class, dimension));
           break;
         case "discernability":
-          builder.discernability(Enums.lookup(SanctionDiscernability.class, dimension));
+          builder.setDiscernability(Enums.lookup(SanctionDiscernability.class, dimension));
           break;
       }
     }
     return builder.build();
+  }
+
+  /** Return a builder for {@link SanctionCategory}. */
+  public static SanctionCategoryBuilder builder() {
+    return new BasicSanctionCategory.Builder();
   }
 }

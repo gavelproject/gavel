@@ -96,7 +96,7 @@ final class BasicSanctionCategory implements SanctionCategory {
                                   .toString();
   }
 
-  static final class Builder {
+  static final class Builder implements SanctionCategoryBuilder {
     private SanctionPurpose purpose;
     private SanctionIssuer issuer;
     private SanctionLocus locus;
@@ -104,55 +104,37 @@ final class BasicSanctionCategory implements SanctionCategory {
     private SanctionPolarity polarity;
     private SanctionDiscernability discernability;
 
-    /**
-     * @param purpose sanction purpose
-     */
-    Builder purpose(SanctionPurpose purpose) {
+    public Builder setPurpose(SanctionPurpose purpose) {
       this.purpose = purpose;
       return this;
     }
 
-    /**
-     * @param issuer sanction issuer
-     */
-    Builder issuer(SanctionIssuer issuer) {
+    public Builder setIssuer(SanctionIssuer issuer) {
       this.issuer = issuer;
       return this;
     }
 
-    /**
-     * @param locus sanction locus
-     */
-    Builder locus(SanctionLocus locus) {
+    public Builder setLocus(SanctionLocus locus) {
       this.locus = locus;
       return this;
     }
 
-    /**
-     * @param mode sanction mode
-     */
-    Builder mode(SanctionMode mode) {
+    public Builder setMode(SanctionMode mode) {
       this.mode = mode;
       return this;
     }
 
-    /**
-     * @param polarity sanction polarity
-     */
-    Builder polarity(SanctionPolarity polarity) {
+    public Builder setPolarity(SanctionPolarity polarity) {
       this.polarity = polarity;
       return this;
     }
 
-    /**
-     * @param discernability sanction discernability
-     */
-    Builder discernability(SanctionDiscernability discernability) {
+    public Builder setDiscernability(SanctionDiscernability discernability) {
       this.discernability = discernability;
       return this;
     }
 
-    BasicSanctionCategory build() {
+    public BasicSanctionCategory build() {
       return new BasicSanctionCategory(this);
     }
   }
