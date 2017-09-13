@@ -24,7 +24,6 @@ import static jason.asSyntax.ASSyntax.parseLiteral;
 
 import org.gavelproject.common.Enums;
 import org.gavelproject.common.Status;
-import org.gavelproject.norm.BasicNorm.Builder;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -52,12 +51,12 @@ public final class Norms {
    * @return copy of {@code norm}
    */
   public static Norm newInstance(Norm norm) {
-    return new BasicNorm.Builder().id(norm.getId())
-                                  .status(norm.getStatus())
-                                  .issuer(norm.getIssuer())
-                                  .condition(norm.getCondition())
-                                  .content(norm.getContent())
-                                  .build();
+    return builder().setId(norm.getId())
+                    .setStatus(norm.getStatus())
+                    .setIssuer(norm.getIssuer())
+                    .setCondition(norm.getCondition())
+                    .setContent(norm.getContent())
+                    .build();
   }
 
   /**
@@ -74,23 +73,23 @@ public final class Norms {
       Status status = Enums.lookup(Status.class, l.getTerm(1)
                                                   .toString());
       NormContent content = NormContents.of((Literal) l.getTerm(4));
-      return new Builder().id(l.getTerm(0)
-                               .toString())
-                          .status(status)
-                          .condition((LogicalFormula) l.getTerm(2))
-                          .issuer(l.getTerm(3)
-                                   .toString())
-                          .content(content)
-                          .build();
+      return builder().setId(l.getTerm(0)
+                              .toString())
+                      .setStatus(status)
+                      .setCondition((LogicalFormula) l.getTerm(2))
+                      .setIssuer(l.getTerm(3)
+                                  .toString())
+                      .setContent(content)
+                      .build();
     } catch (ParseException e) {
       throw new IllegalArgumentException("String does not contain a parsable norm");
     }
   }
 
   public static Norm of(Element el) {
-    Builder builder = new Builder();
-    builder.id(el.getAttribute("id"))
-           .status(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
+    NormBuilder builder = builder();
+    builder.setId(el.getAttribute("id"))
+           .setStatus(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
 
     NodeList properties = el.getChildNodes();
     for (int i = 0; i < properties.getLength(); i++) {
@@ -100,20 +99,25 @@ public final class Norms {
       switch (prop.getNodeName()) {
         case "condition":
           try {
-            builder.condition(ASSyntax.parseFormula(propContent));
+            builder.setCondition(ASSyntax.parseFormula(propContent));
           } catch (ParseException e) {
             throw new IllegalArgumentException("Element does not contain a parsable norm");
           }
           break;
         case "issuer":
-          builder.issuer(propContent);
+          builder.setIssuer(propContent);
           break;
         case "content":
-          builder.content(NormContents.parse(propContent));
+          builder.setContent(NormContents.parse(propContent));
           break;
         default: // Ignore
       }
     }
     return builder.build();
+  }
+
+  /** Return a builder for {@link Norm}. */
+  public static NormBuilder builder() {
+    return new BasicNorm.Builder();
   }
 }

@@ -56,7 +56,7 @@ final class BasicNorm implements Norm {
     }
   }
 
-  static final class Builder {
+  static final class Builder implements NormBuilder {
     private String id;
     private Status status = Status.ENABLED;
     private LogicalFormula condition;
@@ -64,78 +64,37 @@ final class BasicNorm implements Norm {
     private NormContent content;
     private Map<String, Sanction> sanctions = new HashMap<>();
 
-    /**
-     * Set id for the norm.
-     * 
-     * @param id norm's id
-     * @return builder instance
-     */
-    Builder id(String id) {
+    public Builder setId(String id) {
       this.id = id;
       return this;
     }
 
-    /**
-     * Set status of the norm.
-     * 
-     * @param status norm's status
-     * @return builder instance
-     */
-    Builder status(Status status) {
+    public Builder setStatus(Status status) {
       this.status = status;
       return this;
     }
 
-    /**
-     * Set condition for the norm.
-     * 
-     * @param condition norm's activation condition
-     * @return builder instance
-     */
-    Builder condition(LogicalFormula condition) {
+    public Builder setCondition(LogicalFormula condition) {
       this.condition = condition;
       return this;
     }
 
-    /**
-     * Set issuer for the norm.
-     * 
-     * @param issuer norm's issuer
-     * @return builder instance
-     */
-    Builder issuer(String issuer) {
+    public Builder setIssuer(String issuer) {
       this.issuer = issuer;
       return this;
     }
 
-    /**
-     * Set content for the norm.
-     * 
-     * @param content norm's content
-     * @return builder instance
-     */
-    Builder content(NormContent content) {
+    public Builder setContent(NormContent content) {
       this.content = content;
       return this;
     }
 
-    /**
-     * Link a sanction to the norm.
-     * 
-     * @param sanction sanction to be linked
-     * @return builder instance
-     */
-    Builder link(Sanction sanction) {
+    public Builder addSanction(Sanction sanction) {
       sanctions.put(sanction.getId(), sanction);
       return this;
     }
 
-    /**
-     * Return a new {@link Norm} with the specified implementation.
-     * 
-     * @return new {@code INorm}
-     */
-    BasicNorm build() {
+    public BasicNorm build() {
       return new BasicNorm(this);
     }
   }
