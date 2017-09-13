@@ -37,13 +37,6 @@ public final class NormContents {
   private NormContents() {}
 
   private enum Mode implements LowercaseEnum {
-    FAIL {
-      @Override
-      NormContent newContent(Literal literal) {
-        return new Fail(literal);
-      }
-    },
-
     OBLIGATION {
       @Override
       NormContent newContent(Literal literal) {
