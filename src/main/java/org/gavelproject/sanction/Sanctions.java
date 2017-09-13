@@ -37,6 +37,8 @@ import jason.asSyntax.parser.ParseException;
  *
  */
 public final class Sanctions {
+  static final String NAME = "sanction";
+
   private Sanctions() {}
 
   /**
@@ -81,8 +83,7 @@ public final class Sanctions {
             break;
           case "content":
             builder.content(ASSyntax.parseFormula(prop.getTextContent()));
-          default:
-            // Ignore
+          default: // Ignore
         }
       } catch (ParseException e) {
         e.printStackTrace();

@@ -20,22 +20,21 @@
  *******************************************************************************/
 package org.gavelproject.norm;
 
+import static org.gavelproject.norm.Norms.NAME;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.gavelproject.common.Status;
 import org.gavelproject.sanction.Sanction;
 
-import jason.asSyntax.ASSyntax;
 import jason.asSyntax.Atom;
-import jason.asSyntax.ListTerm;
-import jason.asSyntax.Literal;
 import jason.asSyntax.LogicalFormula;
 
 final class BasicNorm implements Norm {
-  static final String FUNCTOR = "norm";
-
   private Atom id;
   private Status status = Status.ENABLED;
   private LogicalFormula condition;
@@ -202,27 +201,15 @@ final class BasicNorm implements Norm {
   }
 
   @Override
-  public String getFunctor() {
-    return FUNCTOR;
-  }
-
-  @Override
-  public Literal toLiteral() {
-    Literal l = ASSyntax.createLiteral(getFunctor());
-    l.addTerm(id);
-    l.addTerm(ASSyntax.createAtom(status.lowercase()));
-    l.addTerm(condition);
-    l.addTerm(issuer);
-    l.addTerm(content.toLiteral());
-    ListTerm linkedSanctions = ASSyntax.createList();
-    sanctions.values()
-             .forEach(sanction -> linkedSanctions.add(sanction.getId()));
-    l.addTerm(ASSyntax.createStructure("linked_sanctions", linkedSanctions));
-    return l;
-  }
-
-  @Override
   public String toString() {
-    return toLiteral().toString();
+    List<Atom> sanctionIds = new ArrayList<>();
+    getLinkedSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
+    return new StringBuilder(NAME + '(').append("id(" + id + "),")
+                                        .append("status(" + status.lowercase() + "),")
+                                        .append("condition(" + condition + "),")
+                                        .append("issuer(" + issuer + "),")
+                                        .append("content(" + content + "),")
+                                        .append("sanction_ids(" + sanctionIds + ")")
+                                        .toString();
   }
 }

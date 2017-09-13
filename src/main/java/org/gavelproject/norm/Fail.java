@@ -20,7 +20,6 @@
  *******************************************************************************/
 package org.gavelproject.norm;
 
-import jason.asSyntax.ASSyntax;
 import jason.asSyntax.Atom;
 import jason.asSyntax.Literal;
 
@@ -29,13 +28,13 @@ import jason.asSyntax.Literal;
  *
  */
 final class Fail implements RegimentationContent {
-  static final String FUNCTOR = "fail";
+  private static final String NAME = "fail";
 
   private Atom reason;
 
   Fail(Literal literal) {
     if (!literal.getFunctor()
-                .equals(getFunctor())) {
+                .equals(NAME)) {
       throw new IllegalArgumentException("Functor of the literal should be 'fail'");
     } else if (literal.getArity() != 1) {
       throw new IllegalArgumentException("Arity of the literal should be 1");
@@ -44,17 +43,14 @@ final class Fail implements RegimentationContent {
   }
 
   @Override
-  public String getFunctor() {
-    return FUNCTOR;
-  }
-
-  @Override
   public Atom getReason() {
     return reason;
   }
 
   @Override
-  public Literal toLiteral() {
-    return ASSyntax.createLiteral(getFunctor(), reason);
+  public String toString() {
+    return new StringBuilder(NAME).append('(')
+                                  .append(reason)
+                                  .toString();
   }
 }

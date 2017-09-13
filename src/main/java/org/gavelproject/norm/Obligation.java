@@ -27,7 +27,7 @@ import jason.asSyntax.Literal;
  *
  */
 final class Obligation extends AbstractRegulationContent {
-  static final String FUNCTOR = "obligation";
+  private static final String NAME = "obligation";
 
   /**
    * @param literal literal content
@@ -36,13 +36,17 @@ final class Obligation extends AbstractRegulationContent {
   Obligation(Literal literal) throws IllegalArgumentException {
     super(literal);
     if (!literal.getFunctor()
-                .equals(getFunctor())) {
+                .equals(NAME)) {
       throw new IllegalArgumentException("Functor should be 'obligation'");
     }
   }
 
   @Override
-  public String getFunctor() {
-    return FUNCTOR;
+  public String toString() {
+    return new StringBuilder(NAME).append(target)
+                                  .append(maintenanceCondition)
+                                  .append(aim)
+                                  .append(deadline)
+                                  .toString();
   }
 }

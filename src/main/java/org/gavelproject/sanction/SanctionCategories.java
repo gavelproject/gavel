@@ -33,6 +33,8 @@ import org.w3c.dom.NodeList;
  *
  */
 final class SanctionCategories {
+  static final String NAME = "category";
+
   private SanctionCategories() {}
 
   /**

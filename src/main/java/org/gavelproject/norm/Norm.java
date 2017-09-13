@@ -22,7 +22,6 @@ package org.gavelproject.norm;
 
 import java.util.Set;
 
-import org.gavelproject.common.Literable;
 import org.gavelproject.common.Status;
 import org.gavelproject.sanction.Sanction;
 
@@ -33,7 +32,7 @@ import jason.asSyntax.LogicalFormula;
  * @author igorcadelima
  *
  */
-public interface Norm extends Literable {
+public interface Norm {
   /**
    * @return norm's id
    */

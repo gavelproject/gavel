@@ -20,11 +20,11 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
+import static org.gavelproject.sanction.Sanctions.NAME;
+
 import org.gavelproject.common.Status;
 
-import jason.asSyntax.ASSyntax;
 import jason.asSyntax.Atom;
-import jason.asSyntax.Literal;
 import jason.asSyntax.LogicalFormula;
 
 /**
@@ -34,8 +34,6 @@ import jason.asSyntax.LogicalFormula;
  *
  */
 final class BasicSanction implements Sanction {
-  static final String FUNCTOR = "sanction";
-
   private Atom id;
   private Status status = Status.ENABLED;
   private LogicalFormula condition;
@@ -178,23 +176,12 @@ final class BasicSanction implements Sanction {
   }
 
   @Override
-  public String getFunctor() {
-    return FUNCTOR;
-  }
-
-  @Override
-  public Literal toLiteral() {
-    Literal l = ASSyntax.createLiteral(getFunctor());
-    l.addTerm(id);
-    l.addTerm(ASSyntax.createAtom(status.lowercase()));
-    l.addTerm(condition);
-    l.addTerm(category.toLiteral());
-    l.addTerm(content);
-    return l;
-  }
-
-  @Override
   public String toString() {
-    return toLiteral().toString();
+    return new StringBuilder(NAME + '(').append("id(" + id + "),")
+                                        .append("status(" + status.lowercase() + "),")
+                                        .append("condition(" + condition + "),")
+                                        .append("category(" + category + "),")
+                                        .append(content + ")")
+                                        .toString();
   }
 }

@@ -94,11 +94,11 @@ final class SanctionDecisionBuilder {
     return sanctionee;
   }
 
-  String norm() {
+  String normId() {
     return norm;
   }
 
-  String sanction() {
+  String sanctionId() {
     return sanction;
   }
 

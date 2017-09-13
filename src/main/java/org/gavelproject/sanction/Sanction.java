@@ -20,7 +20,6 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import org.gavelproject.common.Literable;
 import org.gavelproject.common.Status;
 
 import jason.asSyntax.Atom;
@@ -30,7 +29,7 @@ import jason.asSyntax.LogicalFormula;
  * @author igorcadelima
  *
  */
-public interface Sanction extends Literable {
+public interface Sanction {
   /**
    * @return id
    */

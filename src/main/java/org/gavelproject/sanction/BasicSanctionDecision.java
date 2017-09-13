@@ -20,15 +20,10 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import static jason.asSyntax.ASSyntax.createAtom;
-import static jason.asSyntax.ASSyntax.createLiteral;
-import static jason.asSyntax.ASSyntax.createNumber;
+import static org.gavelproject.sanction.SanctionDecisions.NAME;
 
 import org.gavelproject.common.Id;
 import org.gavelproject.common.Uuid;
-
-import jason.asSyntax.Atom;
-import jason.asSyntax.Literal;
 
 /**
  * This class provides a basic implementation of the {@link SanctionDecision} interface.
@@ -37,14 +32,12 @@ import jason.asSyntax.Literal;
  *
  */
 final class BasicSanctionDecision implements SanctionDecision {
-  static final String FUNCTOR = "sanction_decision";
-
   private final Id id = Uuid.newInstance();
   private final long time;
   private final String sanctioner;
   private final String sanctionee;
-  private final String norm;
-  private final String sanction;
+  private final String normId;
+  private final String sanctionId;
   private final Cause cause;
   private Efficacy efficacy = Efficacy.INDETERMINATE;
   private boolean applied;
@@ -56,8 +49,8 @@ final class BasicSanctionDecision implements SanctionDecision {
     time = builder.time();
     sanctioner = builder.sanctioner();
     sanctionee = builder.sanctionee();
-    norm = builder.norm();
-    sanction = builder.sanction();
+    normId = builder.normId();
+    sanctionId = builder.sanctionId();
     cause = builder.cause();
     efficacy = builder.efficacy();
     applied = builder.applied();
@@ -89,13 +82,13 @@ final class BasicSanctionDecision implements SanctionDecision {
   }
 
   @Override
-  public String getNorm() {
-    return norm;
+  public String getNormId() {
+    return normId;
   }
 
   @Override
-  public String getSanction() {
-    return sanction;
+  public String getSanctionId() {
+    return sanctionId;
   }
 
   @Override
@@ -124,32 +117,14 @@ final class BasicSanctionDecision implements SanctionDecision {
   }
 
   @Override
-  public String getFunctor() {
-    return FUNCTOR;
-  }
-
-  @Override
-  public Literal toLiteral() {
-    return createLiteral(getFunctor(), id.toLiteral(), createNumber(time), createAtom(sanctioner),
-        createAtom(sanctionee), createAtom(norm), createAtom(sanction),
-        createAtom(cause.lowercase()), createAtom(efficacy.lowercase()),
-        applied ? Atom.LTrue : Atom.LFalse);
-  }
-
-  @Override
-  public String toString() {
-    return toLiteral().toString();
-  }
-
-  @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
     result = prime * result + (applied ? 1231 : 1237);
     result = prime * result + ((cause == null) ? 0 : cause.hashCode());
     result = prime * result + ((efficacy == null) ? 0 : efficacy.hashCode());
-    result = prime * result + ((norm == null) ? 0 : norm.hashCode());
-    result = prime * result + ((sanction == null) ? 0 : sanction.hashCode());
+    result = prime * result + ((normId == null) ? 0 : normId.hashCode());
+    result = prime * result + ((sanctionId == null) ? 0 : sanctionId.hashCode());
     result = prime * result + ((sanctionee == null) ? 0 : sanctionee.hashCode());
     result = prime * result + ((sanctioner == null) ? 0 : sanctioner.hashCode());
     result = prime * result + (int) (time ^ (time >>> 32));
@@ -171,15 +146,15 @@ final class BasicSanctionDecision implements SanctionDecision {
       return false;
     if (efficacy != other.efficacy)
       return false;
-    if (norm == null) {
-      if (other.norm != null)
+    if (normId == null) {
+      if (other.normId != null)
         return false;
-    } else if (!norm.equals(other.norm))
+    } else if (!normId.equals(other.normId))
       return false;
-    if (sanction == null) {
-      if (other.sanction != null)
+    if (sanctionId == null) {
+      if (other.sanctionId != null)
         return false;
-    } else if (!sanction.equals(other.sanction))
+    } else if (!sanctionId.equals(other.sanctionId))
       return false;
     if (sanctionee == null) {
       if (other.sanctionee != null)
@@ -194,5 +169,19 @@ final class BasicSanctionDecision implements SanctionDecision {
     if (time != other.time)
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return new StringBuilder(NAME + '(').append("id(" + id + "),")
+                                        .append("time(" + id + "),")
+                                        .append("sanctioner(" + sanctioner + "),")
+                                        .append("sanctionee(" + sanctionee + "),")
+                                        .append("norm_id(" + normId + "),")
+                                        .append("sanction_id(" + sanctionId + "),")
+                                        .append("cause(" + cause.lowercase() + "),")
+                                        .append("efficacy(" + efficacy.lowercase() + "),")
+                                        .append("applied(" + applied + ")")
+                                        .toString();
   }
 }

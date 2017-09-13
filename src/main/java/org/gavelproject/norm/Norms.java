@@ -40,6 +40,8 @@ import jason.asSyntax.parser.ParseException;
  *
  */
 public final class Norms {
+  static final String NAME = "norm";
+
   private Norms() {}
 
   /**
@@ -106,7 +108,7 @@ public final class Norms {
         case "content":
           builder.content(NormContents.parse(propContent));
           break;
-        default: // Unknown node name
+        default: // Ignore
       }
     }
     return builder.build();

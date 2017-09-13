@@ -20,7 +20,6 @@
  *******************************************************************************/
 package org.gavelproject.norm;
 
-import jason.asSyntax.ASSyntax;
 import jason.asSyntax.Atom;
 import jason.asSyntax.Literal;
 import jason.asSyntax.LogicalFormula;
@@ -73,20 +72,5 @@ abstract class AbstractRegulationContent implements RegulationContent {
   @Override
   public NumberTerm getDeadline() {
     return deadline;
-  }
-
-  @Override
-  public Literal toLiteral() {
-    Literal l = ASSyntax.createLiteral(getFunctor());
-    l.addTerm(target);
-    l.addTerm(maintenanceCondition);
-    l.addTerm(aim);
-    l.addTerm(deadline);
-    return l;
-  }
-
-  @Override
-  public String toString() {
-    return toLiteral().toString();
   }
 }

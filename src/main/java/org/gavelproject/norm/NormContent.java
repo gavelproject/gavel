@@ -20,11 +20,9 @@
  *******************************************************************************/
 package org.gavelproject.norm;
 
-import org.gavelproject.common.Literable;
-
 /**
  * @author igorcadelima
  *
  */
-public interface NormContent extends Literable {
+public interface NormContent {
 }

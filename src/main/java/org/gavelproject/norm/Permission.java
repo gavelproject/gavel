@@ -27,7 +27,7 @@ import jason.asSyntax.Literal;
  *
  */
 final class Permission extends AbstractRegulationContent {
-  static final String FUNCTOR = "permission";
+  private static final String NAME = "permission";
 
   /**
    * @param literal literal content
@@ -36,13 +36,17 @@ final class Permission extends AbstractRegulationContent {
   Permission(Literal literal) throws IllegalArgumentException {
     super(literal);
     if (!literal.getFunctor()
-                .equals(getFunctor())) {
+                .equals(NAME)) {
       throw new IllegalArgumentException("Functor should be 'permission'");
     }
   }
 
   @Override
-  public String getFunctor() {
-    return FUNCTOR;
+  public String toString() {
+    return new StringBuilder(NAME).append(target)
+                                  .append(maintenanceCondition)
+                                  .append(aim)
+                                  .append(deadline)
+                                  .toString();
   }
 }

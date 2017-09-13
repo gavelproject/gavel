@@ -20,16 +20,13 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import jason.asSyntax.ASSyntax;
-import jason.asSyntax.Literal;
+import static org.gavelproject.sanction.SanctionCategories.NAME;
 
 /**
  * @author igorcadelima
  *
  */
 final class BasicSanctionCategory implements SanctionCategory {
-  static final String FUNCTOR = "category";
-
   private SanctionPurpose purpose;
   private SanctionIssuer issuer;
   private SanctionLocus locus;
@@ -82,25 +79,21 @@ final class BasicSanctionCategory implements SanctionCategory {
   }
 
   @Override
-  public String getFunctor() {
-    return FUNCTOR;
-  }
-
-  @Override
-  public Literal toLiteral() {
-    Literal l = ASSyntax.createLiteral(FUNCTOR);
-    l.addTerm(ASSyntax.createAtom(discernability.lowercase()));
-    l.addTerm(ASSyntax.createAtom(issuer.lowercase()));
-    l.addTerm(ASSyntax.createAtom(locus.lowercase()));
-    l.addTerm(ASSyntax.createAtom(mode.lowercase()));
-    l.addTerm(ASSyntax.createAtom(polarity.lowercase()));
-    l.addTerm(ASSyntax.createAtom(purpose.lowercase()));
-    return l;
-  }
-
-  @Override
   public String toString() {
-    return toLiteral().toString();
+    return new StringBuilder(NAME).append("discernability(")
+                                  .append(discernability.lowercase())
+                                  .append("),issuer(")
+                                  .append(issuer.lowercase())
+                                  .append("),locus(")
+                                  .append(locus.lowercase())
+                                  .append("),mode(")
+                                  .append(mode.lowercase())
+                                  .append("),polarity(")
+                                  .append(polarity.lowercase())
+                                  .append("),purpose(")
+                                  .append(purpose.lowercase())
+                                  .append(')')
+                                  .toString();
   }
 
   static final class Builder {

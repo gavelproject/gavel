@@ -21,14 +21,13 @@
 package org.gavelproject.sanction;
 
 import org.gavelproject.common.Id;
-import org.gavelproject.common.Literable;
 import org.gavelproject.common.LowercaseEnum;
 
 /**
  * @author igorcadelima
  *
  */
-public interface SanctionDecision extends Literable {
+public interface SanctionDecision {
   /**
    * Efficacy values that can be used:
    * <li>{@link #INDETERMINATE}</li>
@@ -51,9 +50,9 @@ public interface SanctionDecision extends Literable {
 
   String getSanctionee();
 
-  String getNorm();
+  String getNormId();
 
-  String getSanction();
+  String getSanctionId();
 
   Cause getCause();
 

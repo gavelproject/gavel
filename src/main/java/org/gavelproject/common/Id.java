@@ -26,6 +26,6 @@ package org.gavelproject.common;
  * @author igorcadelima
  *
  */
-public interface Id extends Literable {
+public interface Id {
 
 }

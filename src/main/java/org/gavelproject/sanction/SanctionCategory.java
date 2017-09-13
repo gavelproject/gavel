@@ -20,9 +20,7 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import org.gavelproject.common.Literable;
-
-public interface SanctionCategory extends Literable {
+public interface SanctionCategory {
   /**
    * @return the purpose
    */

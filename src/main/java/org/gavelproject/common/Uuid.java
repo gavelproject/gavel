@@ -22,9 +22,6 @@ package org.gavelproject.common;
 
 import java.util.UUID;
 
-import jason.asSyntax.ASSyntax;
-import jason.asSyntax.Literal;
-
 /**
  * Represent an universally unique identifier.
  * 
@@ -47,24 +44,9 @@ public final class Uuid implements Id {
     return new Uuid(UUID.fromString(name));
   }
 
+  @Override
   public String toString() {
-    return new StringBuilder(40).append(getFunctor())
-                                .append('(')
-                                .append(id)
-                                .append(')')
-                                .toString();
-  }
-
-  @Override
-  public String getFunctor() {
-    return "id";
-  }
-
-  @Override
-  public Literal toLiteral() {
-    Literal l = ASSyntax.createLiteral(getFunctor());
-    l.addTerm(ASSyntax.createAtom(id.toString()));
-    return l;
+    return id.toString();
   }
 
   @Override

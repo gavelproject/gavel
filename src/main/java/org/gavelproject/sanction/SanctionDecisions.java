@@ -35,6 +35,8 @@ import jason.asSyntax.NumberTerm;
  *
  */
 public final class SanctionDecisions {
+  static final String NAME = "sanction_decision";
+
   private SanctionDecisions() {}
 
   /**
@@ -51,7 +53,7 @@ public final class SanctionDecisions {
       Literal l = ASSyntax.parseLiteral(decision);
 
       if (!l.getFunctor()
-            .equals(BasicSanctionDecision.FUNCTOR)) {
+            .equals(NAME)) {
         throw new IllegalArgumentException();
       }
 
