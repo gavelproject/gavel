@@ -32,7 +32,7 @@ import org.w3c.dom.NodeList;
  * @author igorcadelima
  *
  */
-final class SanctionCategories {
+public final class SanctionCategories {
   static final String NAME = "category";
 
   private SanctionCategories() {}
