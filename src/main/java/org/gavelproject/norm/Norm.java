@@ -62,19 +62,19 @@ public interface Norm {
   /**
    * @return sanctions linked to the norm
    */
-  Set<Sanction> getLinkedSanctions();
+  Set<Sanction> getSanctions();
 
   /**
-   * @param sanction sanction to be linked with the norm
+   * @param sanction sanction which can be applied should the norm be complied or violated
    * @return {@code true} if the sanction was successfully added
    */
-  boolean link(Sanction sanction);
+  boolean addSanction(Sanction sanction);
 
   /**
-   * @param sanctionId id of the sanction to be unlinked
-   * @return {@code true} if the sanction was successfully unlinked
+   * @param sanctionId id of the sanction to be dissociated from the norm
+   * @return {@code true} if the sanction was successfully dissociated
    */
-  boolean unlink(Atom sanctionId);
+  boolean removeSanction(Atom sanctionId);
 
   /**
    * Enable the norm changing its status to {@link Status#ENABLED}.

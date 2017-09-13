@@ -168,17 +168,17 @@ final class BasicNorm implements Norm {
   }
 
   @Override
-  public Set<Sanction> getLinkedSanctions() {
+  public Set<Sanction> getSanctions() {
     return (Set<Sanction>) sanctions.values();
   }
 
   @Override
-  public boolean link(Sanction sanction) {
+  public boolean addSanction(Sanction sanction) {
     return sanctions.putIfAbsent(sanction.getId(), sanction) != null;
   }
 
   @Override
-  public boolean unlink(Atom sanctionId) {
+  public boolean removeSanction(Atom sanctionId) {
     return sanctions.remove(sanctionId) != null;
   }
 
@@ -203,7 +203,7 @@ final class BasicNorm implements Norm {
   @Override
   public String toString() {
     List<Atom> sanctionIds = new ArrayList<>();
-    getLinkedSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
+    getSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
     return new StringBuilder(NAME + '(').append("id(" + id + "),")
                                         .append("status(" + status.lowercase() + "),")
                                         .append("condition(" + condition + "),")
