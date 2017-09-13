@@ -59,9 +59,14 @@ public interface Norm {
   NormContent getContent();
 
   /**
-   * @return sanctions linked to the norm
+   * @return sanctions associated with the norm
    */
   Set<Sanction> getSanctions();
+
+  /**
+   * @return ids of the sanctions associated with the norm
+   */
+  Set<String> getSanctionIds();
 
   /**
    * @param sanction sanction which can be applied should the norm be complied or violated

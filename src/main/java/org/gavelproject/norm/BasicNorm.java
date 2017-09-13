@@ -22,9 +22,8 @@ package org.gavelproject.norm;
 
 import static org.gavelproject.norm.Norms.NAME;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -172,6 +171,13 @@ final class BasicNorm implements Norm {
   }
 
   @Override
+  public Set<String> getSanctionIds() {
+    Set<String> sanctionIds = new HashSet<>();
+    getSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
+    return sanctionIds;
+  }
+
+  @Override
   public boolean addSanction(Sanction sanction) {
     return sanctions.putIfAbsent(sanction.getId(), sanction) != null;
   }
@@ -201,14 +207,12 @@ final class BasicNorm implements Norm {
 
   @Override
   public String toString() {
-    List<String> sanctionIds = new ArrayList<>();
-    getSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
     return new StringBuilder(NAME + '(').append("id(" + id + "),")
                                         .append("status(" + status.lowercase() + "),")
                                         .append("condition(" + condition + "),")
                                         .append("issuer(" + issuer + "),")
                                         .append("content(" + content + "),")
-                                        .append("sanction_ids(" + sanctionIds + ")")
+                                        .append("sanction_ids(" + getSanctionIds() + ")")
                                         .toString();
   }
 }
