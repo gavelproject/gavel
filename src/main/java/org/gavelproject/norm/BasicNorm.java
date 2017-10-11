@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.gavelproject.common.Content;
 import org.gavelproject.common.Status;
 import org.gavelproject.sanction.Sanction;
 
@@ -37,7 +38,7 @@ final class BasicNorm implements Norm {
   private Status status = Status.ENABLED;
   private LogicalFormula condition;
   private String issuer;
-  private NormContent content;
+  private Content content;
   private Map<String, Sanction> sanctions;
 
   /** Constructs an {@link AbstractNorm} with the properties specified in {@code builder}. */
@@ -61,7 +62,7 @@ final class BasicNorm implements Norm {
     private Status status = Status.ENABLED;
     private LogicalFormula condition;
     private String issuer;
-    private NormContent content;
+    private Content content;
     private Map<String, Sanction> sanctions = new HashMap<>();
 
     public Builder setId(String id) {
@@ -84,7 +85,7 @@ final class BasicNorm implements Norm {
       return this;
     }
 
-    public Builder setContent(NormContent content) {
+    public Builder setContent(Content content) {
       this.content = content;
       return this;
     }
@@ -120,7 +121,7 @@ final class BasicNorm implements Norm {
   }
 
   @Override
-  public NormContent getContent() {
+  public Content getContent() {
     return content;
   }
 

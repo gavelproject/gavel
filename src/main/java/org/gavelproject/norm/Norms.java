@@ -20,17 +20,14 @@
  *******************************************************************************/
 package org.gavelproject.norm;
 
-import static jason.asSyntax.ASSyntax.parseLiteral;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.gavelproject.common.Contents;
 import org.gavelproject.common.Enums;
 import org.gavelproject.common.Status;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import jason.asSyntax.ASSyntax;
-import jason.asSyntax.Literal;
-import jason.asSyntax.LogicalFormula;
 import jason.asSyntax.parser.ParseException;
 
 /**
@@ -68,52 +65,26 @@ public final class Norms {
    * @throws NullPointerException if string is {@code null}
    */
   public static Norm parse(String norm) {
-    try {
-      Literal l = parseLiteral(norm);
-      Status status = Enums.lookup(Status.class, l.getTerm(1)
-                                                  .toString());
-      NormContent content = NormContents.of((Literal) l.getTerm(4));
-      return builder().setId(l.getTerm(0)
-                              .toString())
-                      .setStatus(status)
-                      .setCondition((LogicalFormula) l.getTerm(2))
-                      .setIssuer(l.getTerm(3)
-                                  .toString())
-                      .setContent(content)
-                      .build();
-    } catch (ParseException e) {
-      throw new IllegalArgumentException("String does not contain a parsable norm");
-    }
-  }
-
-  public static Norm of(Element el) {
-    NormBuilder builder = builder();
-    builder.setId(el.getAttribute("id"))
-           .setStatus(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
-
-    NodeList properties = el.getChildNodes();
-    for (int i = 0; i < properties.getLength(); i++) {
-      Node prop = properties.item(i);
-      String propContent = prop.getTextContent();
-
-      switch (prop.getNodeName()) {
-        case "condition":
-          try {
-            builder.setCondition(ASSyntax.parseFormula(propContent));
-          } catch (ParseException e) {
-            throw new IllegalArgumentException("Element does not contain a parsable norm");
-          }
-          break;
-        case "issuer":
-          builder.setIssuer(propContent);
-          break;
-        case "content":
-          builder.setContent(NormContents.parse(propContent));
-          break;
-        default: // Ignore
+    Pattern pattern = Pattern.compile("norm\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*condition\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*issuer\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*content\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+    Matcher matcher = pattern.matcher(norm);
+    matcher.find();
+    if (matcher.matches()) {
+      try {
+        return builder().setId(matcher.group(1))
+                        .setStatus(Enums.lookup(Status.class, matcher.group(2)))
+                        .setCondition(ASSyntax.parseFormula("condition(" + matcher.group(3) + ')'))
+                        .setIssuer(matcher.group(4))
+                        .setContent(Contents.tryParse(matcher.group(5)))
+                        .build();
+      } catch (ParseException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
     }
-    return builder.build();
+    throw new IllegalArgumentException("String does not contain a parsable norm");
+
   }
 
   /** Return a builder for {@link Norm}. */

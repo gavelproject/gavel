@@ -1,5 +1,6 @@
 package org.gavelproject.norm;
 
+import org.gavelproject.common.Content;
 import org.gavelproject.common.Status;
 import org.gavelproject.sanction.Sanction;
 
@@ -44,7 +45,7 @@ public interface NormBuilder {
    * @param content norm's content
    * @return builder instance
    */
-  NormBuilder setContent(NormContent content);
+  NormBuilder setContent(Content content);
 
   /**
    * Associate a sanction with the norm.

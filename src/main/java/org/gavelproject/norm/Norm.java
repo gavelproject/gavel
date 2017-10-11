@@ -22,6 +22,7 @@ package org.gavelproject.norm;
 
 import java.util.Set;
 
+import org.gavelproject.common.Content;
 import org.gavelproject.common.Status;
 import org.gavelproject.sanction.Sanction;
 
@@ -56,7 +57,7 @@ public interface Norm {
   /**
    * @return norm's content
    */
-  NormContent getContent();
+  Content getContent();
 
   /**
    * @return sanctions associated with the norm
