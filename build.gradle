@@ -47,4 +47,5 @@ repositories {
 
 dependencies {
 	implementation 'org.jason-lang:jason:latest.integration'
+	compileOnly 'org.projectlombok:lombok:1.+'
 }
