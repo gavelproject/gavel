@@ -20,12 +20,19 @@
  *******************************************************************************/
 package gavel.impl.capability;
 
+import gavel.api.capability.Capability;
+
 /**
  * An enum that contains the basic capabilities provided by the sanctioning mechanism.
  * 
  * @author igorcadelima
  *
  */
-public enum Capability {
-  DETECTOR, EVALUATOR, EXECUTOR, CONTROLLER, LEGISLATOR
+public enum CapabilityImpl implements Capability {
+  DETECTOR, EVALUATOR, EXECUTOR, CONTROLLER, LEGISLATOR;
+
+  @Override
+  public String toString() {
+    return name().toLowerCase();
+  }
 }
