@@ -20,8 +20,9 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import org.gavelproject.sanction.SanctionDecision.Cause;
-import org.gavelproject.sanction.SanctionDecision.Efficacy;
+import gavel.api.sanction.SanctionDecision;
+import gavel.api.sanction.SanctionDecision.Cause;
+import gavel.api.sanction.SanctionDecision.Efficacy;
 
 final class SanctionDecisionBuilder {
   private long time;
@@ -78,8 +79,8 @@ final class SanctionDecisionBuilder {
    * 
    * @return new {@link SanctionDecision} instance
    */
-  BasicSanctionDecision build() {
-    return new BasicSanctionDecision(this);
+  SanctionDecisionImpl build() {
+    return new SanctionDecisionImpl(this);
   }
 
   long time() {

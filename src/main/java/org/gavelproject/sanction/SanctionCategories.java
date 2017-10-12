@@ -20,10 +20,13 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import org.gavelproject.common.Enums;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import gavel.api.sanction.SanctionCategory;
+import gavel.api.sanction.SanctionCategoryBuilder;
+import gavel.impl.common.Enums;
 
 /**
  * Static utility methods pertaining to {@link SanctionCategory} instances.
@@ -37,11 +40,11 @@ public final class SanctionCategories {
   private SanctionCategories() {}
 
   /**
-   * Return a new {@link BasicSanctionCategory} object initialised to the value represented by the
+   * Return a new {@link SanctionCategoryImpl} object initialised to the value represented by the
    * specified {@code Element}.
    * 
    * @param el element to be parsed
-   * @return {@link BasicSanctionCategory} object represented by {@code el}
+   * @return {@link SanctionCategoryImpl} object represented by {@code el}
    * @throws NullPointerException if element is {@code null}
    */
   public static SanctionCategory of(Element el) {
@@ -54,22 +57,22 @@ public final class SanctionCategories {
 
       switch (dimensionNode.getNodeName()) {
         case "purpose":
-          builder.setPurpose(Enums.lookup(SanctionPurpose.class, dimension));
+          builder.setPurpose(Enums.lookup(SanctionPurposeImpl.class, dimension));
           break;
         case "issuer":
-          builder.setIssuer(Enums.lookup(SanctionIssuer.class, dimension));
+          builder.setIssuer(Enums.lookup(SanctionIssuerImpl.class, dimension));
           break;
         case "locus":
-          builder.setLocus(Enums.lookup(SanctionLocus.class, dimension));
+          builder.setLocus(Enums.lookup(SanctionLocusImpl.class, dimension));
           break;
         case "mode":
-          builder.setMode(Enums.lookup(SanctionMode.class, dimension));
+          builder.setMode(Enums.lookup(SanctionModeImpl.class, dimension));
           break;
         case "polarity":
-          builder.setPolarity(Enums.lookup(SanctionPolarity.class, dimension));
+          builder.setPolarity(Enums.lookup(SanctionPolarityImpl.class, dimension));
           break;
         case "discernability":
-          builder.setDiscernability(Enums.lookup(SanctionDiscernability.class, dimension));
+          builder.setDiscernability(Enums.lookup(SanctionDiscernabilityImpl.class, dimension));
           break;
       }
     }
@@ -78,6 +81,6 @@ public final class SanctionCategories {
 
   /** Return a builder for {@link SanctionCategory}. */
   public static SanctionCategoryBuilder builder() {
-    return new BasicSanctionCategory.Builder();
+    return new SanctionCategoryImpl.Builder();
   }
 }

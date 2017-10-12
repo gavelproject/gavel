@@ -20,12 +20,14 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import org.gavelproject.common.Enums;
-import org.gavelproject.common.Status;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import gavel.api.sanction.Sanction;
+import gavel.api.sanction.SanctionBuilder;
+import gavel.impl.common.StatusImpl;
+import gavel.impl.common.Enums;
 import jason.asSyntax.ASSyntax;
 import jason.asSyntax.parser.ParseException;
 
@@ -66,7 +68,7 @@ public final class Sanctions {
   public static Sanction parse(Element el) {
     SanctionBuilder builder = builder();
     builder.setId(el.getAttribute("id"))
-           .setStatus(Enums.lookup(Status.class, el.getAttribute("status"), Status.ENABLED));
+           .setStatus(Enums.lookup(StatusImpl.class, el.getAttribute("status"), StatusImpl.ENABLED));
 
     NodeList props = el.getChildNodes();
     for (int i = 0; i < props.getLength(); i++) {
@@ -93,6 +95,6 @@ public final class Sanctions {
 
   /** Return a builder for {@link Sanction}. */
   public static SanctionBuilder builder() {
-    return new BasicSanction.Builder();
+    return new SanctionImpl.Builder();
   }
 }

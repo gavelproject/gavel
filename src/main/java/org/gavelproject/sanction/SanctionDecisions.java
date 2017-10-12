@@ -20,10 +20,10 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
-import org.gavelproject.common.Enums;
-import org.gavelproject.sanction.SanctionDecision.Cause;
-import org.gavelproject.sanction.SanctionDecision.Efficacy;
-
+import gavel.api.sanction.SanctionDecision;
+import gavel.api.sanction.SanctionDecision.Cause;
+import gavel.api.sanction.SanctionDecision.Efficacy;
+import gavel.impl.common.Enums;
 import jason.asSyntax.ASSyntax;
 import jason.asSyntax.Literal;
 import jason.asSyntax.NumberTerm;
@@ -57,7 +57,7 @@ public final class SanctionDecisions {
         throw new IllegalArgumentException();
       }
 
-      return BasicSanctionDecision.builder()
+      return SanctionDecisionImpl.builder()
                                   .time((long) ((NumberTerm) l.getTerm(1)).solve())
                                   .sanctioner(l.getTerm(2)
                                                .toString())
