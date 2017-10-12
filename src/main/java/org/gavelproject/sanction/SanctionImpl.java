@@ -28,6 +28,11 @@ import gavel.api.sanction.SanctionBuilder;
 import gavel.api.sanction.SanctionCategory;
 import gavel.impl.common.StatusImpl;
 import jason.asSyntax.LogicalFormula;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Data;
+import lombok.Setter;
 
 /**
  * This class provides a basic implementation of the {@link Sanction} interface.
@@ -35,94 +40,18 @@ import jason.asSyntax.LogicalFormula;
  * @author igorcadelima
  *
  */
+@Builder(builderClassName = "Builder")
+@Data
 final class SanctionImpl implements Sanction {
-  private String id;
+  private final String id;
+
+  @Default
+  @Setter(AccessLevel.NONE)
   private Status status = StatusImpl.ENABLED;
-  private LogicalFormula condition;
-  private SanctionCategory category;
-  private LogicalFormula content;
 
-  /**
-   * Constructs an {@link AbstractSanction} with the properties specified in {@code builder}.
-   * 
-   * In order to successfully create a sanction, none of the builder's attributes should be
-   * {@code null}.
-   */
-  private SanctionImpl(Builder builder) {
-    if ((builder.id != null) && (builder.condition != null) && (builder.category != null)
-        && (builder.content != null)) {
-      this.id = builder.id;
-      this.status = builder.status;
-      this.condition = builder.condition;
-      this.category = builder.category;
-      this.content = builder.content;
-    } else {
-      throw new RuntimeException(
-          "The following properties should not be null: id, condition, category, content");
-    }
-  }
-
-  static final class Builder implements SanctionBuilder {
-    private String id;
-    private Status status = StatusImpl.ENABLED;
-    private LogicalFormula condition;
-    private SanctionCategory category;
-    private LogicalFormula content;
-
-    public Builder setId(String id) {
-      this.id = id;
-      return this;
-    }
-
-    public Builder setStatus(Status status) {
-      this.status = status;
-      return this;
-    }
-
-    public Builder setCondition(LogicalFormula condition) {
-      this.condition = condition;
-      return this;
-    }
-
-    public Builder setCategory(SanctionCategory category) {
-      this.category = category;
-      return this;
-    }
-
-    public Builder setContent(LogicalFormula content) {
-      this.content = content;
-      return this;
-    }
-
-    public SanctionImpl build() {
-      return new SanctionImpl(this);
-    }
-  }
-
-  @Override
-  public String getId() {
-    return id;
-  }
-
-  @Override
-  public Status getStatus() {
-    return status;
-  }
-
-  @Override
-  public LogicalFormula getCondition() {
-    return condition;
-  }
-
-  @Override
-  public SanctionCategory getCategory() {
-    return category;
-  }
-
-  @Override
-  public LogicalFormula getContent() {
-    return content;
-  }
+  private final LogicalFormula condition;
+  private final SanctionCategory category;
+  private final LogicalFormula content;
 
   @Override
   public boolean enable() {
@@ -150,5 +79,8 @@ final class SanctionImpl implements Sanction {
                                         .append("category(" + category + "),")
                                         .append(content + ")")
                                         .toString();
+  }
+
+  public static final class Builder implements SanctionBuilder {
   }
 }

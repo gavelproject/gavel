@@ -31,32 +31,32 @@ public interface SanctionCategoryBuilder {
   /**
    * @param purpose sanction purpose
    */
-  SanctionCategoryBuilder setPurpose(SanctionPurposeImpl purpose);
+  SanctionCategoryBuilder purpose(SanctionPurposeImpl purpose);
 
   /**
    * @param issuer sanction issuer
    */
-  SanctionCategoryBuilder setIssuer(SanctionIssuerImpl issuer);
+  SanctionCategoryBuilder issuer(SanctionIssuerImpl issuer);
 
   /**
    * @param locus sanction locus
    */
-  SanctionCategoryBuilder setLocus(SanctionLocusImpl locus);
+  SanctionCategoryBuilder locus(SanctionLocusImpl locus);
 
   /**
    * @param mode sanction mode
    */
-  SanctionCategoryBuilder setMode(SanctionModeImpl mode);
+  SanctionCategoryBuilder mode(SanctionModeImpl mode);
 
   /**
    * @param polarity sanction polarity
    */
-  SanctionCategoryBuilder setPolarity(SanctionPolarityImpl polarity);
+  SanctionCategoryBuilder polarity(SanctionPolarityImpl polarity);
 
   /**
    * @param discernability sanction discernability
    */
-  SanctionCategoryBuilder setDiscernability(SanctionDiscernabilityImpl discernability);
+  SanctionCategoryBuilder discernability(SanctionDiscernabilityImpl discernability);
 
   /**
    * Return a new {@link SanctionCategory} with the given properties.

@@ -10,7 +10,7 @@ public interface SanctionBuilder {
    * @param id sanction's id
    * @return builder builder instance
    */
-  SanctionBuilder setId(String id);
+  SanctionBuilder id(String id);
 
   /**
    * Set status of the sanction.
@@ -18,7 +18,7 @@ public interface SanctionBuilder {
    * @param status sanction's status
    * @return builder builder instance
    */
-  SanctionBuilder setStatus(Status status);
+  SanctionBuilder status(Status status);
 
   /**
    * Set condition for the sanction.
@@ -26,7 +26,7 @@ public interface SanctionBuilder {
    * @param condition sanction's activation condition
    * @return builder builder instance
    */
-  SanctionBuilder setCondition(LogicalFormula condition);
+  SanctionBuilder condition(LogicalFormula condition);
 
   /**
    * Set category for the sanction.
@@ -34,7 +34,7 @@ public interface SanctionBuilder {
    * @param category sanction category
    * @return builder builder instance
    */
-  SanctionBuilder setCategory(SanctionCategory category);
+  SanctionBuilder category(SanctionCategory category);
 
   /**
    * Set content for the sanction.
@@ -42,7 +42,7 @@ public interface SanctionBuilder {
    * @param content sanctions's content
    * @return builder builder instance
    */
-  SanctionBuilder setContent(LogicalFormula content);
+  SanctionBuilder content(LogicalFormula content);
 
   /**
    * Return a new {@link Sanction} with the specified implementation.

@@ -1,5 +1,7 @@
 package gavel.api.norm;
 
+import java.util.Set;
+
 import gavel.api.common.Content;
 import gavel.api.common.Status;
 import gavel.api.sanction.Sanction;
@@ -12,7 +14,7 @@ public interface NormBuilder {
    * @param id norm's id
    * @return builder instance
    */
-  NormBuilder setId(String id);
+  NormBuilder id(String id);
 
   /**
    * Set status of the norm.
@@ -20,7 +22,7 @@ public interface NormBuilder {
    * @param status norm's status
    * @return builder instance
    */
-  NormBuilder setStatus(Status status);
+  NormBuilder status(Status status);
 
   /**
    * Set condition for the norm.
@@ -28,7 +30,7 @@ public interface NormBuilder {
    * @param condition norm's activation condition
    * @return builder instance
    */
-  NormBuilder setCondition(LogicalFormula condition);
+  NormBuilder condition(LogicalFormula condition);
 
   /**
    * Set issuer for the norm.
@@ -36,7 +38,7 @@ public interface NormBuilder {
    * @param issuer norm's issuer
    * @return builder instance
    */
-  NormBuilder setIssuer(String issuer);
+  NormBuilder issuer(String issuer);
 
   /**
    * Set content for the norm.
@@ -44,7 +46,7 @@ public interface NormBuilder {
    * @param content norm's content
    * @return builder instance
    */
-  NormBuilder setContent(Content content);
+  NormBuilder content(Content content);
 
   /**
    * Associate a sanction with the norm.
@@ -52,7 +54,22 @@ public interface NormBuilder {
    * @param sanction sanction to be associated
    * @return builder instance
    */
-  NormBuilder addSanction(Sanction sanction);
+  NormBuilder sanction(Sanction sanction);
+
+  /**
+   * Associate sanctions with the norm.
+   * 
+   * @param sanctions sanctions to be associated
+   * @return builder instance
+   */
+  NormBuilder sanctions(Set<Sanction> sanction);
+
+  /**
+   * Clear set of associated sanctions.
+   * 
+   * @return builder instance
+   */
+  NormBuilder clearSanctions();
 
   /**
    * Return a new {@link Norm} with the specified implementation.

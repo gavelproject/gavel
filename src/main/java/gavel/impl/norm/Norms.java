@@ -49,11 +49,11 @@ public final class Norms {
    * @return copy of {@code norm}
    */
   public static Norm newInstance(Norm norm) {
-    return builder().setId(norm.getId())
-                    .setStatus(norm.getStatus())
-                    .setIssuer(norm.getIssuer())
-                    .setCondition(norm.getCondition())
-                    .setContent(norm.getContent())
+    return builder().id(norm.getId())
+                    .status(norm.getStatus())
+                    .issuer(norm.getIssuer())
+                    .condition(norm.getCondition())
+                    .content(norm.getContent())
                     .build();
   }
 
@@ -73,11 +73,11 @@ public final class Norms {
     matcher.find();
     if (matcher.matches()) {
       try {
-        return builder().setId(matcher.group(1))
-                        .setStatus(Enums.lookup(StatusImpl.class, matcher.group(2)))
-                        .setCondition(ASSyntax.parseFormula("condition(" + matcher.group(3) + ')'))
-                        .setIssuer(matcher.group(4))
-                        .setContent(Contents.tryParse(matcher.group(5)))
+        return builder().id(matcher.group(1))
+                        .status(Enums.lookup(StatusImpl.class, matcher.group(2)))
+                        .condition(ASSyntax.parseFormula("condition(" + matcher.group(3) + ')'))
+                        .issuer(matcher.group(4))
+                        .content(Contents.tryParse(matcher.group(5)))
                         .build();
       } catch (ParseException e) {
         // TODO Auto-generated catch block

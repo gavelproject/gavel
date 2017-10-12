@@ -24,62 +24,22 @@ import static org.gavelproject.sanction.SanctionCategories.NAME;
 
 import gavel.api.sanction.SanctionCategory;
 import gavel.api.sanction.SanctionCategoryBuilder;
+import lombok.Builder;
+import lombok.Value;
 
 /**
  * @author igorcadelima
  *
  */
-final class SanctionCategoryImpl implements SanctionCategory {
-  private SanctionPurposeImpl purpose;
-  private SanctionIssuerImpl issuer;
-  private SanctionLocusImpl locus;
-  private SanctionModeImpl mode;
-  private SanctionPolarityImpl polarity;
-  private SanctionDiscernabilityImpl discernability;
-
-  /**
-   * SanctionCategory constructor.
-   * 
-   * @param builder builder from which data should be obtained
-   */
-  SanctionCategoryImpl(Builder builder) {
-    this.purpose = builder.purpose;
-    this.issuer = builder.issuer;
-    this.locus = builder.locus;
-    this.mode = builder.mode;
-    this.polarity = builder.polarity;
-    this.discernability = builder.discernability;
-  }
-
-  @Override
-  public SanctionPurposeImpl getPurpose() {
-    return purpose;
-  }
-
-  @Override
-  public SanctionIssuerImpl getIssuer() {
-    return issuer;
-  }
-
-  @Override
-  public SanctionLocusImpl getLocus() {
-    return locus;
-  }
-
-  @Override
-  public SanctionModeImpl getMode() {
-    return mode;
-  }
-
-  @Override
-  public SanctionPolarityImpl getPolarity() {
-    return polarity;
-  }
-
-  @Override
-  public SanctionDiscernabilityImpl getDiscernability() {
-    return discernability;
-  }
+@Builder(builderClassName = "Builder")
+@Value
+class SanctionCategoryImpl implements SanctionCategory {
+  SanctionPurposeImpl purpose;
+  SanctionIssuerImpl issuer;
+  SanctionLocusImpl locus;
+  SanctionModeImpl mode;
+  SanctionPolarityImpl polarity;
+  SanctionDiscernabilityImpl discernability;
 
   @Override
   public String toString() {
@@ -99,46 +59,7 @@ final class SanctionCategoryImpl implements SanctionCategory {
                                   .toString();
   }
 
-  static final class Builder implements SanctionCategoryBuilder {
-    private SanctionPurposeImpl purpose;
-    private SanctionIssuerImpl issuer;
-    private SanctionLocusImpl locus;
-    private SanctionModeImpl mode;
-    private SanctionPolarityImpl polarity;
-    private SanctionDiscernabilityImpl discernability;
+  public static final class Builder implements SanctionCategoryBuilder {
 
-    public Builder setPurpose(SanctionPurposeImpl purpose) {
-      this.purpose = purpose;
-      return this;
-    }
-
-    public Builder setIssuer(SanctionIssuerImpl issuer) {
-      this.issuer = issuer;
-      return this;
-    }
-
-    public Builder setLocus(SanctionLocusImpl locus) {
-      this.locus = locus;
-      return this;
-    }
-
-    public Builder setMode(SanctionModeImpl mode) {
-      this.mode = mode;
-      return this;
-    }
-
-    public Builder setPolarity(SanctionPolarityImpl polarity) {
-      this.polarity = polarity;
-      return this;
-    }
-
-    public Builder setDiscernability(SanctionDiscernabilityImpl discernability) {
-      this.discernability = discernability;
-      return this;
-    }
-
-    public SanctionCategoryImpl build() {
-      return new SanctionCategoryImpl(this);
-    }
   }
 }

@@ -49,11 +49,11 @@ public final class Sanctions {
    * @return copy of {@code sanction}
    */
   public static Sanction newInstance(Sanction sanction) {
-    return builder().setId(sanction.getId())
-                    .setStatus(sanction.getStatus())
-                    .setCondition(sanction.getCondition())
-                    .setCategory(sanction.getCategory())
-                    .setContent(sanction.getContent())
+    return builder().id(sanction.getId())
+                    .status(sanction.getStatus())
+                    .condition(sanction.getCondition())
+                    .category(sanction.getCategory())
+                    .content(sanction.getContent())
                     .build();
   }
 
@@ -67,8 +67,8 @@ public final class Sanctions {
    */
   public static Sanction parse(Element el) {
     SanctionBuilder builder = builder();
-    builder.setId(el.getAttribute("id"))
-           .setStatus(Enums.lookup(StatusImpl.class, el.getAttribute("status"), StatusImpl.ENABLED));
+    builder.id(el.getAttribute("id"))
+           .status(Enums.lookup(StatusImpl.class, el.getAttribute("status"), StatusImpl.ENABLED));
 
     NodeList props = el.getChildNodes();
     for (int i = 0; i < props.getLength(); i++) {
@@ -77,13 +77,13 @@ public final class Sanctions {
       try {
         switch (prop.getNodeName()) {
           case "condition":
-            builder.setCondition(ASSyntax.parseFormula(prop.getTextContent()));
+            builder.condition(ASSyntax.parseFormula(prop.getTextContent()));
             break;
           case "category":
-            builder.setCategory(SanctionCategories.of((Element) prop));
+            builder.category(SanctionCategories.of((Element) prop));
             break;
           case "content":
-            builder.setContent(ASSyntax.parseFormula(prop.getTextContent()));
+            builder.content(ASSyntax.parseFormula(prop.getTextContent()));
           default: // Ignore
         }
       } catch (ParseException e) {

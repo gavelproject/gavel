@@ -22,7 +22,6 @@ package gavel.impl.norm;
 
 import static gavel.impl.norm.Norms.NAME;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -34,98 +33,28 @@ import gavel.api.norm.NormBuilder;
 import gavel.api.sanction.Sanction;
 import gavel.impl.common.StatusImpl;
 import jason.asSyntax.LogicalFormula;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+@Builder(builderClassName = "Builder")
+@Data
 final class NormImpl implements Norm {
-  private String id;
+  private final String id;
+
+  @Default
+  @Setter(AccessLevel.NONE)
   private Status status = StatusImpl.ENABLED;
-  private LogicalFormula condition;
-  private String issuer;
-  private Content content;
-  private Map<String, Sanction> sanctions;
 
-  /** Constructs an {@link AbstractNorm} with the properties specified in {@code builder}. */
-  private NormImpl(Builder builder) {
-    if ((builder.id != null) && (builder.condition != null) && (builder.issuer != null)
-        && (builder.content != null)) {
-      id = builder.id;
-      status = builder.status;
-      condition = builder.condition;
-      issuer = builder.issuer;
-      content = builder.content;
-      sanctions = builder.sanctions;
-    } else {
-      throw new NullPointerException(
-          "The following properties should not be null: id, condition, issuer, content.");
-    }
-  }
+  private final LogicalFormula condition;
+  private final String issuer;
+  private final Content content;
 
-  static final class Builder implements NormBuilder {
-    private String id;
-    private Status status = StatusImpl.ENABLED;
-    private LogicalFormula condition;
-    private String issuer;
-    private Content content;
-    private Map<String, Sanction> sanctions = new HashMap<>();
-
-    public Builder setId(String id) {
-      this.id = id;
-      return this;
-    }
-
-    public Builder setStatus(Status status) {
-      this.status = status;
-      return this;
-    }
-
-    public Builder setCondition(LogicalFormula condition) {
-      this.condition = condition;
-      return this;
-    }
-
-    public Builder setIssuer(String issuer) {
-      this.issuer = issuer;
-      return this;
-    }
-
-    public Builder setContent(Content content) {
-      this.content = content;
-      return this;
-    }
-
-    public Builder addSanction(Sanction sanction) {
-      sanctions.put(sanction.getId(), sanction);
-      return this;
-    }
-
-    public NormImpl build() {
-      return new NormImpl(this);
-    }
-  }
-
-  @Override
-  public String getId() {
-    return id;
-  }
-
-  @Override
-  public Status getStatus() {
-    return status;
-  }
-
-  @Override
-  public LogicalFormula getCondition() {
-    return condition;
-  }
-
-  @Override
-  public String getIssuer() {
-    return issuer;
-  }
-
-  @Override
-  public Content getContent() {
-    return content;
-  }
+  @Getter(AccessLevel.NONE)
+  private final Map<String, Sanction> sanctions;
 
   @Override
   public Set<Sanction> getSanctions() {
@@ -176,5 +105,23 @@ final class NormImpl implements Norm {
                                         .append("content(" + content + "),")
                                         .append("sanction_ids(" + getSanctionIds() + ")")
                                         .toString();
+  }
+
+  public static final class Builder implements NormBuilder {
+    public Builder sanction(Sanction sanction) {
+      sanctions.put(sanction.getId(), sanction);
+      return this;
+    }
+
+    public Builder sanctions(Set<Sanction> sanctions) {
+      sanctions.forEach(sanction -> this.sanctions.putIfAbsent(sanction.getId(), sanction));
+      return this;
+    }
+
+    @Override
+    public NormBuilder clearSanctions() {
+      sanctions.clear();
+      return this;
+    }
   }
 }

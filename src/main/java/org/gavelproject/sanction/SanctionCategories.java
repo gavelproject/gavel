@@ -57,22 +57,22 @@ public final class SanctionCategories {
 
       switch (dimensionNode.getNodeName()) {
         case "purpose":
-          builder.setPurpose(Enums.lookup(SanctionPurposeImpl.class, dimension));
+          builder.purpose(Enums.lookup(SanctionPurposeImpl.class, dimension));
           break;
         case "issuer":
-          builder.setIssuer(Enums.lookup(SanctionIssuerImpl.class, dimension));
+          builder.issuer(Enums.lookup(SanctionIssuerImpl.class, dimension));
           break;
         case "locus":
-          builder.setLocus(Enums.lookup(SanctionLocusImpl.class, dimension));
+          builder.locus(Enums.lookup(SanctionLocusImpl.class, dimension));
           break;
         case "mode":
-          builder.setMode(Enums.lookup(SanctionModeImpl.class, dimension));
+          builder.mode(Enums.lookup(SanctionModeImpl.class, dimension));
           break;
         case "polarity":
-          builder.setPolarity(Enums.lookup(SanctionPolarityImpl.class, dimension));
+          builder.polarity(Enums.lookup(SanctionPolarityImpl.class, dimension));
           break;
         case "discernability":
-          builder.setDiscernability(Enums.lookup(SanctionDiscernabilityImpl.class, dimension));
+          builder.discernability(Enums.lookup(SanctionDiscernabilityImpl.class, dimension));
           break;
       }
     }
