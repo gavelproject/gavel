@@ -21,33 +21,35 @@
 package gavel.api.sanction;
 
 import gavel.api.common.Uuid;
+import gavel.api.norm.Norm;
 
 /**
  * @author igorcadelima
  *
  */
 public interface SanctionDecision {
-  /**
-   * Efficacy values that can be used:
-   * <li>{@link #INDETERMINATE}</li>
-   * <li>{@link #EFFECTIVE}</li>
-   * <li>{@link #INEFFECTIVE}</li>
-   */
-  enum Efficacy {
-    INDETERMINATE, EFFECTIVE, INEFFECTIVE;
+  Uuid getId();
 
-    @Override
-    public String toString() {
-      return name().toLowerCase();
-    }
-  }
+  long getTime();
+
+  String getDetectorId();
+
+  String getEvaluatorId();
+
+  String getTargetId();
+
+  Norm getNormInstance();
+
+  Sanction getSanctionInstance();
+
+  Cause getCause();
 
   /**
    * Cause values that can be used:
    * <li>{@link #COMPLIANCE}</li>
    * <li>{@link #VIOLATION}</li>
    */
-  enum Cause {
+  public enum Cause {
     COMPLIANCE, VIOLATION;
 
     @Override
@@ -55,26 +57,4 @@ public interface SanctionDecision {
       return name().toLowerCase();
     }
   }
-
-  Uuid getId();
-
-  long getTime();
-
-  String getSanctioner();
-
-  String getSanctionee();
-
-  String getNormId();
-
-  String getSanctionId();
-
-  Cause getCause();
-
-  Efficacy getEfficacy();
-
-  void setEfficacy(Efficacy e);
-
-  boolean isApplied();
-
-  void setApplied(boolean applied);
 }

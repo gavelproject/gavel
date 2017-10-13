@@ -22,8 +22,8 @@ package org.gavelproject.sanction;
 
 import gavel.api.sanction.SanctionDecision;
 import gavel.api.sanction.SanctionDecision.Cause;
-import gavel.api.sanction.SanctionDecision.Efficacy;
 import gavel.impl.common.Enums;
+import gavel.impl.norm.Norms;
 import jason.asSyntax.ASSyntax;
 import jason.asSyntax.Literal;
 import jason.asSyntax.NumberTerm;
@@ -58,22 +58,20 @@ public final class SanctionDecisions {
       }
 
       return SanctionDecisionImpl.builder()
-                                  .time((long) ((NumberTerm) l.getTerm(1)).solve())
-                                  .sanctioner(l.getTerm(2)
+                                 .time((long) ((NumberTerm) l.getTerm(1)).solve())
+                                 .detectorId(l.getTerm(2)
+                                              .toString())
+                                 .evaluatorId(l.getTerm(3)
                                                .toString())
-                                  .sanctionee(l.getTerm(3)
-                                               .toString())
-                                  .normId(l.getTerm(4)
-                                         .toString())
-                                  .sanctionId(l.getTerm(5)
-                                             .toString())
-                                  .cause(Enums.lookup(Cause.class, l.getTerm(6)
-                                                                    .toString()))
-                                  .efficacy(Enums.lookup(Efficacy.class, l.getTerm(7)
-                                                                          .toString()))
-                                  .applied(Boolean.valueOf(l.getTerm(8)
+                                 .targetId(l.getTerm(4)
+                                            .toString())
+                                 .normInstance(Norms.parse(l.getTerm(5)
                                                             .toString()))
-                                  .build();
+                                 .sanctionInstance(Sanctions.tryParse(l.getTerm(6)
+                                                                       .toString()))
+                                 .cause(Enums.lookup(Cause.class, l.getTerm(7)
+                                                                   .toString()))
+                                 .build();
 
     } catch (Exception e) {
       throw new IllegalArgumentException("String does not contain a parsable sanction decision");

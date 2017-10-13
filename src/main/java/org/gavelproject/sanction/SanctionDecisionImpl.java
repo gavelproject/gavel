@@ -23,11 +23,12 @@ package org.gavelproject.sanction;
 import static org.gavelproject.sanction.SanctionDecisions.NAME;
 
 import gavel.api.common.Uuid;
+import gavel.api.norm.Norm;
+import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionDecision;
 import gavel.impl.common.UuidImpl;
 import lombok.Builder;
-import lombok.Builder.Default;
-import lombok.Data;
+import lombok.Value;
 
 /**
  * This class provides a basic implementation of the {@link SanctionDecision} interface.
@@ -36,31 +37,27 @@ import lombok.Data;
  *
  */
 @Builder(builderClassName = "Builder")
-@Data
-final class SanctionDecisionImpl implements SanctionDecision {
-  private final Uuid id = UuidImpl.newInstance();
-  private final long time;
-  private final String sanctioner;
-  private final String sanctionee;
-  private final String normId;
-  private final String sanctionId;
-  private final Cause cause;
-
-  @Default
-  private Efficacy efficacy = Efficacy.INDETERMINATE;
-  private boolean applied;
+@Value
+class SanctionDecisionImpl implements SanctionDecision {
+  Uuid id = UuidImpl.newInstance();
+  long time;
+  String detectorId;
+  String evaluatorId;
+  String targetId;
+  Norm normInstance;
+  Sanction sanctionInstance;
+  Cause cause;
 
   @Override
   public String toString() {
     return new StringBuilder(NAME + '(').append("id(" + id + "),")
                                         .append("time(" + id + "),")
-                                        .append("sanctioner(" + sanctioner + "),")
-                                        .append("sanctionee(" + sanctionee + "),")
-                                        .append("norm_id(" + normId + "),")
-                                        .append("sanction_id(" + sanctionId + "),")
-                                        .append("cause(" + cause + "),")
-                                        .append("efficacy(" + efficacy + "),")
-                                        .append("applied(" + applied + ")")
+                                        .append("detector(" + detectorId + "),")
+                                        .append("evaluator(" + evaluatorId + "),")
+                                        .append("target(" + targetId + "),")
+                                        .append("norm_instance(" + normInstance + "),")
+                                        .append("sanction_instance(" + sanctionInstance + "),")
+                                        .append("cause(" + cause + "))")
                                         .toString();
   }
 }
