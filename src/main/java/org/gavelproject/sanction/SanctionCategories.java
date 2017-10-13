@@ -20,6 +20,9 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -77,6 +80,37 @@ public final class SanctionCategories {
       }
     }
     return builder.build();
+  }
+
+  /**
+   * Return a new {@link SanctionCategory} instance whose string representation is the given
+   * {@code in}.
+   * 
+   * @param in string to be parsed
+   * @return sanction category represented by the string argument if parsing succeeds; {@code null}
+   *         otherwise
+   * @throws IllegalArgumentException if string does not contain a parsable sanction category
+   * @throws NullPointerException if string is {@code null}
+   */
+  public static SanctionCategory tryParse(String in) {
+    Pattern pattern =
+        Pattern.compile("sanction_category\\\\s*(" + "\\s*purpose\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*issuer\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*locus\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*mode\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*polarity\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*discernability\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+    Matcher matcher = pattern.matcher(in);
+    matcher.find();
+    if (matcher.matches()) {
+      return builder().purpose(Enums.lookup(SanctionPurposeImpl.class, matcher.group(1)))
+                      .issuer(Enums.lookup(SanctionIssuerImpl.class, matcher.group(2)))
+                      .locus(Enums.lookup(SanctionLocusImpl.class, matcher.group(3)))
+                      .mode(Enums.lookup(SanctionModeImpl.class, matcher.group(4)))
+                      .polarity(Enums.lookup(SanctionPolarityImpl.class, matcher.group(5)))
+                      .discernability(
+                          Enums.lookup(SanctionDiscernabilityImpl.class, matcher.group(6)))
+                      .build();
+    }
+    return null;
   }
 
   /** Return a builder for {@link SanctionCategory}. */
