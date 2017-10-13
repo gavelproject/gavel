@@ -20,12 +20,12 @@
  *******************************************************************************/
 package gavel.api.sanction;
 
-import org.gavelproject.sanction.SanctionDiscernabilityImpl;
-import org.gavelproject.sanction.SanctionIssuerImpl;
-import org.gavelproject.sanction.SanctionLocusImpl;
-import org.gavelproject.sanction.SanctionModeImpl;
-import org.gavelproject.sanction.SanctionPolarityImpl;
-import org.gavelproject.sanction.SanctionPurposeImpl;
+import gavel.impl.sanction.SanctionDiscernabilityImpl;
+import gavel.impl.sanction.SanctionIssuerImpl;
+import gavel.impl.sanction.SanctionLocusImpl;
+import gavel.impl.sanction.SanctionModeImpl;
+import gavel.impl.sanction.SanctionPolarityImpl;
+import gavel.impl.sanction.SanctionPurposeImpl;
 
 public interface SanctionCategoryBuilder {
   /**

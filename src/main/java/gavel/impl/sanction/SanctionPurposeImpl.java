@@ -18,14 +18,14 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package org.gavelproject.sanction;
+package gavel.impl.sanction;
 
 /**
  * @author igorcadelima
  *
  */
-public enum SanctionLocusImpl {
-  SELF_DIRECTED, OTHER_DIRECTED;
+public enum SanctionPurposeImpl {
+  PUNISHMENT, REWARD, INCAPACITATION, GUIDANCE, ENABLEMENT;
 
   @Override
   public String toString() {

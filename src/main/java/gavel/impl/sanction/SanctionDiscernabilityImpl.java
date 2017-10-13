@@ -18,46 +18,17 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package org.gavelproject.sanction;
-
-import static org.gavelproject.sanction.SanctionDecisions.NAME;
-
-import gavel.api.common.Uuid;
-import gavel.api.norm.Norm;
-import gavel.api.sanction.Sanction;
-import gavel.api.sanction.SanctionDecision;
-import gavel.impl.common.UuidImpl;
-import lombok.Builder;
-import lombok.Value;
+package gavel.impl.sanction;
 
 /**
- * This class provides a basic implementation of the {@link SanctionDecision} interface.
- * 
  * @author igorcadelima
  *
  */
-@Builder(builderClassName = "Builder")
-@Value
-class SanctionDecisionImpl implements SanctionDecision {
-  Uuid id = UuidImpl.newInstance();
-  long time;
-  String detectorId;
-  String evaluatorId;
-  String targetId;
-  Norm normInstance;
-  Sanction sanctionInstance;
-  Cause cause;
+public enum SanctionDiscernabilityImpl {
+  NOTICEABLE, UNNOTICEABLE;
 
   @Override
   public String toString() {
-    return new StringBuilder(NAME + '(').append("id(" + id + "),")
-                                        .append("time(" + id + "),")
-                                        .append("detector(" + detectorId + "),")
-                                        .append("evaluator(" + evaluatorId + "),")
-                                        .append("target(" + targetId + "),")
-                                        .append("norm_instance(" + normInstance + "),")
-                                        .append("sanction_instance(" + sanctionInstance + "),")
-                                        .append("cause(" + cause + "))")
-                                        .toString();
+    return name().toLowerCase();
   }
 }

@@ -18,69 +18,46 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package org.gavelproject.sanction;
+package gavel.impl.sanction;
 
-import static org.gavelproject.sanction.Sanctions.NAME;
+import static gavel.impl.sanction.SanctionDecisions.NAME;
 
-import gavel.api.common.LogicalFormula;
-import gavel.api.common.Status;
+import gavel.api.common.Uuid;
+import gavel.api.norm.Norm;
 import gavel.api.sanction.Sanction;
-import gavel.api.sanction.SanctionBuilder;
-import gavel.api.sanction.SanctionCategory;
-import gavel.impl.common.StatusImpl;
-import lombok.AccessLevel;
+import gavel.api.sanction.SanctionDecision;
+import gavel.impl.common.UuidImpl;
 import lombok.Builder;
-import lombok.Builder.Default;
-import lombok.Data;
-import lombok.Setter;
+import lombok.Value;
 
 /**
- * This class provides a basic implementation of the {@link Sanction} interface.
+ * This class provides a basic implementation of the {@link SanctionDecision} interface.
  * 
  * @author igorcadelima
  *
  */
 @Builder(builderClassName = "Builder")
-@Data
-final class SanctionImpl implements Sanction {
-  private final String id;
-
-  @Default
-  @Setter(AccessLevel.NONE)
-  private Status status = StatusImpl.ENABLED;
-
-  private final LogicalFormula condition;
-  private final SanctionCategory category;
-  private final LogicalFormula content;
-
-  @Override
-  public boolean enable() {
-    if (status == StatusImpl.DISABLED) {
-      status = StatusImpl.ENABLED;
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public boolean disable() {
-    if (status == StatusImpl.ENABLED) {
-      status = StatusImpl.DISABLED;
-      return true;
-    }
-    return false;
-  }
+@Value
+class SanctionDecisionImpl implements SanctionDecision {
+  Uuid id = UuidImpl.newInstance();
+  long time;
+  String detectorId;
+  String evaluatorId;
+  String targetId;
+  Norm normInstance;
+  Sanction sanctionInstance;
+  Cause cause;
 
   @Override
   public String toString() {
     return new StringBuilder(NAME + '(').append("id(" + id + "),")
-                                        .append("status(" + status + "),")
-                                        .append("condition(" + condition + "),")
-                                        .append("category(" + category + "),")
-                                        .append(content + ")")
+                                        .append("time(" + id + "),")
+                                        .append("detector(" + detectorId + "),")
+                                        .append("evaluator(" + evaluatorId + "),")
+                                        .append("target(" + targetId + "),")
+                                        .append("norm_instance(" + normInstance + "),")
+                                        .append("sanction_instance(" + sanctionInstance + "),")
+                                        .append("cause(" + cause + "))")
                                         .toString();
-  }
-
-  public static final class Builder implements SanctionBuilder {
   }
 }
