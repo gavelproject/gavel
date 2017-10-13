@@ -30,7 +30,7 @@ import jason.asSyntax.parser.ParseException;
  * @author igorcadelima
  *
  */
-final class LogicalFormulas {
+public final class LogicalFormulas {
   private LogicalFormulas() {}
 
   /**
@@ -42,7 +42,7 @@ final class LogicalFormulas {
    * @throws IllegalArgumentException if string does not contain a parsable logical formula
    * @throws NullPointerException if string is {@code null}
    */
-  static LogicalFormula tryParse(String in) {
+  public static LogicalFormula tryParse(String in) {
     try {
       return new LogicalFormula() {
         private final jason.asSyntax.LogicalFormula formula = ASSyntax.parseFormula(in);
