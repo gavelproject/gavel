@@ -20,6 +20,9 @@
  *******************************************************************************/
 package org.gavelproject.sanction;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -86,6 +89,31 @@ public final class Sanctions {
       }
     }
     return builder.build();
+  }
+
+  /**
+   * Return a new {@link Sanction} instance whose string representation is the given {@code in}.
+   * 
+   * @param in string to be parsed
+   * @return sanction represented by the string argument if parsing succeeds; {@code null} otherwise
+   * @throws IllegalArgumentException if string does not contain a parsable sanction
+   * @throws NullPointerException if string is {@code null}
+   */
+  public static Sanction tryParse(String in) {
+    Pattern pattern = Pattern.compile("sanction\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*activation\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*category\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*content\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+    Matcher matcher = pattern.matcher(in);
+    matcher.find();
+    if (matcher.matches()) {
+      return builder().id(matcher.group(1))
+                      .status(Enums.lookup(StatusImpl.class, matcher.group(2)))
+                      .condition(LogicalFormulas.tryParse(matcher.group(3)))
+                      .category(SanctionCategories.tryParse(matcher.group(4)))
+                      .content(LogicalFormulas.tryParse(matcher.group(5)))
+                      .build();
+    }
+    return null;
   }
 
   /** Return a builder for {@link Sanction}. */
