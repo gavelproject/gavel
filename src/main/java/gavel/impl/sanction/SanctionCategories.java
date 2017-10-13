@@ -43,11 +43,11 @@ public final class SanctionCategories {
   private SanctionCategories() {}
 
   /**
-   * Return a new {@link SanctionCategoryImpl} object initialised to the value represented by the
+   * Return a new {@link SanctionCategory} object initialised to the value represented by the
    * specified {@code Element}.
    * 
    * @param el element to be parsed
-   * @return {@link SanctionCategoryImpl} object represented by {@code el}
+   * @return {@link SanctionCategory} object represented by {@code el}
    * @throws NullPointerException if element is {@code null}
    */
   public static SanctionCategory of(Element el) {
