@@ -22,12 +22,12 @@ package org.gavelproject.sanction;
 
 import static org.gavelproject.sanction.Sanctions.NAME;
 
+import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionBuilder;
 import gavel.api.sanction.SanctionCategory;
 import gavel.impl.common.StatusImpl;
-import jason.asSyntax.LogicalFormula;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Builder.Default;

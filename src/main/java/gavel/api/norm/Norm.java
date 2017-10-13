@@ -22,10 +22,9 @@ package gavel.api.norm;
 
 import java.util.Set;
 
-import gavel.api.common.Content;
+import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.sanction.Sanction;
-import jason.asSyntax.LogicalFormula;
 
 /**
  * @author igorcadelima
@@ -56,7 +55,7 @@ public interface Norm {
   /**
    * @return norm's content
    */
-  Content getContent();
+  LogicalFormula getContent();
 
   /**
    * @return sanctions associated with the norm

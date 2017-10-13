@@ -26,13 +26,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import gavel.api.common.Content;
+import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.norm.Norm;
 import gavel.api.norm.NormBuilder;
 import gavel.api.sanction.Sanction;
 import gavel.impl.common.StatusImpl;
-import jason.asSyntax.LogicalFormula;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Builder.Default;
@@ -51,7 +50,7 @@ final class NormImpl implements Norm {
 
   private final LogicalFormula condition;
   private final String issuer;
-  private final Content content;
+  private final LogicalFormula content;
 
   @Getter(AccessLevel.NONE)
   private final Map<String, Sanction> sanctions;

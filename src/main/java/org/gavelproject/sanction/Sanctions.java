@@ -28,8 +28,7 @@ import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionBuilder;
 import gavel.impl.common.StatusImpl;
 import gavel.impl.common.Enums;
-import jason.asSyntax.ASSyntax;
-import jason.asSyntax.parser.ParseException;
+import gavel.impl.common.LogicalFormulas;
 
 /**
  * Static utility methods pertaining to {@link Sanction} instances.
@@ -74,20 +73,16 @@ public final class Sanctions {
     for (int i = 0; i < props.getLength(); i++) {
       Node prop = props.item(i);
 
-      try {
-        switch (prop.getNodeName()) {
-          case "condition":
-            builder.condition(ASSyntax.parseFormula(prop.getTextContent()));
-            break;
-          case "category":
-            builder.category(SanctionCategories.of((Element) prop));
-            break;
-          case "content":
-            builder.content(ASSyntax.parseFormula(prop.getTextContent()));
-          default: // Ignore
-        }
-      } catch (ParseException e) {
-        e.printStackTrace();
+      switch (prop.getNodeName()) {
+        case "condition":
+          builder.condition(LogicalFormulas.tryParse(prop.getTextContent()));
+          break;
+        case "category":
+          builder.category(SanctionCategories.of((Element) prop));
+          break;
+        case "content":
+          builder.content(LogicalFormulas.tryParse(prop.getTextContent()));
+        default: // Ignore
       }
     }
     return builder.build();

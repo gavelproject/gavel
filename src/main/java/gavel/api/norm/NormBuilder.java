@@ -2,10 +2,9 @@ package gavel.api.norm;
 
 import java.util.Set;
 
-import gavel.api.common.Content;
+import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.sanction.Sanction;
-import jason.asSyntax.LogicalFormula;
 
 public interface NormBuilder {
   /**
@@ -46,7 +45,7 @@ public interface NormBuilder {
    * @param content norm's content
    * @return builder instance
    */
-  NormBuilder content(Content content);
+  NormBuilder content(LogicalFormula content);
 
   /**
    * Associate a sanction with the norm.

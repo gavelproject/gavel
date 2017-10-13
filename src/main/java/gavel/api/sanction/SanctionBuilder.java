@@ -1,7 +1,7 @@
 package gavel.api.sanction;
 
+import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
-import jason.asSyntax.LogicalFormula;
 
 public interface SanctionBuilder {
   /**

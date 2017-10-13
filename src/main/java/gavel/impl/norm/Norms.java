@@ -26,10 +26,8 @@ import java.util.regex.Pattern;
 import gavel.api.norm.Norm;
 import gavel.api.norm.NormBuilder;
 import gavel.impl.common.StatusImpl;
-import gavel.impl.common.Contents;
 import gavel.impl.common.Enums;
-import jason.asSyntax.ASSyntax;
-import jason.asSyntax.parser.ParseException;
+import gavel.impl.common.LogicalFormulas;
 
 /**
  * Static utility methods pertaining to {@link Norm} instances.
@@ -72,20 +70,14 @@ public final class Norms {
     Matcher matcher = pattern.matcher(norm);
     matcher.find();
     if (matcher.matches()) {
-      try {
-        return builder().id(matcher.group(1))
-                        .status(Enums.lookup(StatusImpl.class, matcher.group(2)))
-                        .condition(ASSyntax.parseFormula("condition(" + matcher.group(3) + ')'))
-                        .issuer(matcher.group(4))
-                        .content(Contents.tryParse(matcher.group(5)))
-                        .build();
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+      return builder().id(matcher.group(1))
+                      .status(Enums.lookup(StatusImpl.class, matcher.group(2)))
+                      .condition(LogicalFormulas.tryParse(matcher.group(3)))
+                      .issuer(matcher.group(4))
+                      .content(LogicalFormulas.tryParse(matcher.group(5)))
+                      .build();
     }
     throw new IllegalArgumentException("String does not contain a parsable norm");
-
   }
 
   /** Return a builder for {@link Norm}. */
