@@ -60,22 +60,22 @@ public final class SanctionCategories {
 
       switch (dimensionNode.getNodeName()) {
         case "purpose":
-          builder.purpose(Enums.lookup(SanctionPurposeImpl.class, dimension));
+          builder.purpose(Enums.lookup(DefaultSanctionPurpose.class, dimension));
           break;
         case "issuer":
-          builder.issuer(Enums.lookup(SanctionIssuerImpl.class, dimension));
+          builder.issuer(Enums.lookup(DefaultSanctionIssuer.class, dimension));
           break;
         case "locus":
-          builder.locus(Enums.lookup(SanctionLocusImpl.class, dimension));
+          builder.locus(Enums.lookup(DefaultSanctionLocus.class, dimension));
           break;
         case "mode":
-          builder.mode(Enums.lookup(SanctionModeImpl.class, dimension));
+          builder.mode(Enums.lookup(DefaultSanctionMode.class, dimension));
           break;
         case "polarity":
-          builder.polarity(Enums.lookup(SanctionPolarityImpl.class, dimension));
+          builder.polarity(Enums.lookup(DefaultSanctionPolarity.class, dimension));
           break;
         case "discernability":
-          builder.discernability(Enums.lookup(SanctionDiscernabilityImpl.class, dimension));
+          builder.discernability(Enums.lookup(DefaultSanctionDiscernability.class, dimension));
           break;
       }
     }
@@ -101,13 +101,13 @@ public final class SanctionCategories {
     Matcher matcher = pattern.matcher(in);
     matcher.find();
     if (matcher.matches()) {
-      return builder().purpose(Enums.lookup(SanctionPurposeImpl.class, matcher.group(1)))
-                      .issuer(Enums.lookup(SanctionIssuerImpl.class, matcher.group(2)))
-                      .locus(Enums.lookup(SanctionLocusImpl.class, matcher.group(3)))
-                      .mode(Enums.lookup(SanctionModeImpl.class, matcher.group(4)))
-                      .polarity(Enums.lookup(SanctionPolarityImpl.class, matcher.group(5)))
+      return builder().purpose(Enums.lookup(DefaultSanctionPurpose.class, matcher.group(1)))
+                      .issuer(Enums.lookup(DefaultSanctionIssuer.class, matcher.group(2)))
+                      .locus(Enums.lookup(DefaultSanctionLocus.class, matcher.group(3)))
+                      .mode(Enums.lookup(DefaultSanctionMode.class, matcher.group(4)))
+                      .polarity(Enums.lookup(DefaultSanctionPolarity.class, matcher.group(5)))
                       .discernability(
-                          Enums.lookup(SanctionDiscernabilityImpl.class, matcher.group(6)))
+                          Enums.lookup(DefaultSanctionDiscernability.class, matcher.group(6)))
                       .build();
     }
     return null;
@@ -115,6 +115,6 @@ public final class SanctionCategories {
 
   /** Return a builder for {@link SanctionCategory}. */
   public static SanctionCategoryBuilder builder() {
-    return new SanctionCategoryImpl.Builder();
+    return new DefaultSanctionCategory.Builder();
   }
 }

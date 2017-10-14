@@ -18,64 +18,40 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package gavel.base;
+package gavel.impl.sanction;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import static gavel.impl.sanction.Sanctions.NAME;
 
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
-import gavel.api.norm.Norm;
 import gavel.api.sanction.Sanction;
+import gavel.api.sanction.SanctionBuilder;
+import gavel.api.sanction.SanctionCategory;
 import gavel.impl.common.DefaultStatus;
-import gavel.impl.norm.Norms;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * This class provides a basic implementation of the {@link Sanction} interface.
+ * 
  * @author igorcadelima
  *
  */
+@Builder(builderClassName = "Builder")
 @Data
-@AllArgsConstructor
-public abstract class AbstractNorm implements Norm {
+final class DefaultSanction implements Sanction {
   private final String id;
 
+  @Default
   @Setter(AccessLevel.NONE)
   private Status status = DefaultStatus.ENABLED;
 
   private final LogicalFormula condition;
-  private final String issuer;
+  private final SanctionCategory category;
   private final LogicalFormula content;
-
-  @Getter(AccessLevel.NONE)
-  private final Map<String, Sanction> sanctions;
-
-  @Override
-  public Set<Sanction> getSanctions() {
-    return new HashSet<>(sanctions.values());
-  }
-
-  @Override
-  public Set<String> getSanctionIds() {
-    Set<String> sanctionIds = new HashSet<>();
-    getSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
-    return sanctionIds;
-  }
-
-  @Override
-  public boolean addSanction(Sanction sanction) {
-    return sanctions.putIfAbsent(sanction.getId(), sanction) != null;
-  }
-
-  @Override
-  public boolean removeSanction(String sanctionId) {
-    return sanctions.remove(sanctionId) != null;
-  }
 
   @Override
   public boolean enable() {
@@ -97,13 +73,14 @@ public abstract class AbstractNorm implements Norm {
 
   @Override
   public String toString() {
-    return new StringBuilder(Norms.getStructureName() + '(').append("id(" + id + "),")
-                                                            .append("status(" + status + "),")
-                                                            .append("condition(" + condition + "),")
-                                                            .append("issuer(" + issuer + "),")
-                                                            .append("content(" + content + "),")
-                                                            .append("sanction_ids("
-                                                                + getSanctionIds() + ")")
-                                                            .toString();
+    return new StringBuilder(NAME + '(').append("id(" + id + "),")
+                                        .append("status(" + status + "),")
+                                        .append("condition(" + condition + "),")
+                                        .append("category(" + category + "),")
+                                        .append(content + ")")
+                                        .toString();
+  }
+
+  static final class Builder implements SanctionBuilder {
   }
 }

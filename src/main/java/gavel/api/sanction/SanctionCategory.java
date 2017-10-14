@@ -20,41 +20,41 @@
  *******************************************************************************/
 package gavel.api.sanction;
 
-import gavel.impl.sanction.SanctionDiscernabilityImpl;
-import gavel.impl.sanction.SanctionIssuerImpl;
-import gavel.impl.sanction.SanctionLocusImpl;
-import gavel.impl.sanction.SanctionModeImpl;
-import gavel.impl.sanction.SanctionPolarityImpl;
-import gavel.impl.sanction.SanctionPurposeImpl;
+import gavel.impl.sanction.DefaultSanctionDiscernability;
+import gavel.impl.sanction.DefaultSanctionIssuer;
+import gavel.impl.sanction.DefaultSanctionLocus;
+import gavel.impl.sanction.DefaultSanctionMode;
+import gavel.impl.sanction.DefaultSanctionPolarity;
+import gavel.impl.sanction.DefaultSanctionPurpose;
 
 public interface SanctionCategory {
   /**
    * @return the purpose
    */
-  SanctionPurposeImpl getPurpose();
+  DefaultSanctionPurpose getPurpose();
 
   /**
    * @return the issuer
    */
-  SanctionIssuerImpl getIssuer();
+  DefaultSanctionIssuer getIssuer();
 
   /**
    * @return the locus
    */
-  SanctionLocusImpl getLocus();
+  DefaultSanctionLocus getLocus();
 
   /**
    * @return the mode
    */
-  SanctionModeImpl getMode();
+  DefaultSanctionMode getMode();
 
   /**
    * @return the polarity
    */
-  SanctionPolarityImpl getPolarity();
+  DefaultSanctionPolarity getPolarity();
 
   /**
    * @return the discernability
    */
-  SanctionDiscernabilityImpl getDiscernability();
+  DefaultSanctionDiscernability getDiscernability();
 }

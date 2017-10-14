@@ -29,7 +29,7 @@ import org.w3c.dom.NodeList;
 
 import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionBuilder;
-import gavel.impl.common.StatusImpl;
+import gavel.impl.common.DefaultStatus;
 import gavel.impl.common.Enums;
 import gavel.impl.common.LogicalFormulas;
 
@@ -70,7 +70,7 @@ public final class Sanctions {
   public static Sanction parse(Element el) {
     SanctionBuilder builder = builder();
     builder.id(el.getAttribute("id"))
-           .status(Enums.lookup(StatusImpl.class, el.getAttribute("status"), StatusImpl.ENABLED));
+           .status(Enums.lookup(DefaultStatus.class, el.getAttribute("status"), DefaultStatus.ENABLED));
 
     NodeList props = el.getChildNodes();
     for (int i = 0; i < props.getLength(); i++) {
@@ -107,7 +107,7 @@ public final class Sanctions {
     matcher.find();
     if (matcher.matches()) {
       return builder().id(matcher.group(1))
-                      .status(Enums.lookup(StatusImpl.class, matcher.group(2)))
+                      .status(Enums.lookup(DefaultStatus.class, matcher.group(2)))
                       .condition(LogicalFormulas.tryParse(matcher.group(3)))
                       .category(SanctionCategories.tryParse(matcher.group(4)))
                       .content(LogicalFormulas.tryParse(matcher.group(5)))
@@ -118,6 +118,6 @@ public final class Sanctions {
 
   /** Return a builder for {@link Sanction}. */
   public static SanctionBuilder builder() {
-    return new SanctionImpl.Builder();
+    return new DefaultSanction.Builder();
   }
 }

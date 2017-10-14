@@ -20,17 +20,17 @@
  *******************************************************************************/
 package gavel.impl.common;
 
-import gavel.api.common.LogicalFormula;
+import gavel.api.common.Status;
 
-final class LogicalFormulaImpl implements LogicalFormula {
-  private final jason.asSyntax.LogicalFormula formula;
-
-  LogicalFormulaImpl(jason.asSyntax.LogicalFormula formula) {
-    this.formula = formula;
-  }
-
+/**
+ * @author igorcadelima
+ *
+ */
+public enum DefaultStatus implements Status {
+  ENABLED, DISABLED;
+  
   @Override
   public String toString() {
-    return formula.toString();
+    return name().toLowerCase();
   }
 }

@@ -20,44 +20,15 @@
  *******************************************************************************/
 package gavel.impl.sanction;
 
-import static gavel.impl.sanction.SanctionDecisions.NAME;
-
-import gavel.api.common.Uuid;
-import gavel.api.norm.Norm;
-import gavel.api.sanction.Sanction;
-import gavel.api.sanction.SanctionDecision;
-import gavel.impl.common.UuidImpl;
-import lombok.Builder;
-import lombok.Value;
-
 /**
- * This class provides a basic implementation of the {@link SanctionDecision} interface.
- * 
  * @author igorcadelima
  *
  */
-@Builder(builderClassName = "Builder")
-@Value
-class SanctionDecisionImpl implements SanctionDecision {
-  Uuid id = UuidImpl.newInstance();
-  long time;
-  String detectorId;
-  String evaluatorId;
-  String targetId;
-  Norm normInstance;
-  Sanction sanctionInstance;
-  Cause cause;
+public enum DefaultSanctionDiscernability {
+  NOTICEABLE, UNNOTICEABLE;
 
   @Override
   public String toString() {
-    return new StringBuilder(NAME + '(').append("id(" + id + "),")
-                                        .append("time(" + id + "),")
-                                        .append("detector(" + detectorId + "),")
-                                        .append("evaluator(" + evaluatorId + "),")
-                                        .append("target(" + targetId + "),")
-                                        .append("norm_instance(" + normInstance + "),")
-                                        .append("sanction_instance(" + sanctionInstance + "),")
-                                        .append("cause(" + cause + "))")
-                                        .toString();
+    return name().toLowerCase();
   }
 }

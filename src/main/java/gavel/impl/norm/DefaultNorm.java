@@ -18,19 +18,40 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package gavel.impl.common;
+package gavel.impl.norm;
 
+import java.util.Map;
+import java.util.Set;
+
+import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
+import gavel.api.norm.NormBuilder;
+import gavel.api.sanction.Sanction;
+import gavel.base.AbstractNorm;
+import lombok.Builder;
 
-/**
- * @author igorcadelima
- *
- */
-public enum StatusImpl implements Status {
-  ENABLED, DISABLED;
-  
-  @Override
-  public String toString() {
-    return name().toLowerCase();
+final class DefaultNorm extends AbstractNorm {
+  @Builder
+  private DefaultNorm(String id, Status status, LogicalFormula condition, String issuer,
+      LogicalFormula content, Map<String, Sanction> sanctions) {
+    super(id, status, condition, issuer, content, sanctions);
+  }
+
+  static final class DefaultNormBuilder implements NormBuilder {
+    public DefaultNormBuilder sanction(Sanction sanction) {
+      sanctions.put(sanction.getId(), sanction);
+      return this;
+    }
+
+    public DefaultNormBuilder sanctions(Set<Sanction> sanctions) {
+      sanctions.forEach(sanction -> this.sanctions.putIfAbsent(sanction.getId(), sanction));
+      return this;
+    }
+
+    @Override
+    public DefaultNormBuilder clearSanctions() {
+      sanctions.clear();
+      return this;
+    }
   }
 }

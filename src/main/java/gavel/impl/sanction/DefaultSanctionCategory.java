@@ -20,67 +20,46 @@
  *******************************************************************************/
 package gavel.impl.sanction;
 
-import static gavel.impl.sanction.Sanctions.NAME;
+import static gavel.impl.sanction.SanctionCategories.NAME;
 
-import gavel.api.common.LogicalFormula;
-import gavel.api.common.Status;
-import gavel.api.sanction.Sanction;
-import gavel.api.sanction.SanctionBuilder;
 import gavel.api.sanction.SanctionCategory;
-import gavel.impl.common.StatusImpl;
-import lombok.AccessLevel;
+import gavel.api.sanction.SanctionCategoryBuilder;
 import lombok.Builder;
-import lombok.Builder.Default;
-import lombok.Data;
-import lombok.Setter;
+import lombok.Value;
 
 /**
- * This class provides a basic implementation of the {@link Sanction} interface.
- * 
  * @author igorcadelima
  *
  */
 @Builder(builderClassName = "Builder")
-@Data
-final class SanctionImpl implements Sanction {
-  private final String id;
-
-  @Default
-  @Setter(AccessLevel.NONE)
-  private Status status = StatusImpl.ENABLED;
-
-  private final LogicalFormula condition;
-  private final SanctionCategory category;
-  private final LogicalFormula content;
-
-  @Override
-  public boolean enable() {
-    if (status == StatusImpl.DISABLED) {
-      status = StatusImpl.ENABLED;
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public boolean disable() {
-    if (status == StatusImpl.ENABLED) {
-      status = StatusImpl.DISABLED;
-      return true;
-    }
-    return false;
-  }
+@Value
+class DefaultSanctionCategory implements SanctionCategory {
+  DefaultSanctionPurpose purpose;
+  DefaultSanctionIssuer issuer;
+  DefaultSanctionLocus locus;
+  DefaultSanctionMode mode;
+  DefaultSanctionPolarity polarity;
+  DefaultSanctionDiscernability discernability;
 
   @Override
   public String toString() {
-    return new StringBuilder(NAME + '(').append("id(" + id + "),")
-                                        .append("status(" + status + "),")
-                                        .append("condition(" + condition + "),")
-                                        .append("category(" + category + "),")
-                                        .append(content + ")")
-                                        .toString();
+    return new StringBuilder(NAME).append("discernability(")
+                                  .append(discernability)
+                                  .append("),issuer(")
+                                  .append(issuer)
+                                  .append("),locus(")
+                                  .append(locus)
+                                  .append("),mode(")
+                                  .append(mode)
+                                  .append("),polarity(")
+                                  .append(polarity)
+                                  .append("),purpose(")
+                                  .append(purpose)
+                                  .append(')')
+                                  .toString();
   }
 
-  static final class Builder implements SanctionBuilder {
+  public static final class Builder implements SanctionCategoryBuilder {
+
   }
 }

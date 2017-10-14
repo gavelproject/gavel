@@ -20,15 +20,19 @@
  *******************************************************************************/
 package gavel.impl.sanction;
 
+import gavel.api.common.Uuid;
+import gavel.base.sanction.AbstractSanctionApplication;
+
 /**
  * @author igorcadelima
  *
  */
-public enum SanctionIssuerImpl {
-  FORMAL, INFORMAL;
+final class DefaultSanctionApplication extends AbstractSanctionApplication {
+  private DefaultSanctionApplication(long time, Uuid decisionId, String executorId) {
+    super(time, decisionId, executorId);
+  }
 
-  @Override
-  public String toString() {
-    return name().toLowerCase();
+  static DefaultSanctionApplication of(long time, Uuid decisionId, String executorId) {
+    return new DefaultSanctionApplication(time, decisionId, executorId);
   }
 }

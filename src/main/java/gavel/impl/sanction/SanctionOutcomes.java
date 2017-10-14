@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 import gavel.api.sanction.SanctionOutcome;
 import gavel.impl.common.Enums;
-import gavel.impl.common.UuidImpl;
+import gavel.impl.common.DefaultUuid;
 
 /**
  * Static utility methods pertaining to {@link SanctionOutcome} instances.
@@ -53,9 +53,9 @@ public final class SanctionOutcomes {
     Matcher matcher = pattern.matcher(norm);
     matcher.find();
     if (matcher.matches()) {
-      return SanctionOutcomeImpl.builder()
+      return DefaultSanctionOutcome.builder()
                                 .time(Long.valueOf(matcher.group(2)))
-                                .applicationId(UuidImpl.parse(matcher.group(3)))
+                                .applicationId(DefaultUuid.parse(matcher.group(3)))
                                 .controllerId(matcher.group(4))
                                 .efficacy(
                                     Enums.lookup(DiscreteSanctionEfficacy.class, matcher.group(5)))

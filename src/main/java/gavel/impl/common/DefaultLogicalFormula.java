@@ -18,17 +18,19 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package gavel.impl.sanction;
+package gavel.impl.common;
 
-/**
- * @author igorcadelima
- *
- */
-public enum SanctionLocusImpl {
-  SELF_DIRECTED, OTHER_DIRECTED;
+import gavel.api.common.LogicalFormula;
+
+final class DefaultLogicalFormula implements LogicalFormula {
+  private final jason.asSyntax.LogicalFormula formula;
+
+  DefaultLogicalFormula(jason.asSyntax.LogicalFormula formula) {
+    this.formula = formula;
+  }
 
   @Override
   public String toString() {
-    return name().toLowerCase();
+    return formula.toString();
   }
 }

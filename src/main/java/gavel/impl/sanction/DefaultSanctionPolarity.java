@@ -24,7 +24,7 @@ package gavel.impl.sanction;
  * @author igorcadelima
  *
  */
-public enum SanctionPolarityImpl {
+public enum DefaultSanctionPolarity {
   POSITIVE, NEGATIVE;
 
   @Override

@@ -57,7 +57,7 @@ public final class SanctionDecisions {
         throw new IllegalArgumentException();
       }
 
-      return SanctionDecisionImpl.builder()
+      return DefaultSanctionDecision.builder()
                                  .time((long) ((NumberTerm) l.getTerm(1)).solve())
                                  .detectorId(l.getTerm(2)
                                               .toString())

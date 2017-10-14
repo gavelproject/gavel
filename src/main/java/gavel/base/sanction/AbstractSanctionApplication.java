@@ -22,7 +22,7 @@ package gavel.base.sanction;
 
 import gavel.api.common.Uuid;
 import gavel.api.sanction.SanctionApplication;
-import gavel.impl.common.UuidImpl;
+import gavel.impl.common.DefaultUuid;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractSanctionApplication implements SanctionApplication {
-  private final Uuid id = UuidImpl.newInstance();
+  private final Uuid id = DefaultUuid.newInstance();
   private final long time;
   private final Uuid decisionId;
   private final String executorId;

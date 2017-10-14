@@ -18,21 +18,22 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package gavel.impl.capability;
+package gavel.impl.sanction;
 
-import gavel.api.capability.Capability;
+import gavel.api.common.Uuid;
+import gavel.api.sanction.SanctionEfficacy;
+import gavel.api.sanction.SanctionOutcomeBuilder;
+import gavel.base.sanction.AbstractSanctionOutcome;
+import lombok.Builder;
 
-/**
- * An enum that contains the basic capabilities provided by the sanctioning mechanism.
- * 
- * @author igorcadelima
- *
- */
-public enum CapabilityImpl implements Capability {
-  DETECTOR, EVALUATOR, EXECUTOR, CONTROLLER, LEGISLATOR;
+class DefaultSanctionOutcome extends AbstractSanctionOutcome {
 
-  @Override
-  public String toString() {
-    return name().toLowerCase();
+  @Builder
+  private DefaultSanctionOutcome(long time, Uuid applicationId, String controllerId,
+      SanctionEfficacy efficacy) {
+    super(time, applicationId, controllerId, efficacy);
+  }
+
+  static final class DefaultSanctionOutcomeBuilder implements SanctionOutcomeBuilder {
   }
 }

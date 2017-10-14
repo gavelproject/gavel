@@ -20,20 +20,15 @@
  *******************************************************************************/
 package gavel.impl.sanction;
 
-import gavel.api.common.Uuid;
-import gavel.api.sanction.SanctionEfficacy;
-import gavel.api.sanction.SanctionOutcomeBuilder;
-import gavel.base.sanction.AbstractSanctionOutcome;
-import lombok.Builder;
+/**
+ * @author igorcadelima
+ *
+ */
+public enum DefaultSanctionLocus {
+  SELF_DIRECTED, OTHER_DIRECTED;
 
-class SanctionOutcomeImpl extends AbstractSanctionOutcome {
-
-  @Builder
-  private SanctionOutcomeImpl(long time, Uuid applicationId, String controllerId,
-      SanctionEfficacy efficacy) {
-    super(time, applicationId, controllerId, efficacy);
-  }
-
-  static final class SanctionOutcomeImplBuilder implements SanctionOutcomeBuilder {
+  @Override
+  public String toString() {
+    return name().toLowerCase();
   }
 }

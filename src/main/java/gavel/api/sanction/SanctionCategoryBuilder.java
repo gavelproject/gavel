@@ -20,43 +20,43 @@
  *******************************************************************************/
 package gavel.api.sanction;
 
-import gavel.impl.sanction.SanctionDiscernabilityImpl;
-import gavel.impl.sanction.SanctionIssuerImpl;
-import gavel.impl.sanction.SanctionLocusImpl;
-import gavel.impl.sanction.SanctionModeImpl;
-import gavel.impl.sanction.SanctionPolarityImpl;
-import gavel.impl.sanction.SanctionPurposeImpl;
+import gavel.impl.sanction.DefaultSanctionDiscernability;
+import gavel.impl.sanction.DefaultSanctionIssuer;
+import gavel.impl.sanction.DefaultSanctionLocus;
+import gavel.impl.sanction.DefaultSanctionMode;
+import gavel.impl.sanction.DefaultSanctionPolarity;
+import gavel.impl.sanction.DefaultSanctionPurpose;
 
 public interface SanctionCategoryBuilder {
   /**
    * @param purpose sanction purpose
    */
-  SanctionCategoryBuilder purpose(SanctionPurposeImpl purpose);
+  SanctionCategoryBuilder purpose(DefaultSanctionPurpose purpose);
 
   /**
    * @param issuer sanction issuer
    */
-  SanctionCategoryBuilder issuer(SanctionIssuerImpl issuer);
+  SanctionCategoryBuilder issuer(DefaultSanctionIssuer issuer);
 
   /**
    * @param locus sanction locus
    */
-  SanctionCategoryBuilder locus(SanctionLocusImpl locus);
+  SanctionCategoryBuilder locus(DefaultSanctionLocus locus);
 
   /**
    * @param mode sanction mode
    */
-  SanctionCategoryBuilder mode(SanctionModeImpl mode);
+  SanctionCategoryBuilder mode(DefaultSanctionMode mode);
 
   /**
    * @param polarity sanction polarity
    */
-  SanctionCategoryBuilder polarity(SanctionPolarityImpl polarity);
+  SanctionCategoryBuilder polarity(DefaultSanctionPolarity polarity);
 
   /**
    * @param discernability sanction discernability
    */
-  SanctionCategoryBuilder discernability(SanctionDiscernabilityImpl discernability);
+  SanctionCategoryBuilder discernability(DefaultSanctionDiscernability discernability);
 
   /**
    * Return a new {@link SanctionCategory} with the given properties.

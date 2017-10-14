@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 import gavel.api.common.Uuid;
 import gavel.api.sanction.SanctionApplication;
-import gavel.impl.common.UuidImpl;
+import gavel.impl.common.DefaultUuid;
 
 /**
  * Static utility methods pertaining to {@link SanctionApplication} instances.
@@ -37,7 +37,7 @@ public final class SanctionApplications {
   private SanctionApplications() {}
 
   public static SanctionApplication of(long time, Uuid decisionId, String executorId) {
-    return SanctionApplicationImpl.of(time, decisionId, executorId);
+    return DefaultSanctionApplication.of(time, decisionId, executorId);
   }
 
   /**
@@ -58,7 +58,7 @@ public final class SanctionApplications {
     Matcher matcher = pattern.matcher(norm);
     matcher.find();
     if (matcher.matches()) {
-      return of(Long.valueOf(matcher.group(2)), UuidImpl.parse(matcher.group(3)), matcher.group(4));
+      return of(Long.valueOf(matcher.group(2)), DefaultUuid.parse(matcher.group(3)), matcher.group(4));
     }
     return null;
   }

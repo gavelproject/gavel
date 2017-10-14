@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 import gavel.api.norm.Norm;
 import gavel.api.norm.NormBuilder;
-import gavel.impl.common.StatusImpl;
+import gavel.impl.common.DefaultStatus;
 import gavel.impl.common.Enums;
 import gavel.impl.common.LogicalFormulas;
 
@@ -74,7 +74,7 @@ public final class Norms {
     matcher.find();
     if (matcher.matches()) {
       return builder().id(matcher.group(1))
-                      .status(Enums.lookup(StatusImpl.class, matcher.group(2)))
+                      .status(Enums.lookup(DefaultStatus.class, matcher.group(2)))
                       .condition(LogicalFormulas.tryParse(matcher.group(3)))
                       .issuer(matcher.group(4))
                       .content(LogicalFormulas.tryParse(matcher.group(5)))
@@ -85,6 +85,6 @@ public final class Norms {
 
   /** Return a builder for {@link Norm}. */
   public static NormBuilder builder() {
-    return NormImpl.builder();
+    return DefaultNorm.builder();
   }
 }
