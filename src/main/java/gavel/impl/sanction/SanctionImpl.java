@@ -81,6 +81,6 @@ final class SanctionImpl implements Sanction {
                                         .toString();
   }
 
-  public static final class Builder implements SanctionBuilder {
+  static final class Builder implements SanctionBuilder {
   }
 }
