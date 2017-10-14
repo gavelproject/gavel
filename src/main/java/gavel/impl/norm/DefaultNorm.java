@@ -27,7 +27,7 @@ import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.norm.NormBuilder;
 import gavel.api.sanction.Sanction;
-import gavel.base.AbstractNorm;
+import gavel.base.norm.AbstractNorm;
 import lombok.Builder;
 
 final class DefaultNorm extends AbstractNorm {
