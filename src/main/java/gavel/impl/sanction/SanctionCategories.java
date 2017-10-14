@@ -38,9 +38,12 @@ import gavel.impl.common.Enums;
  *
  */
 public final class SanctionCategories {
-  static final String NAME = "category";
-
   private SanctionCategories() {}
+
+  /** Returns the name of the structure used to represent a sanction category. */
+  public static String getStructureName() {
+    return "category";
+  }
 
   /**
    * Return a new {@link SanctionCategory} object initialised to the value represented by the
@@ -115,6 +118,6 @@ public final class SanctionCategories {
 
   /** Return a builder for {@link SanctionCategory}. */
   public static SanctionCategoryBuilder builder() {
-    return new DefaultSanctionCategory.Builder();
+    return DefaultSanctionCategory.builder();
   }
 }

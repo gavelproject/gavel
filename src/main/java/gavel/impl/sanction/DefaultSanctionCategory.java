@@ -20,46 +20,23 @@
  *******************************************************************************/
 package gavel.impl.sanction;
 
-import static gavel.impl.sanction.SanctionCategories.NAME;
-
-import gavel.api.sanction.SanctionCategory;
 import gavel.api.sanction.SanctionCategoryBuilder;
+import gavel.base.sanction.AbstractSanctionCategory;
 import lombok.Builder;
-import lombok.Value;
 
 /**
  * @author igorcadelima
  *
  */
-@Builder(builderClassName = "Builder")
-@Value
-class DefaultSanctionCategory implements SanctionCategory {
-  DefaultSanctionPurpose purpose;
-  DefaultSanctionIssuer issuer;
-  DefaultSanctionLocus locus;
-  DefaultSanctionMode mode;
-  DefaultSanctionPolarity polarity;
-  DefaultSanctionDiscernability discernability;
-
-  @Override
-  public String toString() {
-    return new StringBuilder(NAME).append("discernability(")
-                                  .append(discernability)
-                                  .append("),issuer(")
-                                  .append(issuer)
-                                  .append("),locus(")
-                                  .append(locus)
-                                  .append("),mode(")
-                                  .append(mode)
-                                  .append("),polarity(")
-                                  .append(polarity)
-                                  .append("),purpose(")
-                                  .append(purpose)
-                                  .append(')')
-                                  .toString();
+class DefaultSanctionCategory extends AbstractSanctionCategory {
+  @Builder
+  private DefaultSanctionCategory(DefaultSanctionPurpose purpose, DefaultSanctionIssuer issuer,
+      DefaultSanctionLocus locus, DefaultSanctionMode mode, DefaultSanctionPolarity polarity,
+      DefaultSanctionDiscernability discernability) {
+    super(purpose, issuer, locus, mode, polarity, discernability);
   }
 
-  public static final class Builder implements SanctionCategoryBuilder {
+  static final class DefaultSanctionCategoryBuilder implements SanctionCategoryBuilder {
 
   }
 }
