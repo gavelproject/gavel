@@ -58,20 +58,20 @@ public final class SanctionDecisions {
       }
 
       return DefaultSanctionDecision.builder()
-                                 .time((long) ((NumberTerm) l.getTerm(1)).solve())
-                                 .detectorId(l.getTerm(2)
-                                              .toString())
-                                 .evaluatorId(l.getTerm(3)
+                                    .time((long) ((NumberTerm) l.getTerm(1)).solve())
+                                    .detectorId(l.getTerm(2)
+                                                 .toString())
+                                    .evaluatorId(l.getTerm(3)
+                                                  .toString())
+                                    .targetId(l.getTerm(4)
                                                .toString())
-                                 .targetId(l.getTerm(4)
-                                            .toString())
-                                 .normInstance(Norms.parse(l.getTerm(5)
-                                                            .toString()))
-                                 .sanctionInstance(Sanctions.tryParse(l.getTerm(6)
-                                                                       .toString()))
-                                 .cause(Enums.lookup(Cause.class, l.getTerm(7)
-                                                                   .toString()))
-                                 .build();
+                                    .normInstance(Norms.parse(l.getTerm(5)
+                                                               .toString()))
+                                    .sanctionInstance(Sanctions.tryParse(l.getTerm(6)
+                                                                          .toString()))
+                                    .cause(Enums.lookup(Cause.class, l.getTerm(7)
+                                                                      .toString()))
+                                    .build();
 
     } catch (Exception e) {
       throw new IllegalArgumentException("String does not contain a parsable sanction decision");

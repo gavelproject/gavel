@@ -18,29 +18,31 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *******************************************************************************/
-package gavel.impl.sanction;
+package gavel.base.sanction;
 
+import gavel.api.common.Uuid;
 import gavel.api.norm.Norm;
 import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionDecision;
-import gavel.api.sanction.SanctionDecisionBuilder;
-import gavel.base.sanction.AbstractSanctionDecision;
-import lombok.Builder;
+import gavel.impl.common.DefaultUuid;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
- * This class provides a basic implementation of the {@link SanctionDecision} interface.
- * 
  * @author igorcadelima
  *
  */
-class DefaultSanctionDecision extends AbstractSanctionDecision {
-  @Builder
-  private DefaultSanctionDecision(long time, String detectorId, String evaluatorId, String targetId,
-      Norm normInstance, Sanction sanctionInstance, Cause cause) {
-    super(time, detectorId, evaluatorId, targetId, normInstance, sanctionInstance, cause);
-  }
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+public abstract class AbstractSanctionDecision implements SanctionDecision {
 
-  static final class DefaultSanctionDecisionBuilder implements SanctionDecisionBuilder {
-
-  }
+  private final Uuid id = DefaultUuid.newInstance();
+  private final long time;
+  private final String detectorId;
+  private final String evaluatorId;
+  private final String targetId;
+  private final Norm normInstance;
+  private final Sanction sanctionInstance;
+  private final Cause cause;
 }
