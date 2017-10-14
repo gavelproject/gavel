@@ -36,7 +36,7 @@ import lombok.Setter;
  *
  */
 @Data
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractSanction implements Sanction {
   private final String id;
 

@@ -41,7 +41,7 @@ import lombok.Setter;
  *
  */
 @Data
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractNorm implements Norm {
   private final String id;
 

@@ -26,17 +26,16 @@ import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionDecision;
 import gavel.impl.common.DefaultUuid;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author igorcadelima
  *
  */
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@Data
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractSanctionDecision implements SanctionDecision {
-
   private final Uuid id = DefaultUuid.newInstance();
   private final long time;
   private final String detectorId;
