@@ -20,6 +20,12 @@
  *******************************************************************************/
 package gavel.api.capability;
 
+/**
+ * Annotation interface for capability.
+ * 
+ * @author igorcadelima
+ *
+ */
 public interface Capability {
 
 }

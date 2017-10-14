@@ -20,105 +20,36 @@
  *******************************************************************************/
 package gavel.impl.norm;
 
-import static gavel.impl.norm.Norms.NAME;
-
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
-import gavel.api.norm.Norm;
 import gavel.api.norm.NormBuilder;
 import gavel.api.sanction.Sanction;
-import gavel.impl.common.StatusImpl;
-import lombok.AccessLevel;
+import gavel.base.AbstractNorm;
 import lombok.Builder;
-import lombok.Builder.Default;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Builder(builderClassName = "Builder")
-@Data
-final class NormImpl implements Norm {
-  private final String id;
-
-  @Default
-  @Setter(AccessLevel.NONE)
-  private Status status = StatusImpl.ENABLED;
-
-  private final LogicalFormula condition;
-  private final String issuer;
-  private final LogicalFormula content;
-
-  @Getter(AccessLevel.NONE)
-  private final Map<String, Sanction> sanctions;
-
-  @Override
-  public Set<Sanction> getSanctions() {
-    return new HashSet<>(sanctions.values());
+final class NormImpl extends AbstractNorm {
+  @Builder
+  private NormImpl(String id, Status status, LogicalFormula condition, String issuer,
+      LogicalFormula content, Map<String, Sanction> sanctions) {
+    super(id, status, condition, issuer, content, sanctions);
   }
 
-  @Override
-  public Set<String> getSanctionIds() {
-    Set<String> sanctionIds = new HashSet<>();
-    getSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
-    return sanctionIds;
-  }
-
-  @Override
-  public boolean addSanction(Sanction sanction) {
-    return sanctions.putIfAbsent(sanction.getId(), sanction) != null;
-  }
-
-  @Override
-  public boolean removeSanction(String sanctionId) {
-    return sanctions.remove(sanctionId) != null;
-  }
-
-  @Override
-  public boolean enable() {
-    if (status == StatusImpl.DISABLED) {
-      status = StatusImpl.ENABLED;
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public boolean disable() {
-    if (status == StatusImpl.ENABLED) {
-      status = StatusImpl.DISABLED;
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public String toString() {
-    return new StringBuilder(NAME + '(').append("id(" + id + "),")
-                                        .append("status(" + status + "),")
-                                        .append("condition(" + condition + "),")
-                                        .append("issuer(" + issuer + "),")
-                                        .append("content(" + content + "),")
-                                        .append("sanction_ids(" + getSanctionIds() + ")")
-                                        .toString();
-  }
-
-  public static final class Builder implements NormBuilder {
-    public Builder sanction(Sanction sanction) {
+  static final class NormImplBuilder implements NormBuilder {
+    public NormImplBuilder sanction(Sanction sanction) {
       sanctions.put(sanction.getId(), sanction);
       return this;
     }
 
-    public Builder sanctions(Set<Sanction> sanctions) {
+    public NormImplBuilder sanctions(Set<Sanction> sanctions) {
       sanctions.forEach(sanction -> this.sanctions.putIfAbsent(sanction.getId(), sanction));
       return this;
     }
 
     @Override
-    public NormBuilder clearSanctions() {
+    public NormImplBuilder clearSanctions() {
       sanctions.clear();
       return this;
     }

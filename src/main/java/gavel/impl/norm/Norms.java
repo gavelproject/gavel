@@ -36,9 +36,12 @@ import gavel.impl.common.LogicalFormulas;
  *
  */
 public final class Norms {
-  static final String NAME = "norm";
-
   private Norms() {}
+
+  /** Returns the name of the structure used to represent a norm. */
+  public static String getStructureName() {
+    return "norm";
+  }
 
   /**
    * Return a copy of the given norm.
@@ -82,6 +85,6 @@ public final class Norms {
 
   /** Return a builder for {@link Norm}. */
   public static NormBuilder builder() {
-    return new NormImpl.Builder();
+    return NormImpl.builder();
   }
 }
