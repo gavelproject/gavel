@@ -40,9 +40,12 @@ import gavel.impl.common.LogicalFormulas;
  *
  */
 public final class Sanctions {
-  static final String NAME = "sanction";
-
   private Sanctions() {}
+
+  /** Returns the name of the structure used to represent a sanction. */
+  public static String getStructureName() {
+    return "sanction";
+  }
 
   /**
    * Return a copy of the given sanction.
@@ -70,7 +73,8 @@ public final class Sanctions {
   public static Sanction parse(Element el) {
     SanctionBuilder builder = builder();
     builder.id(el.getAttribute("id"))
-           .status(Enums.lookup(DefaultStatus.class, el.getAttribute("status"), DefaultStatus.ENABLED));
+           .status(
+               Enums.lookup(DefaultStatus.class, el.getAttribute("status"), DefaultStatus.ENABLED));
 
     NodeList props = el.getChildNodes();
     for (int i = 0; i < props.getLength(); i++) {
@@ -118,6 +122,6 @@ public final class Sanctions {
 
   /** Return a builder for {@link Sanction}. */
   public static SanctionBuilder builder() {
-    return new DefaultSanction.Builder();
+    return DefaultSanction.builder();
   }
 }

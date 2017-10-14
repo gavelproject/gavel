@@ -20,19 +20,13 @@
  *******************************************************************************/
 package gavel.impl.sanction;
 
-import static gavel.impl.sanction.Sanctions.NAME;
-
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionBuilder;
 import gavel.api.sanction.SanctionCategory;
-import gavel.impl.common.DefaultStatus;
-import lombok.AccessLevel;
+import gavel.base.sanction.AbstractSanction;
 import lombok.Builder;
-import lombok.Builder.Default;
-import lombok.Data;
-import lombok.Setter;
 
 /**
  * This class provides a basic implementation of the {@link Sanction} interface.
@@ -40,47 +34,13 @@ import lombok.Setter;
  * @author igorcadelima
  *
  */
-@Builder(builderClassName = "Builder")
-@Data
-final class DefaultSanction implements Sanction {
-  private final String id;
-
-  @Default
-  @Setter(AccessLevel.NONE)
-  private Status status = DefaultStatus.ENABLED;
-
-  private final LogicalFormula condition;
-  private final SanctionCategory category;
-  private final LogicalFormula content;
-
-  @Override
-  public boolean enable() {
-    if (status == DefaultStatus.DISABLED) {
-      status = DefaultStatus.ENABLED;
-      return true;
-    }
-    return false;
+final class DefaultSanction extends AbstractSanction {
+  @Builder
+  DefaultSanction(String id, Status status, LogicalFormula condition, SanctionCategory category,
+      LogicalFormula content) {
+    super(id, status, condition, category, content);
   }
 
-  @Override
-  public boolean disable() {
-    if (status == DefaultStatus.ENABLED) {
-      status = DefaultStatus.DISABLED;
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public String toString() {
-    return new StringBuilder(NAME + '(').append("id(" + id + "),")
-                                        .append("status(" + status + "),")
-                                        .append("condition(" + condition + "),")
-                                        .append("category(" + category + "),")
-                                        .append(content + ")")
-                                        .toString();
-  }
-
-  static final class Builder implements SanctionBuilder {
+  static final class DefaultSanctionBuilder implements SanctionBuilder {
   }
 }
