@@ -31,10 +31,12 @@ import gavel.base.norm.AbstractNorm;
 import lombok.Builder;
 
 final class DefaultNorm extends AbstractNorm {
+
   @Builder
-  private DefaultNorm(String id, Status status, LogicalFormula condition, String issuer,
-      LogicalFormula content, Map<String, Sanction> sanctions) {
-    super(id, status, condition, issuer, content, sanctions);
+  private DefaultNorm(String id, Status status, LogicalFormula activation, String issuer,
+      String target, LogicalFormula deactivation, LogicalFormula deadline, LogicalFormula content,
+      Map<String, Sanction> sanctions) {
+    super(id, status, activation, issuer, target, deactivation, deadline, content, sanctions);
   }
 
   static final class DefaultNormBuilder implements NormBuilder {

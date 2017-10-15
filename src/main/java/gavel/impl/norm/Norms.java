@@ -52,8 +52,11 @@ public final class Norms {
   public static Norm newInstance(Norm norm) {
     return builder().id(norm.getId())
                     .status(norm.getStatus())
+                    .activation(norm.getActivation())
                     .issuer(norm.getIssuer())
-                    .condition(norm.getCondition())
+                    .target(norm.getTarget())
+                    .deactivation(norm.getDeactivation())
+                    .deadline(norm.getDeadline())
                     .content(norm.getContent())
                     .build();
   }
@@ -67,16 +70,21 @@ public final class Norms {
    * @throws NullPointerException if string is {@code null}
    */
   public static Norm parse(String norm) {
-    Pattern pattern = Pattern.compile("norm\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
-        + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*condition\\s*\\(\\s*(\\w+)\\s*\\),"
-        + "\\s*issuer\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*content\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+    Pattern pattern = Pattern.compile(
+        "norm\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*activation\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*issuer\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*target\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*deactivation\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*deadline\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*content\\s*\\(\\s*(\\w+)\\s*\\)\\)");
     Matcher matcher = pattern.matcher(norm);
     matcher.find();
     if (matcher.matches()) {
       return builder().id(matcher.group(1))
                       .status(Enums.lookup(DefaultStatus.class, matcher.group(2)))
-                      .condition(LogicalFormulas.tryParse(matcher.group(3)))
+                      .activation(LogicalFormulas.tryParse(matcher.group(3)))
                       .issuer(matcher.group(4))
+                      .target(matcher.group(5))
+                      .deactivation(LogicalFormulas.tryParse(matcher.group(6)))
+                      .deadline(LogicalFormulas.tryParse(matcher.group(7)))
                       .content(LogicalFormulas.tryParse(matcher.group(5)))
                       .build();
     }

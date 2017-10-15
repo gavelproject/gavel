@@ -45,12 +45,27 @@ public interface Norm {
   /**
    * @return norm's activation condition
    */
-  LogicalFormula getCondition();
+  LogicalFormula getActivation();
 
   /**
-   * @return norm issuer's name
+   * @return norm issuer's identifier
    */
   String getIssuer();
+  
+  /**
+   * @return norm target's identifier
+   */
+  String getTarget();
+  
+  /**
+   * @return norm's deactivation condition
+   */
+  LogicalFormula getDeactivation();
+  
+  /**
+   * @return norm's deadline condition
+   */
+  LogicalFormula getDeadline();
 
   /**
    * @return norm's content

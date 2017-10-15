@@ -20,6 +20,8 @@
  *******************************************************************************/
 package gavel.base.norm;
 
+import static gavel.impl.norm.Norms.getStructureName;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +31,6 @@ import gavel.api.common.Status;
 import gavel.api.norm.Norm;
 import gavel.api.sanction.Sanction;
 import gavel.impl.common.DefaultStatus;
-import gavel.impl.norm.Norms;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,8 +49,11 @@ public abstract class AbstractNorm implements Norm {
   @Setter(AccessLevel.NONE)
   private Status status = DefaultStatus.ENABLED;
 
-  private final LogicalFormula condition;
+  private final LogicalFormula activation;
   private final String issuer;
+  private final String target;
+  private final LogicalFormula deactivation;
+  private final LogicalFormula deadline;
   private final LogicalFormula content;
 
   @Getter(AccessLevel.NONE)
@@ -97,13 +101,16 @@ public abstract class AbstractNorm implements Norm {
 
   @Override
   public String toString() {
-    return new StringBuilder(Norms.getStructureName() + '(').append("id(" + id + "),")
-                                                            .append("status(" + status + "),")
-                                                            .append("condition(" + condition + "),")
-                                                            .append("issuer(" + issuer + "),")
-                                                            .append("content(" + content + "),")
-                                                            .append("sanction_ids("
-                                                                + getSanctionIds() + ")")
-                                                            .toString();
+    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+                                                      .append("status(" + status + "),")
+                                                      .append("activation(" + activation + "),")
+                                                      .append("issuer(" + issuer + "),")
+                                                      .append("target(" + target + "),")
+                                                      .append("deactivation(" + deactivation + "),")
+                                                      .append("deadline(" + deadline + "),")
+                                                      .append("content(" + content + "),")
+                                                      .append(
+                                                          "sanction_ids(" + getSanctionIds() + ")")
+                                                      .toString();
   }
 }
