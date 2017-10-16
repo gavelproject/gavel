@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:rambos="https://github.com/igorcadelima/rambos"
+	targetNamespace="https://github.com/igorcadelima/rambos"
+	elementFormDefault="qualified">
+
+	<xsd:element name="regulative-spec" type="rambos:regulative-spec" />
+	<xsd:complexType name="regulative-spec">
+		<xsd:sequence>
+			<xsd:element name="norms" minOccurs="0" maxOccurs="1"
+				type="rambos:norms" />
+			<xsd:element name="sanctions" minOccurs="0" maxOccurs="1"
+				type="rambos:sanctions" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="norms">
+		<xsd:sequence>
+			<xsd:element name="norm" minOccurs="0" maxOccurs="unbounded"
+				type="rambos:norm" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="norm">
+		<xsd:sequence>
+			<xsd:element name="activation" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="issuer" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="target" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="deactivation" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="deadline" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="content" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string" use="required" />
+		<xsd:attribute name="status" type="rambos:status"
+			default="enabled" />
+	</xsd:complexType>
+	<xsd:simpleType name="status">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="enabled" />
+			<xsd:enumeration value="disabled" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="sanctions">
+		<xsd:sequence>
+			<xsd:element name="sanction" minOccurs="0" maxOccurs="unbounded"
+				type="rambos:sanction" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sanction">
+		<xsd:sequence>
+			<xsd:element name="condition" minOccurs="0" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="category" minOccurs="1" maxOccurs="1"
+				type="rambos:sanctionCategory">
+			</xsd:element>
+			<xsd:element name="content" minOccurs="1" maxOccurs="1"
+				type="xsd:string">
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string" use="required" />
+		<xsd:attribute name="status" type="rambos:status"
+			default="enabled" />
+	</xsd:complexType>
+
+	<xsd:complexType name="sanctionCategory">
+		<xsd:sequence>
+			<xsd:element name="purpose" minOccurs="1" maxOccurs="1"
+				type="rambos:purpose" />
+			<xsd:element name="issuer" minOccurs="1" maxOccurs="1"
+				type="rambos:issuer" />
+			<xsd:element name="locus" minOccurs="1" maxOccurs="1"
+				type="rambos:locus" />
+			<xsd:element name="mode" minOccurs="1" maxOccurs="1"
+				type="rambos:mode" />
+			<xsd:element name="polarity" minOccurs="1" maxOccurs="1"
+				type="rambos:polarity" />
+			<xsd:element name="discernability" minOccurs="1"
+				maxOccurs="1" type="rambos:discernability" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="purpose">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="punishment" />
+			<xsd:enumeration value="reward" />
+			<xsd:enumeration value="incapacitation" />
+			<xsd:enumeration value="guidance" />
+			<xsd:enumeration value="enablement" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="issuer">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="formal" />
+			<xsd:enumeration value="informal" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="locus">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="self_directed" />
+			<xsd:enumeration value="other_directed" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="mode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="direct" />
+			<xsd:enumeration value="indeirect" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="polarity">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="positive" />
+			<xsd:enumeration value="negative" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="discernability">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="noticeable" />
+			<xsd:enumeration value="unnoticeable" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="ns-links">
+		<xsd:sequence>
+			<xsd:element name="ns-link" minOccurs="1" maxOccurs="unbounded"
+				type="rambos:nsLink" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="nsLink">
+		<xsd:sequence>
+			<xsd:element name="nid" minOccurs="1" maxOccurs="1"
+				type="xsd:string" />
+			<xsd:element name="sid" minOccurs="1" maxOccurs="1"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="status" type="rambos:status"
+			default="enabled" />
+	</xsd:complexType>
+</xsd:schema>
