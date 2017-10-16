@@ -110,7 +110,7 @@ public abstract class AbstractNorm implements Norm {
                                                       .append("deadline(" + deadline + "),")
                                                       .append("content(" + content + "),")
                                                       .append(
-                                                          "sanction_ids(" + getSanctionIds() + ")")
+                                                          "sanction_ids(" + getSanctionIds() + "))")
                                                       .toString();
   }
 }
