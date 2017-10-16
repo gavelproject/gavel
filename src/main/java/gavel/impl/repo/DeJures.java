@@ -56,6 +56,11 @@ public final class DeJures {
 
   private DeJures() {}
 
+  /** Creates and returns a new De Jure repository. */
+  public static DeJure of() {
+    return new InMemDeJure();
+  }
+
   /** Return a De Jure instance based on the {@code regulativeSpec} file. */
   public static DeJure fromSpecFile(String regulativeSpec) {
     try {
