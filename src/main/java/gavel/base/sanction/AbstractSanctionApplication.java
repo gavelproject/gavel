@@ -20,6 +20,8 @@
  *******************************************************************************/
 package gavel.base.sanction;
 
+import static gavel.impl.sanction.SanctionApplications.getStructureName;
+
 import gavel.api.common.Uuid;
 import gavel.api.sanction.SanctionApplication;
 import gavel.impl.common.DefaultUuid;
@@ -38,4 +40,13 @@ public abstract class AbstractSanctionApplication implements SanctionApplication
   private final long time;
   private final Uuid decisionId;
   private final String executorId;
+
+  @Override
+  public String toString() {
+    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+                                                      .append("time(" + time + "),")
+                                                      .append("decision(" + decisionId + "),")
+                                                      .append("executor(" + executorId + "))")
+                                                      .toString();
+  }
 }
