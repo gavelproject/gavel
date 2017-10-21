@@ -20,6 +20,8 @@
  *******************************************************************************/
 package gavel.base.sanction;
 
+import static gavel.impl.sanction.SanctionDecisions.getStructureName;
+
 import gavel.api.common.Uuid;
 import gavel.api.norm.Norm;
 import gavel.api.sanction.Sanction;
@@ -44,4 +46,17 @@ public abstract class AbstractSanctionDecision implements SanctionDecision {
   private final Norm normInstance;
   private final Sanction sanctionInstance;
   private final Cause cause;
+
+  @Override
+  public String toString() {
+    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+                                                      .append("time(" + time + "),")
+                                                      .append("detector(" + detectorId + "),")
+                                                      .append("evaluator(" + evaluatorId + "),")
+                                                      .append("target(" + targetId + "),")
+                                                      .append(normInstance.toString() + ",")
+                                                      .append(sanctionInstance.toString() + ",")
+                                                      .append("cause(" + cause + "))")
+                                                      .toString();
+  }
 }
