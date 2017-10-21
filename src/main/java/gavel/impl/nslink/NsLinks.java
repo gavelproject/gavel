@@ -23,8 +23,8 @@ package gavel.impl.nslink;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import gavel.api.common.Status;
 import gavel.api.nslink.NsLink;
-import gavel.api.nslink.NsLinkBuilder;
 import gavel.impl.common.DefaultStatus;
 import gavel.impl.common.Enums;
 
@@ -42,6 +42,14 @@ public final class NsLinks {
     return "nslink";
   }
 
+  public static NsLink of(String normId, String sanctionId) {
+    return new DefaultNsLink(normId, sanctionId);
+  }
+
+  public static NsLink of(Status status, String normId, String sanctionId) {
+    return new DefaultNsLink(status, normId, sanctionId);
+  }
+
   /**
    * Return a new {@link NsLink} instance whose string representation is the given {@code in}.
    * 
@@ -57,16 +65,9 @@ public final class NsLinks {
     Matcher matcher = pattern.matcher(in);
     matcher.find();
     if (matcher.matches()) {
-      return builder().status(Enums.lookup(DefaultStatus.class, matcher.group(1)))
-                      .normId(matcher.group(2))
-                      .sanctionId(matcher.group(3))
-                      .build();
+      return of(Enums.lookup(DefaultStatus.class, matcher.group(1)), matcher.group(2),
+          matcher.group(3));
     }
     return null;
-  }
-
-  /** Return a builder for {@link NsLink}. */
-  public static NsLinkBuilder builder() {
-    return DefaultNsLink.builder();
   }
 }

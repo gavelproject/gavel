@@ -21,20 +21,18 @@
 package gavel.impl.nslink;
 
 import gavel.api.common.Status;
-import gavel.api.nslink.NsLinkBuilder;
 import gavel.base.nslink.AbstractNsLink;
-import lombok.Builder;
 
 /**
  * @author igorcadelima
  *
  */
 final class DefaultNsLink extends AbstractNsLink {
-  @Builder
-  private DefaultNsLink(Status status, String normId, String sanctionId) {
-    super(status, normId, sanctionId);
+  DefaultNsLink(String normId, String sanctionId) {
+    super(normId, sanctionId);
   }
 
-  static final class DefaultNsLinkBuilder implements NsLinkBuilder {
+  DefaultNsLink(Status status, String normId, String sanctionId) {
+    super(status, normId, sanctionId);
   }
 }

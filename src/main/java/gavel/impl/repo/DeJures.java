@@ -134,10 +134,7 @@ public final class DeJures {
       sanctionIdEls.forEach(sanctionIdEl -> {
         String sanctionId = sanctionIdEl.getTextContent();
         String normId = ((Element) linkedSanctionsNode.getParentNode()).getAttribute("id");
-        deJure.addNsLink(NsLinks.builder()
-                                .normId(normId)
-                                .sanctionId(sanctionId)
-                                .build());
+        deJure.addNsLink(NsLinks.of(normId, sanctionId));
       });
     }
   }

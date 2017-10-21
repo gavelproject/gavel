@@ -28,6 +28,7 @@ import gavel.impl.common.DefaultStatus;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -36,6 +37,7 @@ import lombok.Setter;
  */
 @Data
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractNsLink implements NsLink {
   @Setter(AccessLevel.NONE)
   private Status status = DefaultStatus.ENABLED;
