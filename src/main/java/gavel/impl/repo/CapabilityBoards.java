@@ -20,21 +20,56 @@
  *******************************************************************************/
 package gavel.impl.repo;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import gavel.api.repo.CapabilityBoard;
+import gavel.impl.capability.DefaultCapability;
 
 /**
  * @author igorcadelima
  *
  */
 public final class CapabilityBoards {
+  private static final String SCHEMA_PATH = "/xsd/capability-assignment-spec.xsd";
+
   private CapabilityBoards() {}
-  
+
   public static CapabilityBoard of() {
     return new InMemCapabilityBoard();
   }
-  
+
   public static CapabilityBoard fromFile(String file) {
-    // TODO
+    try {
+      Document specDoc = Documents.parseDocument(file, SCHEMA_PATH);
+      CapabilityBoard board = of();
+      loadAssignments(specDoc, board);
+      return board;
+    } catch (ParserConfigurationException | SAXException | IOException e) {
+      e.printStackTrace();
+    }
     return null;
+  }
+
+  private static void loadAssignments(Document specDoc, CapabilityBoard board) {
+    for (DefaultCapability c : DefaultCapability.values()) {
+      Node capabilityEl = specDoc.getElementsByTagName(c.toString())
+                                 .item(0);
+
+      NodeList agents = capabilityEl.getChildNodes();
+      for (int i = 0; i < agents.getLength(); i++) {
+        Node agent = agents.item(i);
+        if (agent.getNodeName()
+                 .equals(c.toString())) {
+          board.registerAg(agent.getTextContent(), c);
+        }
+      }
+    }
   }
 }
