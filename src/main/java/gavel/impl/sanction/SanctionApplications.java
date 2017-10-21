@@ -36,6 +36,11 @@ import gavel.impl.common.DefaultUuid;
 public final class SanctionApplications {
   private SanctionApplications() {}
 
+  /** Returns the name of the structure used to represent a sanction application. */
+  public static String getStructureName() {
+    return "sanction_application";
+  }
+
   public static SanctionApplication of(long time, Uuid decisionId, String executorId) {
     return DefaultSanctionApplication.of(time, decisionId, executorId);
   }
@@ -58,7 +63,8 @@ public final class SanctionApplications {
     Matcher matcher = pattern.matcher(norm);
     matcher.find();
     if (matcher.matches()) {
-      return of(Long.valueOf(matcher.group(2)), DefaultUuid.parse(matcher.group(3)), matcher.group(4));
+      return of(Long.valueOf(matcher.group(2)), DefaultUuid.parse(matcher.group(3)),
+          matcher.group(4));
     }
     return null;
   }
