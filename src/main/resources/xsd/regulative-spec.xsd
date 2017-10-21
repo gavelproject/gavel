@@ -13,6 +13,8 @@
 				type="gavel:norms" />
 			<xsd:element name="sanctions" minOccurs="0" maxOccurs="1"
 				type="gavel:sanctions" />
+			<xsd:element name="ns-links" minOccurs="0" maxOccurs="1"
+				type="gavel:ns-links" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="norms">
