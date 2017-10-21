@@ -36,6 +36,11 @@ import gavel.impl.common.DefaultUuid;
 public final class SanctionOutcomes {
   private SanctionOutcomes() {}
 
+  /** Returns the name of the structure used to represent a sanction outcome. */
+  public static String getStructureName() {
+    return "sanction_outcome";
+  }
+
   /**
    * Return a new {@link SanctionOutcome} instance whose string representation is the given
    * {@code in}.
@@ -54,12 +59,12 @@ public final class SanctionOutcomes {
     matcher.find();
     if (matcher.matches()) {
       return DefaultSanctionOutcome.builder()
-                                .time(Long.valueOf(matcher.group(2)))
-                                .applicationId(DefaultUuid.parse(matcher.group(3)))
-                                .controllerId(matcher.group(4))
-                                .efficacy(
-                                    Enums.lookup(DiscreteSanctionEfficacy.class, matcher.group(5)))
-                                .build();
+                                   .time(Long.valueOf(matcher.group(2)))
+                                   .applicationId(DefaultUuid.parse(matcher.group(3)))
+                                   .controllerId(matcher.group(4))
+                                   .efficacy(Enums.lookup(DiscreteSanctionEfficacy.class,
+                                       matcher.group(5)))
+                                   .build();
     }
     return null;
   }
