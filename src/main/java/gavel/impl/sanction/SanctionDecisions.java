@@ -39,6 +39,11 @@ public final class SanctionDecisions {
 
   private SanctionDecisions() {}
 
+  /** Returns the name of the structure used to represent a sanction decision. */
+  public static String getStructureName() {
+    return "sanction_decision";
+  }
+
   /**
    * Return a new sanction decision initialised to the value represented by the specified
    * {@code String}.
