@@ -34,6 +34,9 @@ public interface DeJure {
   /** Returns all the norms from the repository. */
   Set<Norm> getNorms();
 
+  /** Returns norm with {@code id}, or {@code null} if not present. */
+  Norm getNorm(String id);
+
   /**
    * Adds a norm to the repository.
    * 
@@ -48,7 +51,7 @@ public interface DeJure {
    * @param id id of the norm to be removed
    * @return {@code true} if the norm was successfully removed; {@code false} otherwise
    */
-  boolean removeNorm(String id);
+  Norm removeNorm(String id);
 
   /**
    * Enables a norm from the repository with the given id.
@@ -69,6 +72,9 @@ public interface DeJure {
   /** Returns all the sanctions from the repository. */
   Set<Sanction> getSanctions();
 
+  /** Returns sanction with {@code id}, or {@code null} if not present. */
+  Sanction getSanction(String id);
+
   /**
    * Adds a sanction to the repository.
    * 
@@ -83,7 +89,7 @@ public interface DeJure {
    * @param id id of the sanction to be removed
    * @return {@code true} if the sanction was successfully removed; {@code false} otherwise
    */
-  boolean removeSanction(String id);
+  Sanction removeSanction(String id);
 
   /**
    * Enables a sanction from the repository with the given id.
@@ -120,7 +126,7 @@ public interface DeJure {
    * @return {@code true} if the norm-sanction link was successfully removed; {@code false}
    *         otherwise
    */
-  boolean removeNsLink(String normId, String sanctionId);
+  NsLink removeNsLink(String normId, String sanctionId);
 
   /**
    * Enables existing link between norm and sanction.

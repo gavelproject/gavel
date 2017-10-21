@@ -29,6 +29,8 @@ import gavel.api.norm.Norm;
 import gavel.api.nslink.NsLink;
 import gavel.api.repo.DeJure;
 import gavel.api.sanction.Sanction;
+import gavel.impl.norm.Norms;
+import gavel.impl.sanction.Sanctions;
 
 public class AbstractInMemDeJure implements DeJure {
   protected Map<String, Norm> norms;
@@ -55,6 +57,11 @@ public class AbstractInMemDeJure implements DeJure {
   }
 
   @Override
+  public Norm getNorm(String id) {
+    return Norms.newInstance(norms.get(id));
+  }
+
+  @Override
   public boolean addNorm(Norm norm) {
     if (norms.containsKey(norm.getId())) {
       return norms.put(norm.getId(), norm) != null;
@@ -64,8 +71,9 @@ public class AbstractInMemDeJure implements DeJure {
   }
 
   @Override
-  public boolean removeNorm(String id) {
-    return norms.remove(id) != null && nsLinks.remove(id) != null;
+  public Norm removeNorm(String id) {
+    nsLinks.remove(id);
+    return norms.remove(id);
   }
 
   @Override
@@ -92,6 +100,11 @@ public class AbstractInMemDeJure implements DeJure {
   }
 
   @Override
+  public Sanction getSanction(String id) {
+    return Sanctions.newInstance(sanctions.get(id));
+  }
+
+  @Override
   public boolean addSanction(Sanction sanction) {
     if (sanctions.containsKey(sanction.getId())) {
       return sanctions.put(sanction.getId(), sanction) != null;
@@ -100,15 +113,15 @@ public class AbstractInMemDeJure implements DeJure {
   }
 
   @Override
-  public boolean removeSanction(String id) {
-    if (sanctions.remove(id) != null) {
+  public Sanction removeSanction(String id) {
+    Sanction sanction = sanctions.remove(id);
+    if (sanction != null) {
       for (Set<NsLink> linkSet : nsLinks.values()) {
         linkSet.removeIf(link -> link.getSanctionId()
                                      .equals(id));
       }
-      return true;
     }
-    return false;
+    return sanction;
   }
 
   @Override
@@ -147,17 +160,18 @@ public class AbstractInMemDeJure implements DeJure {
   }
 
   @Override
-  public boolean removeNsLink(String normId, String sanctionId) {
+  public NsLink removeNsLink(String normId, String sanctionId) {
     Set<NsLink> links = nsLinks.get(normId);
     if (links != null) {
       for (NsLink link : links) {
         if (link.getSanctionId()
                 .equals(sanctionId)) {
-          return links.remove(link);
+          links.remove(link);
+          return link;
         }
       }
     }
-    return false;
+    return null;
   }
 
   @Override
