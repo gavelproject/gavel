@@ -20,6 +20,8 @@
  *******************************************************************************/
 package gavel.base.sanction;
 
+import static gavel.impl.sanction.SanctionOutcomes.getStructureName;
+
 import gavel.api.common.Uuid;
 import gavel.api.sanction.SanctionEfficacy;
 import gavel.api.sanction.SanctionOutcome;
@@ -40,4 +42,14 @@ public abstract class AbstractSanctionOutcome implements SanctionOutcome {
   private final Uuid applicationId;
   private final String controllerId;
   private final SanctionEfficacy efficacy;
+
+  @Override
+  public String toString() {
+    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+                                                      .append("time(" + time + "),")
+                                                      .append("application(" + applicationId + "),")
+                                                      .append("controller(" + controllerId + "),")
+                                                      .append("efficacy(" + efficacy + "))")
+                                                      .toString();
+  }
 }
