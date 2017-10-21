@@ -2,23 +2,23 @@
 
 <xsd:schema 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:rambos="https://github.com/igorcadelima/rambos"
-	targetNamespace="https://github.com/igorcadelima/rambos"
+	xmlns:gavel="https://github.com/gavelproject/gavel"
+	targetNamespace="https://github.com/gavelproject/gavel"
 	elementFormDefault="qualified">
 
-	<xsd:element name="regulative-spec" type="rambos:regulativeSpec" />
+	<xsd:element name="regulative-spec" type="gavel:regulativeSpec" />
 	<xsd:complexType name="regulativeSpec">
 		<xsd:sequence>
 			<xsd:element name="norms" minOccurs="0" maxOccurs="1"
-				type="rambos:norms" />
+				type="gavel:norms" />
 			<xsd:element name="sanctions" minOccurs="0" maxOccurs="1"
-				type="rambos:sanctions" />
+				type="gavel:sanctions" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="norms">
 		<xsd:sequence>
 			<xsd:element name="norm" minOccurs="0" maxOccurs="unbounded"
-				type="rambos:norm" />
+				type="gavel:norm" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="norm">
@@ -43,7 +43,7 @@
 			</xsd:element>
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:string" use="required" />
-		<xsd:attribute name="status" type="rambos:status"
+		<xsd:attribute name="status" type="gavel:status"
 			default="enabled" />
 	</xsd:complexType>
 	<xsd:simpleType name="status">
@@ -56,7 +56,7 @@
 	<xsd:complexType name="sanctions">
 		<xsd:sequence>
 			<xsd:element name="sanction" minOccurs="0" maxOccurs="unbounded"
-				type="rambos:sanction" />
+				type="gavel:sanction" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="sanction">
@@ -65,31 +65,31 @@
 				type="xsd:string">
 			</xsd:element>
 			<xsd:element name="category" minOccurs="1" maxOccurs="1"
-				type="rambos:sanctionCategory">
+				type="gavel:sanctionCategory">
 			</xsd:element>
 			<xsd:element name="content" minOccurs="1" maxOccurs="1"
 				type="xsd:string">
 			</xsd:element>
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:string" use="required" />
-		<xsd:attribute name="status" type="rambos:status"
+		<xsd:attribute name="status" type="gavel:status"
 			default="enabled" />
 	</xsd:complexType>
 
 	<xsd:complexType name="sanctionCategory">
 		<xsd:sequence>
 			<xsd:element name="purpose" minOccurs="1" maxOccurs="1"
-				type="rambos:purpose" />
+				type="gavel:purpose" />
 			<xsd:element name="issuer" minOccurs="1" maxOccurs="1"
-				type="rambos:issuer" />
+				type="gavel:issuer" />
 			<xsd:element name="locus" minOccurs="1" maxOccurs="1"
-				type="rambos:locus" />
+				type="gavel:locus" />
 			<xsd:element name="mode" minOccurs="1" maxOccurs="1"
-				type="rambos:mode" />
+				type="gavel:mode" />
 			<xsd:element name="polarity" minOccurs="1" maxOccurs="1"
-				type="rambos:polarity" />
+				type="gavel:polarity" />
 			<xsd:element name="discernability" minOccurs="1"
-				maxOccurs="1" type="rambos:discernability" />
+				maxOccurs="1" type="gavel:discernability" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:simpleType name="purpose">
@@ -135,7 +135,7 @@
 	<xsd:complexType name="ns-links">
 		<xsd:sequence>
 			<xsd:element name="ns-link" minOccurs="1" maxOccurs="unbounded"
-				type="rambos:nsLink" />
+				type="gavel:nsLink" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="nsLink">
@@ -145,7 +145,7 @@
 			<xsd:element name="sid" minOccurs="1" maxOccurs="1"
 				type="xsd:string" />
 		</xsd:sequence>
-		<xsd:attribute name="status" type="rambos:status"
+		<xsd:attribute name="status" type="gavel:status"
 			default="enabled" />
 	</xsd:complexType>
 </xsd:schema>

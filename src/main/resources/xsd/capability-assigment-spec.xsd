@@ -2,23 +2,23 @@
 
 <xsd:schema 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:rambos="https://github.com/gavelproject/gavel"
+	xmlns:gavel="https://github.com/gavelproject/gavel"
 	targetNamespace="https://github.com/gavelproject/gavel"
 	elementFormDefault="qualified">
 	
-	<xsd:element name="capability-assignment" type="rambos:capabilityAssignment" />
+	<xsd:element name="capability-assignment" type="gavel:capabilityAssignment" />
 	<xsd:complexType name="capabilityAssignment">
 		<xsd:sequence>
 			<xsd:element name="detector" minOccurs="1" maxOccurs="1"
-				type="rambos:capability" />
+				type="gavel:capability" />
 			<xsd:element name="evaluator" minOccurs="1" maxOccurs="1"
-				type="rambos:capability" />
+				type="gavel:capability" />
 			<xsd:element name="executor" minOccurs="1" maxOccurs="1"
-				type="rambos:capability" />
+				type="gavel:capability" />
 			<xsd:element name="controller" minOccurs="1" maxOccurs="1"
-				type="rambos:capability" />
+				type="gavel:capability" />
 			<xsd:element name="legislator" minOccurs="1" maxOccurs="1"
-				type="rambos:capability" />	
+				type="gavel:capability" />	
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="capability">
