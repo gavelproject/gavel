@@ -71,10 +71,10 @@ public final class Norms {
    */
   public static Norm parse(String norm) {
     Pattern pattern = Pattern.compile(
-        "norm\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\),"
-            + "\\s*activation\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*issuer\\s*\\(\\s*(\\w+)\\s*\\),"
-            + "\\s*target\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*deactivation\\s*\\(\\s*(\\w+)\\s*\\),"
-            + "\\s*deadline\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*content\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+        "norm\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*activation\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*issuer\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*target\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*deactivation\\s*\\(\\s*(.*?)\\s*\\),"
+            + "\\s*deadline\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*content\\s*\\(\\s*(.*?)\\s*\\)\\)");
     Matcher matcher = pattern.matcher(norm);
     matcher.find();
     if (matcher.matches()) {
