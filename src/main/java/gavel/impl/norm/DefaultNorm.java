@@ -20,13 +20,9 @@
  *******************************************************************************/
 package gavel.impl.norm;
 
-import java.util.Map;
-import java.util.Set;
-
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.norm.NormBuilder;
-import gavel.api.sanction.Sanction;
 import gavel.base.norm.AbstractNorm;
 import lombok.Builder;
 
@@ -34,26 +30,10 @@ final class DefaultNorm extends AbstractNorm {
 
   @Builder
   private DefaultNorm(String id, Status status, LogicalFormula activation, String issuer,
-      String target, LogicalFormula deactivation, LogicalFormula deadline, LogicalFormula content,
-      Map<String, Sanction> sanctions) {
-    super(id, status, activation, issuer, target, deactivation, deadline, content, sanctions);
+      String target, LogicalFormula deactivation, LogicalFormula deadline, LogicalFormula content) {
+    super(id, status, activation, issuer, target, deactivation, deadline, content);
   }
 
   static final class DefaultNormBuilder implements NormBuilder {
-    public DefaultNormBuilder sanction(Sanction sanction) {
-      sanctions.put(sanction.getId(), sanction);
-      return this;
-    }
-
-    public DefaultNormBuilder sanctions(Set<Sanction> sanctions) {
-      sanctions.forEach(sanction -> this.sanctions.putIfAbsent(sanction.getId(), sanction));
-      return this;
-    }
-
-    @Override
-    public DefaultNormBuilder clearSanctions() {
-      sanctions.clear();
-      return this;
-    }
   }
 }

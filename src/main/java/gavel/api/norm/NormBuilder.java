@@ -1,10 +1,7 @@
 package gavel.api.norm;
 
-import java.util.Set;
-
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
-import gavel.api.sanction.Sanction;
 
 public interface NormBuilder {
   /**
@@ -70,29 +67,6 @@ public interface NormBuilder {
    * @return builder instance
    */
   NormBuilder content(LogicalFormula content);
-
-  /**
-   * Associate a sanction with the norm.
-   * 
-   * @param sanction sanction to be associated
-   * @return builder instance
-   */
-  NormBuilder sanction(Sanction sanction);
-
-  /**
-   * Associate sanctions with the norm.
-   * 
-   * @param sanctions sanctions to be associated
-   * @return builder instance
-   */
-  NormBuilder sanctions(Set<Sanction> sanction);
-
-  /**
-   * Clear set of associated sanctions.
-   * 
-   * @return builder instance
-   */
-  NormBuilder clearSanctions();
 
   /**
    * Return a new {@link Norm} with the specified implementation.

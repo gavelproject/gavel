@@ -20,11 +20,8 @@
  *******************************************************************************/
 package gavel.api.norm;
 
-import java.util.Set;
-
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
-import gavel.api.sanction.Sanction;
 
 /**
  * @author igorcadelima
@@ -51,17 +48,17 @@ public interface Norm {
    * @return norm issuer's identifier
    */
   String getIssuer();
-  
+
   /**
    * @return norm target's identifier
    */
   String getTarget();
-  
+
   /**
    * @return norm's deactivation condition
    */
   LogicalFormula getDeactivation();
-  
+
   /**
    * @return norm's deadline condition
    */
@@ -71,28 +68,6 @@ public interface Norm {
    * @return norm's content
    */
   LogicalFormula getContent();
-
-  /**
-   * @return sanctions associated with the norm
-   */
-  Set<Sanction> getSanctions();
-
-  /**
-   * @return ids of the sanctions associated with the norm
-   */
-  Set<String> getSanctionIds();
-
-  /**
-   * @param sanction sanction which can be applied should the norm be complied or violated
-   * @return {@code true} if the sanction was successfully added
-   */
-  boolean addSanction(Sanction sanction);
-
-  /**
-   * @param sanctionId id of the sanction to be dissociated from the norm
-   * @return {@code true} if the sanction was successfully dissociated
-   */
-  boolean removeSanction(String sanctionId);
 
   /**
    * Enable the norm changing its status to {@link Status#ENABLED}.

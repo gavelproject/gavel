@@ -22,19 +22,13 @@ package gavel.base.norm;
 
 import static gavel.impl.norm.Norms.getStructureName;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.norm.Norm;
-import gavel.api.sanction.Sanction;
 import gavel.impl.common.DefaultStatus;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -55,31 +49,6 @@ public abstract class AbstractNorm implements Norm {
   private final LogicalFormula deactivation;
   private final LogicalFormula deadline;
   private final LogicalFormula content;
-
-  @Getter(AccessLevel.NONE)
-  private final Map<String, Sanction> sanctions;
-
-  @Override
-  public Set<Sanction> getSanctions() {
-    return new HashSet<>(sanctions.values());
-  }
-
-  @Override
-  public Set<String> getSanctionIds() {
-    Set<String> sanctionIds = new HashSet<>();
-    getSanctions().forEach(sanction -> sanctionIds.add(sanction.getId()));
-    return sanctionIds;
-  }
-
-  @Override
-  public boolean addSanction(Sanction sanction) {
-    return sanctions.putIfAbsent(sanction.getId(), sanction) != null;
-  }
-
-  @Override
-  public boolean removeSanction(String sanctionId) {
-    return sanctions.remove(sanctionId) != null;
-  }
 
   @Override
   public boolean enable() {
@@ -108,9 +77,7 @@ public abstract class AbstractNorm implements Norm {
                                                       .append("target(" + target + "),")
                                                       .append("deactivation(" + deactivation + "),")
                                                       .append("deadline(" + deadline + "),")
-                                                      .append("content(" + content + "),")
-                                                      .append(
-                                                          "sanction_ids(" + getSanctionIds() + "))")
+                                                      .append("content(" + content + "))")
                                                       .toString();
   }
 }
