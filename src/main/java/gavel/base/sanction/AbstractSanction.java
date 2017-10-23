@@ -20,12 +20,13 @@
  *******************************************************************************/
 package gavel.base.sanction;
 
+import static gavel.impl.sanction.Sanctions.getStructureName;
+
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
 import gavel.api.sanction.Sanction;
 import gavel.api.sanction.SanctionCategory;
 import gavel.impl.common.DefaultStatus;
-import gavel.impl.sanction.Sanctions;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -67,13 +68,11 @@ public abstract class AbstractSanction implements Sanction {
 
   @Override
   public String toString() {
-    return new StringBuilder(Sanctions.getStructureName() + '(').append("id(" + id + "),")
-                                                                .append("status(" + status + "),")
-                                                                .append(
-                                                                    "condition(" + condition + "),")
-                                                                .append(
-                                                                    "category(" + category + "),")
-                                                                .append(content + ")")
-                                                                .toString();
+    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+                                                      .append("status(" + status + "),")
+                                                      .append("condition(" + condition + "),")
+                                                      .append("category(" + category + "),")
+                                                      .append("content(" + content + "))")
+                                                      .toString();
   }
 }
