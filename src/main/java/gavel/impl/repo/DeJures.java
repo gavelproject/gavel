@@ -108,6 +108,9 @@ public final class DeJures {
         case "deactivation":
           builder.deactivation(LogicalFormulas.tryParse(propContent));
           break;
+        case "deadline":
+          builder.deadline(LogicalFormulas.tryParse(propContent));
+          break;
         case "content":
           builder.content(LogicalFormulas.tryParse(propContent));
           break;
