@@ -85,7 +85,7 @@ public final class Norms {
                       .target(matcher.group(5))
                       .deactivation(LogicalFormulas.tryParse(matcher.group(6)))
                       .deadline(LogicalFormulas.tryParse(matcher.group(7)))
-                      .content(LogicalFormulas.tryParse(matcher.group(5)))
+                      .content(LogicalFormulas.tryParse(matcher.group(8)))
                       .build();
     }
     throw new IllegalArgumentException("String does not contain a parsable norm");
