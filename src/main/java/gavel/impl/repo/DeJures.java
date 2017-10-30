@@ -32,8 +32,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import gavel.api.common.Status;
 import gavel.api.norm.Norm;
 import gavel.api.norm.NormBuilder;
+import gavel.api.nslink.NsLink;
 import gavel.api.repo.DeJure;
 import gavel.impl.common.DefaultStatus;
 import gavel.impl.common.Enums;
@@ -130,16 +132,24 @@ public final class DeJures {
 
   /** Extract links from {@code specDoc} and add them to {@code regulativeSpec}. */
   private static void extractLinks(Document specDoc, DeJure deJure) {
-    NodeList linkedSanctionsNodes = specDoc.getElementsByTagName(NS_LINKS_TAG);
-    for (int i = 0; i < linkedSanctionsNodes.getLength(); i++) {
-      Node linkedSanctionsNode = linkedSanctionsNodes.item(i);
-      List<Element> sanctionIdEls = getChildElements(linkedSanctionsNode);
-      sanctionIdEls.forEach(sanctionIdEl -> {
-        String sanctionId = sanctionIdEl.getTextContent();
-        String normId = ((Element) linkedSanctionsNode.getParentNode()).getAttribute("id");
-        deJure.addNsLink(NsLinks.of(normId, sanctionId));
-      });
-    }
+    Node nsLinksRootEl = specDoc.getElementsByTagName(NS_LINKS_TAG)
+                                .item(0);
+    List<Element> nsLinks = getChildElements(nsLinksRootEl);
+    nsLinks.forEach(nsLinkEl -> deJure.addNsLink(nsLinkFromElement(nsLinkEl)));
+  }
+
+  private static NsLink nsLinkFromElement(Element el) {
+    final String normIdTag = "nid";
+    final String sanctionIdTag = "sid";
+    Status status =
+        Enums.lookup(DefaultStatus.class, el.getAttribute("status"), DefaultStatus.ENABLED);
+    String nid = el.getElementsByTagName(normIdTag)
+                   .item(0)
+                   .getTextContent();
+    String sid = el.getElementsByTagName(sanctionIdTag)
+                   .item(0)
+                   .getTextContent();
+    return NsLinks.of(status, nid, sid);
   }
 
   /**
