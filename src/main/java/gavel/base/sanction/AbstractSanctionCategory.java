@@ -49,7 +49,7 @@ public abstract class AbstractSanctionCategory implements SanctionCategory {
 
   @Override
   public String toString() {
-    return new StringBuilder(getStructureName()).append("discernability(")
+    return new StringBuilder(getStructureName()).append("(discernability(")
                                                 .append(discernability)
                                                 .append("),issuer(")
                                                 .append(issuer)
@@ -61,7 +61,7 @@ public abstract class AbstractSanctionCategory implements SanctionCategory {
                                                 .append(polarity)
                                                 .append("),purpose(")
                                                 .append(purpose)
-                                                .append(')')
+                                                .append("))")
                                                 .toString();
   }
 }
