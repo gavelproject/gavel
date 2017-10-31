@@ -71,8 +71,8 @@ public abstract class AbstractSanction implements Sanction {
     return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
                                                       .append("status(" + status + "),")
                                                       .append("condition(" + condition + "),")
-                                                      .append("category(" + category + "),")
-                                                      .append("content(" + content + "))")
+                                                      .append(category)
+                                                      .append(",content(" + content + "))")
                                                       .toString();
   }
 }
