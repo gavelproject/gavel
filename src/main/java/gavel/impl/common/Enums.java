@@ -57,9 +57,9 @@ public final class Enums {
    * @return the enum type whose constant is to be returned
    */
   public static <T extends Enum<?>> T lookup(Class<T> enumType, String name, T defaultValue) {
-    for (T constant : enumType.getEnumConstants())
-      if (lookup(enumType, name) == null)
-        return constant;
+    T constant = lookup(enumType, name);
+    if (constant != null)
+      return constant;
     return defaultValue;
   }
 }
