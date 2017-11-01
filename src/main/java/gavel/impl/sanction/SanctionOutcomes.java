@@ -52,9 +52,12 @@ public final class SanctionOutcomes {
    * @throws NullPointerException if string is {@code null}
    */
   public static SanctionOutcome tryParse(String norm) {
-    Pattern pattern = Pattern.compile("sanction_outcome\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
-        + "\\s*time\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*application_id\\s*\\(\\s*(\\w+)\\s*\\),"
-        + "\\s*controller_id\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*efficacy\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+    String uuidRegex =
+        "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}";
+    Pattern pattern = Pattern.compile("sanction_outcome\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*time\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*application_id\\s*\\(\\s*(" + uuidRegex
+        + ")\\s*\\)," + "\\s*controller\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*efficacy\\s*\\(\\s*(\\w+)\\s*\\)\\)");
     Matcher matcher = pattern.matcher(norm);
     matcher.find();
     if (matcher.matches()) {
