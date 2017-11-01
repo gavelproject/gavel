@@ -45,9 +45,9 @@ public abstract class AbstractSanctionOutcome implements SanctionOutcome {
 
   @Override
   public String toString() {
-    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+    return new StringBuilder(getStructureName() + '(').append("id('" + id + "'),")
                                                       .append("time(" + time + "),")
-                                                      .append("application(" + applicationId + "),")
+                                                      .append("application_id('" + applicationId + "'),")
                                                       .append("controller(" + controllerId + "),")
                                                       .append("efficacy(" + efficacy + "))")
                                                       .toString();
