@@ -97,7 +97,7 @@ public final class SanctionCategories {
    */
   public static SanctionCategory tryParse(String in) {
     Pattern pattern =
-        Pattern.compile("sanction_category\\\\s*(" + "\\s*purpose\\s*\\(\\s*(\\w+)\\s*\\),"
+        Pattern.compile("sanction_category\\s*\\(" + "\\s*purpose\\s*\\(\\s*(\\w+)\\s*\\),"
             + "\\s*issuer\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*locus\\s*\\(\\s*(\\w+)\\s*\\),"
             + "\\s*mode\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*polarity\\s*\\(\\s*(\\w+)\\s*\\),"
             + "\\s*discernability\\s*\\(\\s*(\\w+)\\s*\\)\\)");
