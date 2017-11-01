@@ -20,13 +20,14 @@
  *******************************************************************************/
 package gavel.impl.sanction;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import gavel.api.sanction.SanctionDecision;
 import gavel.api.sanction.SanctionDecision.Cause;
+import gavel.api.sanction.SanctionDecisionBuilder;
 import gavel.impl.common.Enums;
 import gavel.impl.norm.Norms;
-import jason.asSyntax.ASSyntax;
-import jason.asSyntax.Literal;
-import jason.asSyntax.NumberTerm;
 
 /**
  * Static utility methods pertaining to {@link SanctionDecision} instances.
@@ -45,7 +46,7 @@ public final class SanctionDecisions {
   }
 
   /**
-   * Return a new sanction decision initialised to the value represented by the specified
+   * Return a new sanction decision initialized to the value represented by the specified
    * {@code String}.
    * 
    * @param decision string to be parsed
@@ -54,32 +55,28 @@ public final class SanctionDecisions {
    * @throws NullPointerException if string is {@code null}
    */
   public static SanctionDecision parse(String decision) {
-    try {
-      Literal l = ASSyntax.parseLiteral(decision);
-
-      if (!l.getFunctor()
-            .equals(NAME)) {
-        throw new IllegalArgumentException();
-      }
-
-      return DefaultSanctionDecision.builder()
-                                    .time((long) ((NumberTerm) l.getTerm(1)).solve())
-                                    .detectorId(l.getTerm(2)
-                                                 .toString())
-                                    .evaluatorId(l.getTerm(3)
-                                                  .toString())
-                                    .targetId(l.getTerm(4)
-                                               .toString())
-                                    .normInstance(Norms.parse(l.getTerm(5)
-                                                               .toString()))
-                                    .sanctionInstance(Sanctions.tryParse(l.getTerm(6)
-                                                                          .toString()))
-                                    .cause(Enums.lookup(Cause.class, l.getTerm(7)
-                                                                      .toString()))
-                                    .build();
-
-    } catch (Exception e) {
-      throw new IllegalArgumentException("String does not contain a parsable sanction decision");
+    Pattern pattern = Pattern.compile("sanction_decision\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*time\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*detector\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*evaluator\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*target\\s*\\(\\s*(\\w+)\\s*\\),"
+        + "\\s*norm\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*sanction\\s*\\(\\s*(.*?)\\s*\\),"
+        + "\\s*cause\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+    Matcher matcher = pattern.matcher(decision);
+    matcher.find();
+    if (matcher.matches()) {
+      return builder().time(Long.parseLong(matcher.group(2)))
+                      .detectorId(matcher.group(3))
+                      .evaluatorId(matcher.group(4))
+                      .targetId(matcher.group(5))
+                      .normInstance(Norms.parse(matcher.group(6)))
+                      .sanctionInstance(Sanctions.tryParse(matcher.group(7)))
+                      .cause(Enums.lookup(Cause.class, matcher.group(8)))
+                      .build();
     }
+    throw new IllegalArgumentException("String does not contain a parsable sanction decision");
+  }
+
+  /** Return a builder for {@link SanctionDecision}. */
+  public static SanctionDecisionBuilder builder() {
+    return DefaultSanctionDecision.builder();
   }
 }
