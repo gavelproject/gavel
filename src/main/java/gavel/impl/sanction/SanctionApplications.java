@@ -55,12 +55,14 @@ public final class SanctionApplications {
    * @throws IllegalArgumentException if string does not contain a parsable sanction application
    * @throws NullPointerException if string is {@code null}
    */
-  public static SanctionApplication tryParse(String norm) {
+  public static SanctionApplication tryParse(String sa) {
+    String uuidRegex =
+        "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}";
     Pattern pattern =
-        Pattern.compile("sanction_application\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
-            + "\\s*time\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*decision_id\\s*\\(\\s*(\\w+)\\s*\\),"
-            + "\\s*executor_id\\s*\\(\\s*(\\w+)\\s*\\)\\)");
-    Matcher matcher = pattern.matcher(norm);
+        Pattern.compile("sanction_application\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
+            + "\\s*time\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*decision_id\\s*\\(\\s*(" + uuidRegex
+            + ")\\s*\\)," + "\\s*executor\\s*\\(\\s*(\\w+)\\s*\\)\\)");
+    Matcher matcher = pattern.matcher(sa);
     matcher.find();
     if (matcher.matches()) {
       return of(Long.valueOf(matcher.group(2)), DefaultUuid.parse(matcher.group(3)),
