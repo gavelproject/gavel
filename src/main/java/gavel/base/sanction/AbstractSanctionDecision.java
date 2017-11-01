@@ -49,7 +49,7 @@ public abstract class AbstractSanctionDecision implements SanctionDecision {
 
   @Override
   public String toString() {
-    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+    return new StringBuilder(getStructureName() + '(').append("id('" + id + "'),")
                                                       .append("time(" + time + "),")
                                                       .append("detector(" + detectorId + "),")
                                                       .append("evaluator(" + evaluatorId + "),")
