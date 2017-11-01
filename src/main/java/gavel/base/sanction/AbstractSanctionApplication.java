@@ -43,9 +43,9 @@ public abstract class AbstractSanctionApplication implements SanctionApplication
 
   @Override
   public String toString() {
-    return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
+    return new StringBuilder(getStructureName() + '(').append("id('" + id + "'),")
                                                       .append("time(" + time + "),")
-                                                      .append("decision(" + decisionId + "),")
+                                                      .append("decision_id('" + decisionId + "'),")
                                                       .append("executor(" + executorId + "))")
                                                       .toString();
   }
