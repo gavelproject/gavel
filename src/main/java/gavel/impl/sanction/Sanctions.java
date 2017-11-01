@@ -104,9 +104,9 @@ public final class Sanctions {
    * @throws NullPointerException if string is {@code null}
    */
   public static Sanction tryParse(String in) {
-    Pattern pattern = Pattern.compile("sanction\\\\s*(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
+    Pattern pattern = Pattern.compile("sanction\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
         + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*condition\\s*\\(\\s*(.*?)\\s*\\),"
-        + "\\s*category\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*content\\s*\\(\\s*(.*?)\\s*\\)\\)");
+        + "\\s*category\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*content\\s*\\(\\s*(.*?)\\s*\\)\\)");
     Matcher matcher = pattern.matcher(in);
     matcher.find();
     if (matcher.matches()) {
