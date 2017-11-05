@@ -58,7 +58,7 @@ public final class SanctionDecisions {
     Pattern pattern = Pattern.compile("sanction_decision\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
         + "\\s*time\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*detector\\s*\\(\\s*(\\w+)\\s*\\),"
         + "\\s*evaluator\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*target\\s*\\(\\s*(\\w+)\\s*\\),"
-        + "\\s*norm\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*sanction\\s*\\(\\s*(.*?)\\s*\\),"
+        + "\\s*(norm\\s*\\(\\s*(.*?)\\s*\\))," + "\\s*(sanction\\s*\\(\\s*(.*?)\\s*\\)),"
         + "\\s*cause\\s*\\(\\s*(\\w+)\\s*\\)\\)");
     Matcher matcher = pattern.matcher(decision);
     matcher.find();
@@ -68,8 +68,8 @@ public final class SanctionDecisions {
                       .evaluatorId(matcher.group(4))
                       .targetId(matcher.group(5))
                       .normInstance(Norms.parse(matcher.group(6)))
-                      .sanctionInstance(Sanctions.tryParse(matcher.group(7)))
-                      .cause(Enums.lookup(Cause.class, matcher.group(8)))
+                      .sanctionInstance(Sanctions.tryParse(matcher.group(8)))
+                      .cause(Enums.lookup(Cause.class, matcher.group(9)))
                       .build();
     }
     throw new IllegalArgumentException("String does not contain a parsable sanction decision");
