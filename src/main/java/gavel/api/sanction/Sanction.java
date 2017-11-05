@@ -22,6 +22,7 @@ package gavel.api.sanction;
 
 import gavel.api.common.LogicalFormula;
 import gavel.api.common.Status;
+import gavel.impl.common.DefaultStatus;
 
 /**
  * @author igorcadelima
@@ -35,14 +36,14 @@ public interface Sanction {
 
   /**
    * @return status
-   * @see Status
+   * @see DefaultStatus
    */
   Status getStatus();
 
   /**
    * @return activation condition
    */
-  LogicalFormula getCondition();
+  LogicalFormula getActivation();
 
   /**
    * @return category

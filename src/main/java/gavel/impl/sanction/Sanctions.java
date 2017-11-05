@@ -48,7 +48,7 @@ public final class Sanctions {
   }
 
   /**
-   * Return a copy of the given sanction.
+   * Returns a copy of the given sanction.
    * 
    * @param sanction sanction to be copied
    * @return copy of {@code sanction}
@@ -56,14 +56,14 @@ public final class Sanctions {
   public static Sanction newInstance(Sanction sanction) {
     return builder().id(sanction.getId())
                     .status(sanction.getStatus())
-                    .condition(sanction.getCondition())
+                    .activation(sanction.getActivation())
                     .category(sanction.getCategory())
                     .content(sanction.getContent())
                     .build();
   }
 
   /**
-   * Return a new {@link Sanction} instance initialised to the value represented by the specified
+   * Returns a new {@link Sanction} instance initialized to the value represented by the specified
    * {@code Element}.
    * 
    * @param el element to be parsed
@@ -81,8 +81,8 @@ public final class Sanctions {
       Node prop = props.item(i);
 
       switch (prop.getNodeName()) {
-        case "condition":
-          builder.condition(LogicalFormulas.tryParse(prop.getTextContent()));
+        case "activation":
+          builder.activation(LogicalFormulas.tryParse(prop.getTextContent()));
           break;
         case "category":
           builder.category(SanctionCategories.of((Element) prop));
@@ -96,7 +96,7 @@ public final class Sanctions {
   }
 
   /**
-   * Return a new {@link Sanction} instance whose string representation is the given {@code in}.
+   * Returns a new {@link Sanction} instance whose string representation is the given {@code in}.
    * 
    * @param in string to be parsed
    * @return sanction represented by the string argument if parsing succeeds; {@code null} otherwise
@@ -105,14 +105,14 @@ public final class Sanctions {
    */
   public static Sanction tryParse(String in) {
     Pattern pattern = Pattern.compile("sanction\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
-        + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*condition\\s*\\(\\s*(.*?)\\s*\\),"
+        + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*activation\\s*\\(\\s*(.*?)\\s*\\),"
         + "\\s*category\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*content\\s*\\(\\s*(.*?)\\s*\\)\\)");
     Matcher matcher = pattern.matcher(in);
     matcher.find();
     if (matcher.matches()) {
       return builder().id(matcher.group(1))
                       .status(Enums.lookup(DefaultStatus.class, matcher.group(2)))
-                      .condition(LogicalFormulas.tryParse(matcher.group(3)))
+                      .activation(LogicalFormulas.tryParse(matcher.group(3)))
                       .category(SanctionCategories.tryParse(matcher.group(4)))
                       .content(LogicalFormulas.tryParse(matcher.group(5)))
                       .build();
@@ -120,7 +120,7 @@ public final class Sanctions {
     return null;
   }
 
-  /** Return a builder for {@link Sanction}. */
+  /** Returns a builder for {@link Sanction}. */
   public static SanctionBuilder builder() {
     return DefaultSanction.builder();
   }

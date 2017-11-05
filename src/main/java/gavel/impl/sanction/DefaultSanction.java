@@ -36,9 +36,9 @@ import lombok.Builder;
  */
 final class DefaultSanction extends AbstractSanction {
   @Builder
-  private DefaultSanction(String id, Status status, LogicalFormula condition,
+  private DefaultSanction(String id, Status status, LogicalFormula activation,
       SanctionCategory category, LogicalFormula content) {
-    super(id, status, condition, category, content);
+    super(id, status, activation, category, content);
   }
 
   static final class DefaultSanctionBuilder implements SanctionBuilder {

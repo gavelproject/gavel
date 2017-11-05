@@ -21,12 +21,12 @@ public interface SanctionBuilder {
   SanctionBuilder status(Status status);
 
   /**
-   * Set condition for the sanction.
+   * Set activation condition for the sanction.
    * 
-   * @param condition sanction's activation condition
+   * @param activation sanction's activation condition
    * @return builder builder instance
    */
-  SanctionBuilder condition(LogicalFormula condition);
+  SanctionBuilder activation(LogicalFormula activation);
 
   /**
    * Set category for the sanction.

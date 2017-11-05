@@ -44,7 +44,7 @@ public abstract class AbstractSanction implements Sanction {
   @Setter(AccessLevel.NONE)
   private Status status = DefaultStatus.ENABLED;
 
-  private final LogicalFormula condition;
+  private final LogicalFormula activation;
   private final SanctionCategory category;
   private final LogicalFormula content;
 
@@ -70,7 +70,7 @@ public abstract class AbstractSanction implements Sanction {
   public String toString() {
     return new StringBuilder(getStructureName() + '(').append("id(" + id + "),")
                                                       .append("status(" + status + "),")
-                                                      .append("condition(" + condition + "),")
+                                                      .append("activation(" + activation + "),")
                                                       .append(category)
                                                       .append(",content(" + content + "))")
                                                       .toString();

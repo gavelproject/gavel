@@ -63,7 +63,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="sanction">
 		<xsd:sequence>
-			<xsd:element name="condition" minOccurs="0" maxOccurs="1"
+			<xsd:element name="activation" minOccurs="0" maxOccurs="1"
 				type="xsd:string">
 			</xsd:element>
 			<xsd:element name="category" minOccurs="1" maxOccurs="1"
