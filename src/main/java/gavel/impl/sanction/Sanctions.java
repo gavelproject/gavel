@@ -106,7 +106,7 @@ public final class Sanctions {
   public static Sanction tryParse(String in) {
     Pattern pattern = Pattern.compile("sanction\\s*\\(" + "\\s*id\\s*\\(\\s*(\\w+)\\s*\\),"
         + "\\s*status\\s*\\(\\s*(\\w+)\\s*\\)," + "\\s*activation\\s*\\(\\s*(.*?)\\s*\\),"
-        + "\\s*category\\s*\\(\\s*(.*?)\\s*\\)," + "\\s*content\\s*\\(\\s*(.*?)\\s*\\)\\)");
+        + "\\s*(.*?)\\s*," + "\\s*content\\s*\\(\\s*(.*?)\\s*\\)\\)");
     Matcher matcher = pattern.matcher(in);
     matcher.find();
     if (matcher.matches()) {
