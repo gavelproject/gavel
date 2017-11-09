@@ -69,7 +69,7 @@ public final class SanctionDecisions {
                       .targetId(matcher.group(5))
                       .normInstance(Norms.parse(matcher.group(6)))
                       .sanctionInstance(Sanctions.tryParse(matcher.group(8)))
-                      .cause(Enums.lookup(Cause.class, matcher.group(9)))
+                      .cause(Enums.lookup(Cause.class, matcher.group(10)))
                       .build();
     }
     throw new IllegalArgumentException("String does not contain a parsable sanction decision");
