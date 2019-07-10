@@ -1,5 +1,7 @@
 # Welcome to Gavel
 
+[![Build Status](https://travis-ci.com/gavelproject/gavel.svg?branch=master)](https://travis-ci.com/gavelproject/gavel) [![codebeat badge](https://codebeat.co/badges/158be97a-9425-428b-bcf4-ab151470379e)](https://codebeat.co/projects/github-com-gavelproject-gavel-master) [![Maintainability](https://api.codeclimate.com/v1/badges/1effc68d935eeab98308/maintainability)](https://codeclimate.com/github/gavelproject/gavel/maintainability)
+
 **Gavel** is an adaptive sanctioning enforcement framework based on the conceptual sanctioning process model introduced by Nardin et al. (2016). It enables agents to decide for the most appropriate sanctions to apply depending on their current context assessed by a set of sanctioning decision
 factors.
 
