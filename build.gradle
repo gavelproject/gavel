@@ -21,31 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *******************************************************************************/
+plugins {
+  id 'java-library'
+  id 'maven-publish'
+  id 'eclipse'
+}
+
 defaultTasks 'assemble'
 
-apply plugin: 'java-library'
-apply plugin: 'eclipse'
-
-sourceCompatibility = 1.8
+sourceCompatibility = '17'
+targetCompatibility = '17'
 version = '0.1.0'
 
 def getDateTime() {
-    new Date().format('yyyyMMddHHmmss',TimeZone.getTimeZone('UTC'))
+  new Date().format('yyyyMMddHHmmss',TimeZone.getTimeZone('UTC'))
 }
 
 jar {
-	manifest {
-		attributes	'Implementation-Title': project.name,
-					'Implementation-Version': "${version}-alpha-${getDateTime()}"
-	}
+  manifest {
+    attributes	'Implementation-Title': project.name,
+          'Implementation-Version': "${project.version}-alpha-${getDateTime()}"
+  }
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      groupId = 'com.github.gavelproject'
+      artifactId = 'gavel'
+      version = 'master-SNAPSHOT'
+
+      from components.java
+    }
+  }
 }
 
 repositories {
-	mavenCentral()
-	maven { url 'http://jacamo.sourceforge.net/maven2' }
+  mavenCentral()
+  maven {
+    url = 'http://jacamo.sourceforge.net/maven2'
+    allowInsecureProtocol = true
+  }
+  maven {
+    url = 'https://jitpack.io'
+  }
 }
 
 dependencies {
-	implementation 'org.jason-lang:jason:latest.integration'
-	compileOnly 'org.projectlombok:lombok:1.+'
+  implementation 'org.jason-lang:jason:latest.integration'
+  implementation 'org.projectlombok:lombok:1.18.22'
+  annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
